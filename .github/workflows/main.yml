@@ -1,9 +1,8 @@
 name: Run MQTT Script
 
 on:
-  push:
-    branches:
-      - main # Trigger on push to the main branch
+  schedule:
+    - cron: "*/5 * * * *" # Runs every 5 minutes
   workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
@@ -21,7 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install awsiotsdk awscrt awsiot
+        pip install awscrt awsiot
 
     - name: Run script
       run: |
