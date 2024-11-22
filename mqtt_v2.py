@@ -12,9 +12,7 @@ SERIAL_NUMBER = "2202269098"
 
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
-
 import random
-
 
 def run_device(device_id):
     TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
@@ -970,7 +968,6 @@ while True:
         run_device("866069069856407")
         run_device("866069069798088")
         run_device("866069069792180")
-        load_timothy("GXY86-230946-2346-72654-vg76311")
     except Exception as e:
         print(str(e))
     # Pause for 2 minutes (120 seconds)
