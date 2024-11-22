@@ -60,7 +60,7 @@ res = mqtt_connection.publish(
                 },
             "channel_3": {
                 "name": "Plug point 3",
-                "state": True
+                "state": True,
                 "smart": True
                 },
             "channel_4": {
