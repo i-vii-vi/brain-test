@@ -44,13 +44,6 @@ def run_device(device_id):
             "edge": "1.3.0",
             "parsec": "1.4.1(a)",
             "east": "1.0.4",
-
-    res = mqtt_connection.publish(
-        topic=TOPICMODELS,
-        payload=json.dumps({
-            "edge": "1.3.0",
-            "parsec": "1.4.1(a)",
-            "east": "1.0.4",
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
             "timeStr": datetime.now().isoformat(),
