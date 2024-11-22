@@ -15,6 +15,182 @@ from awsiot import mqtt5_client_builder
 
 import random
 
+def run_device(device_id):
+    TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
+    TOPICRELAYS = f"GOSOLR/BRAIN/{device_id}/RELAYS"
+    TOPICUSAGE = f"GOSOLR/BRAIN/{device_id}/USAGE"
+    TOPICRISKS = f"GOSOLR/BRAIN/{device_id}/RISKS"
+    TOPICALERTS = f"GOSOLR/BRAIN/{device_id}/ALERTS"
+    TOPICDATA = f"GOSOLR/BRAIN/{device_id}/DATA"
+    TOPICHB = f"GOSOLR/BRAIN/{device_id}/HB"
+    TOPICSTATUS = f"GOSOLR/BRAIN/{device_id}/STATUS"
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICHB,
+        payload=json.dumps({
+            "version":"0.7.1(a)",
+            "files":[{"name":"capacity.json","md5":"72f2994f1ca6e64a5e5ecd67a2122c2a"},{"name":"coefficients.json","md5":"32bbe29d9f03a93a854415cfb1db1dde"},{"name":"gosolr.py","md5":"a41ac8bbcdbc90008645cbf6e8e96f6b"},{"name":"inv_def.json","md5":"38ad22a7f96a07b0c39ff1b107aeea24"}]}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Channel 1",
+                "state": True,
+                "smart": True
+                },
+            "channel_2": {
+                "name": "Channel 2",
+                "state": True,
+                "smart": True
+                },
+            "channel_3": {
+                "name": "Channel 3",
+                "state": False,
+                "smart": False
+                },
+            "channel_4": {
+                "name": "Channel 4",
+                "state": False,
+                "smart": False
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Channel 1",
+                "load": apply_deviation(1400, 0.05)
+                },
+            "channel_2": {
+                "name": "Channel 2",
+                "load": apply_deviation(1100, 0.05)
+                },
+            "channel_3": {
+                "name": "Channel 3",
+                "load": apply_deviation(200, 0.05)
+                },
+            "channel_4": {
+                "name": "Channel 4",
+                "load": apply_deviation(300, 0.05)
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRISKS,
+        payload=json.dumps({
+            "risk": {
+                "unplannedOutage": apply_deviation(200, 0.1),
+                "plannedOutage": apply_deviation(100, 0.05),
+                "disconnection": apply_deviation(10, 0.1)
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICALERTS,
+        payload=json.dumps({
+            "alert_1": 0,
+            "alert_2": 0,
+            "alert_3": 0,
+            "alert_4": 0,
+            "alert_5": 0,
+            "alert_6": 0,
+            "alert_7": 0,
+            "alert_8": 0, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":"",
+            "eToday":0,
+            "fac":0,
+            "uPv1":0,
+            "uPv2":0,
+            "iPv1":0,
+            "iPv2":0,
+            "uAc1":0,
+            "iAc1":0,
+            "inverterTemperature":0,
+            "batteryVoltage":0,
+            "batteryCurrent":0,
+            "SoC":30,
+            "batteryTodayChargeEnergy":0,
+            "batteryTodayDischargeEnergy":0,
+            "bypassAcVoltage":0,
+            "bypassAcCurrent":0,
+            "gridPurchasedTodayEnergy":0,
+            "familyLoadPower":0,
+            "bypassLoadPower":0,
+            "pSUM":0,
+            "homeLoadTodayEnergy":0, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+
 def run_kobus():
     TOPICMODELS = "GOSOLR/BRAIN/864454073547584/MODELS"
     TOPICRELAYS = "GOSOLR/BRAIN/864454073547584/RELAYS"
@@ -754,22 +930,36 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 CLIENT_ID = "brain-learning"
 
-try:
-    run_kobus()
-except Exception as e:
-    print(str(e))
-try:
-    run_rushil()
-except Exception as e:
-    print(str(e))
-try:
-    run_andre()
-except Exception as e:
-    print(str(e))
-try:
-    run_craig()
-except Exception as e:
-    print(str(e))
+while True:
+    try:
+        run_kobus()
+    except Exception as e:
+        print(str(e))
+    time.sleep(5)
+    try:
+        run_rushil()
+    except Exception as e:
+        print(str(e))
+    time.sleep(5)
+    try:
+        run_andre()
+    except Exception as e:
+        print(str(e))
+    time.sleep(5)
+    try:
+        run_craig()
+    except Exception as e:
+        print(str(e))
+    time.sleep(5)
+    try:
+        run_device("866069069856407")
+        run_device("866069069798088")
+        run_device("866069069792180")
+    except Exception as e:
+        print(str(e))
+    # Pause for 2 minutes (120 seconds)
+    time.sleep(105)
+
 
 
 
