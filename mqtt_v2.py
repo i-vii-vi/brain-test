@@ -158,7 +158,7 @@ def run_kobus():
     res = mqtt_connection.publish(
         topic=TOPICDATA,
         payload=json.dumps({
-            "inverterID":"",
+            "inverterID":"2202269098",
             "eToday":0,
             "fac":0,
             "uPv1":0,
