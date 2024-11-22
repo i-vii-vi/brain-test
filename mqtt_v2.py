@@ -12,6 +12,7 @@ SERIAL_NUMBER = "2202269098"
 
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
+
 import random
 
 def run_device(device_id):
@@ -44,13 +45,6 @@ def run_device(device_id):
             "edge": "1.3.0",
             "parsec": "1.4.1(a)",
             "east": "1.0.4",
-            "gosolr": "2.1.0",
-            "manager": "0.1.4", 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
             "timeStr": datetime.now().isoformat(),
