@@ -15,6 +15,90 @@ from awsiot import mqtt5_client_builder
 
 import random
 
+def multiplug(device_id):
+    TOPICMODELS = f"GOSOLR/MULTIPLUG/{device_id}/MODELS"
+    TOPICRELAYS = f"GOSOLR/MULTIPLUG/{device_id}/RELAYS"
+    TOPICUSAGE = f"GOSOLR/MULTIPLUG/{device_id}/USAGE"
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "brain": "1.5.8",
+            "plugs": "1.6.4",
+            "interface": "0.4.25", 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Plug point 1",
+                "state": True,
+                "smart": True
+                },
+            "channel_2": {
+                "name": "Plug point 2",
+                "state": True,
+                "smart": True
+                },
+            "channel_3": {
+                "name": "Plug point 3",
+                "state": True
+                "smart": True
+                },
+            "channel_4": {
+                "name": "Plug point 4",
+                "state": True,
+                "smart": True
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Plug point 1",
+                "load": apply_deviation(600, 0.05)
+                },
+            "channel_2": {
+                "name": "Plug point 2",
+                "load": apply_deviation(200, 0.05)
+                },
+            "channel_3": {
+                "name": "Plug point 3",
+                "load": apply_deviation(700, 0.05)
+                },
+            "channel_4": {
+                "name": "plug point 4",
+                "load": apply_deviation(1000, 0.05)
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
 def run_device(device_id):
     TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
     TOPICRELAYS = f"GOSOLR/BRAIN/{device_id}/RELAYS"
@@ -955,6 +1039,7 @@ while True:
         run_device("866069069856407")
         run_device("866069069798088")
         run_device("866069069792180")
+        multiplug(12002500000000d26s61)
     except Exception as e:
         print(str(e))
     # Pause for 2 minutes (120 seconds)
