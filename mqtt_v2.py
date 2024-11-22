@@ -98,6 +98,9 @@ def multiplug(device_id):
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
 
 def run_device(device_id):
     TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
