@@ -1017,40 +1017,35 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 CLIENT_ID = "brain-learning"
 
-while True:
-    try:
-        run_kobus()
-    except Exception as e:
-        print(str(e))
-    time.sleep(5)
-    try:
-        run_rushil()
-    except Exception as e:
-        print(str(e))
-    time.sleep(5)
-    try:
-        run_andre()
-    except Exception as e:
-        print(str(e))
-    time.sleep(5)
-    try:
-        run_craig()
-    except Exception as e:
-        print(str(e))
-    time.sleep(5)
-    try:
-        run_device("866069069856407")
-        run_device("866069069798088")
-        run_device("866069069792180")
-        multiplug("1200250000000001938475")
-    except Exception as e:
-        print(str(e))
-    # Pause for 2 minutes (120 seconds)
-    time.sleep(105)
-
-
-
-
+try:
+    run_kobus()
+except Exception as e:
+    print(str(e))
+time.sleep(5)
+try:
+    run_rushil()
+except Exception as e:
+    print(str(e))
+time.sleep(5)
+try:
+    run_andre()
+except Exception as e:
+    print(str(e))
+time.sleep(5)
+try:
+    run_craig()
+except Exception as e:
+    print(str(e))
+time.sleep(5)
+try:
+    run_device("866069069856407")
+    run_device("866069069798088")
+    run_device("866069069792180")
+    multiplug("1200250000000001938475")
+except Exception as e:
+    print(str(e))
+# Pause for 2 minutes (120 seconds)
+time.sleep(105)
 
 
 # Disconnect
