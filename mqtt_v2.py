@@ -1039,7 +1039,7 @@ while True:
         run_device("866069069856407")
         run_device("866069069798088")
         run_device("866069069792180")
-        multiplug(1200250000000001938475)
+        multiplug("1200250000000001938475")
     except Exception as e:
         print(str(e))
     # Pause for 2 minutes (120 seconds)
