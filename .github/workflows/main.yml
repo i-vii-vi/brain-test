@@ -21,7 +21,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install awscrt awsiot
+        pip install awsiotsdk awscrt awsiot
 
     - name: Run script
       run: |
