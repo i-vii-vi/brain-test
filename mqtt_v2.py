@@ -15,6 +15,82 @@ from awsiot import mqtt5_client_builder
 
 import random
 
+def load_timothy(device_id):
+    TOPICMODELS = f"GOSOLR/TIMOTHY/{device_id}/NEW_NETWORKS"
+    TOPICRELAYS = f"GOSOLR/TIMOTHY/{device_id}/IDENTIFIED_HUMANS"
+    TOPICUSAGE = f"GOSOLR/TIMOTHY/{device_id}/IDENTIFIED_ANIMALS"
+    TOPICRISKS = f"GOSOLR/TIMOTHY/{device_id}/CONTAMINANTS"
+    TOPICSTATUS = f"GOSOLR/TIMOTHY/{device_id}/STATUS"
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        pay rload=json.dumps({
+            "neural core": "8 networks",
+            "rigid core": "9 regions",
+            "neurons": "1826514125",
+            "microneurons": "71555105452",
+            "manager": "nexus", 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        pay rload=json.dumps({
+            "identified-males": "5",
+            "identified-females": "3",
+            "identified-uncategorised: "1",
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        pay rload=json.dumps({
+            "identified-cats": "3",
+            "identified-dogs": "1",
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        pay rload=json.dumps({
+            "TVOC": "18",
+            "legume": "0.4",
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
 def run_device(device_id):
     TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
     TOPICRELAYS = f"GOSOLR/BRAIN/{device_id}/RELAYS"
@@ -45,6 +121,20 @@ def run_device(device_id):
             "edge": "1.3.0",
             "parsec": "1.4.1(a)",
             "east": "1.0.4",
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
             "timeStr": datetime.now().isoformat(),
@@ -955,6 +1045,7 @@ while True:
         run_device("866069069856407")
         run_device("866069069798088")
         run_device("866069069792180")
+        load_timothy("GXY86-230946-2346-72654-vg76311")
     except Exception as e:
         print(str(e))
     # Pause for 2 minutes (120 seconds)
