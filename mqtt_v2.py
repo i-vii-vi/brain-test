@@ -45,7 +45,7 @@ def multiplug(device_id):
         retain=False,
     )
 
-res = mqtt_connection.publish(
+    res = mqtt_connection.publish(
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
@@ -74,7 +74,7 @@ res = mqtt_connection.publish(
         retain=False,
     )
 
-res = mqtt_connection.publish(
+    res = mqtt_connection.publish(
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
