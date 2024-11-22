@@ -754,26 +754,22 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 CLIENT_ID = "brain-learning"
 
-while True:
-    try:
-        run_kobus()
-    except Exception as e:
-        print(str(e))
-    try:
-        run_rushil()
-    except Exception as e:
-        print(str(e))
-    try:
-        run_andre()
-    except Exception as e:
-        print(str(e))
-    try:
-        run_craig()
-    except Exception as e:
-        print(str(e))
-    # Pause for 2 minutes (120 seconds)
-    time.sleep(60)
-
+try:
+    run_kobus()
+except Exception as e:
+    print(str(e))
+try:
+    run_rushil()
+except Exception as e:
+    print(str(e))
+try:
+    run_andre()
+except Exception as e:
+    print(str(e))
+try:
+    run_craig()
+except Exception as e:
+    print(str(e))
 
 
 
