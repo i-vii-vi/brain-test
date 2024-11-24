@@ -1111,11 +1111,17 @@ try:
     run_device("866069069856407")
     run_device("866069069798088")
     run_device("866069069792180")
+except Exception as e:
+    print(str(e))
+try:
     multiplug("1200250000000001938475")
     multiplug("1200250000000001945852")
     multiplug("1200250000000001947589")
-    lightswitch("152430000201")
 except Exception as e:
+    print(str(e))
+try:
+    lightswitch("152430000201")
+except Exception as :
     print(str(e))
 # Pause for 2 minutes (120 seconds)
 #time.sleep(105)
