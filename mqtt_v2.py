@@ -1121,7 +1121,7 @@ except Exception as e:
     print(str(e))
 try:
     lightswitch("152430000201")
-except Exception as :
+except Exception as e:
     print(str(e))
 # Pause for 2 minutes (120 seconds)
 #time.sleep(105)
