@@ -102,6 +102,76 @@ def multiplug(device_id):
     while not res[0].done():
         time.sleep(0.1)
 
+def lightswitch(device_id):
+    TOPICMODELS = f"GOSOLR/LIGHTSWITCH/{device_id}/MODELS"
+    TOPICRELAYS = f"GOSOLR/LIGHTSWITCH/{device_id}/RELAYS"
+    TOPICUSAGE = f"GOSOLR/LIGHTSWITCH/{device_id}/USAGE"
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "brain": "1.5.8",
+            "plugs": "1.6.6",
+            "interface": "0.0.6", 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Switch 1",
+                "state": True,
+                "smart": True
+                },
+            "channel_2": {
+                "name": "Switch 2",
+                "state": True,
+                "smart": True
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Switch 1",
+                "load": apply_deviation(50, 0.02)
+                },
+            "channel_2": {
+                "name": "Switch 2",
+                "load": apply_deviation(30, 0.05)
+                }, 
+            "timeStr": datetime.now().isoformat(),
+            "dataTimestamp": datetime.now().isoformat()}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+
 def run_device(device_id):
     TOPICMODELS = f"GOSOLR/BRAIN/{device_id}/MODELS"
     TOPICRELAYS = f"GOSOLR/BRAIN/{device_id}/RELAYS"
@@ -1044,10 +1114,11 @@ try:
     multiplug("1200250000000001938475")
     multiplug("1200250000000001945852")
     multiplug("1200250000000001947589")
+    lightswitch("152430000201")
 except Exception as e:
     print(str(e))
 # Pause for 2 minutes (120 seconds)
-time.sleep(105)
+#time.sleep(105)
 
 
 # Disconnect
