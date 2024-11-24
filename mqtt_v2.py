@@ -49,22 +49,22 @@ def multiplug(device_id):
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Plug point 1",
+                "name": "Television/Monitor",
                 "state": True,
                 "smart": True
                 },
             "channel_2": {
-                "name": "Plug point 2",
+                "name": "3D Printer 1",
                 "state": True,
                 "smart": True
                 },
             "channel_3": {
-                "name": "Plug point 3",
+                "name": "3D Printer 2",
                 "state": True,
                 "smart": True
                 },
             "channel_4": {
-                "name": "Plug point 4",
+                "name": "3D Printer 3",
                 "state": True,
                 "smart": True
                 }, 
@@ -78,20 +78,20 @@ def multiplug(device_id):
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Plug point 1",
-                "load": apply_deviation(600, 0.05)
+                "name": "Television/Monitor",
+                "load": apply_deviation(120, 0.02)
                 },
             "channel_2": {
-                "name": "Plug point 2",
-                "load": apply_deviation(200, 0.05)
+                "name": "3D Printer 1",
+                "load": apply_deviation(300, 0.05)
                 },
             "channel_3": {
-                "name": "Plug point 3",
-                "load": apply_deviation(700, 0.05)
+                "name": "3D Printer 2",
+                "load": apply_deviation(400, 0.05)
                 },
             "channel_4": {
-                "name": "plug point 4",
-                "load": apply_deviation(1000, 0.05)
+                "name": "3D Printer 3",
+                "load": apply_deviation(3000, 0.05)
                 }, 
             "timeStr": datetime.now().isoformat(),
             "dataTimestamp": datetime.now().isoformat()}),
