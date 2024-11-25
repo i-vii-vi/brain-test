@@ -1109,7 +1109,7 @@ except Exception as e:
 time.sleep(5)
 try:
     run_device("866069069856407")
-    run_device("866069069798088")
+    #run_device("866069069798088")
     run_device("866069069792180")
 except Exception as e:
     print(str(e))
