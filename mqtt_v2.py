@@ -1115,8 +1115,8 @@ except Exception as e:
     print(str(e))
 try:
     multiplug("1200250000000001938475")
-    multiplug("1200250000000001945852")
-    multiplug("1200250000000001947589")
+    #multiplug("1200250000000001945852")
+    #multiplug("1200250000000001947589")
 except Exception as e:
     print(str(e))
 try:
