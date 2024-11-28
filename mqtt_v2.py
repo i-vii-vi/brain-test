@@ -513,22 +513,22 @@ def run_kobus():
         payload=json.dumps({
             "channel_1": {
                 "name": "Geyser 1",
-                "state": true,
+                "state": True,
                 "load": apply_deviation(1100, 0.05)
                 },
             "channel_2": {
                 "name": "Geyser 2",
-                "state": true,
+                "state": True,
                 "load": apply_deviation(1200, 0.05)
                 },
             "channel_3": {
                 "name": "disconnected",
-                "state": false,
+                "state": False,
                 "load": 0
                 },
             "channel_4": {
                 "name": "disconnected",
-                "state": false,
+                "state": False,
                 "load": 0
                 }, 
             "timeStr": datetime.now().isoformat(),
