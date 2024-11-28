@@ -381,56 +381,58 @@ def run_kobus():
                         #print(entry["key"])
                         #print(entry["value"])
                         #print(entry["unit"])
-                        if entry["key"] == "PG_F1":
+                        if entry["name"] == "Grid Frequency":
                             fac = entry["value"]
-                        if entry["key"] == "SN1":
+                        if entry["name"] == "SN":
                             inverterID = entry["value"]
-                        if entry["key"] == "DV1":
+                        if entry["name"] == "DC Voltage PV1":
                             uPv1 = entry["value"]
-                        if entry["key"] == "DV2":
+                        if entry["name"] == "DC Voltage PV2":
                             uPv2 = entry["value"]
-                        if entry["key"] == "DC1":
+                        if entry["name"] == "DC Current PV1":
                             iPv1 = entry["value"]
-                        if entry["key"] == "DC2":
+                        if entry["name"] == "DC Current PV2":
                             iPv2 = entry["value"]
-                        if entry["key"] == "AV1":
+                        if entry["name"] == "AC Voltage R/U/A":
                             uAc1 = entry["value"]
-                        if entry["key"] == "AV2":
+                        if entry["name"] == "AC Voltage S/V/B":
                             uAc2 = entry["value"]
-                        if entry["key"] == "AV3":
+                        if entry["name"] == "AC Voltage T/W/C":
                             uAc3 = entry["value"]
-                        if entry["key"] == "AC1":
+                        if entry["name"] == "AC Voltage R/U/A":
                             iAc1 = entry["value"]
-                        if entry["key"] == "AC2":
+                        if entry["name"] == "AC Voltage S/V/B":
                             iAc2 = entry["value"]
-                        if entry["key"] == "AC3":
+                        if entry["name"] == "AC Voltage T/W/C":
                             iAc3 = entry["value"]
-                        if entry["key"] == "BMS_SOC":
+                        if entry["name"] == "SoC":
                             SoC = entry["value"]
-                        if entry["key"] == "B_T1":
+                        if entry["name"] == "AC Temperature":
                             inverterTemperature = entry["value"]
-                        if entry["key"] == "B_V1":
+                        if entry["name"] == "Battery Voltage":
                             batteryVoltage = entry["value"]
-                        if entry["key"] == "B_C1":
+                        if entry["name"] == "Battery Current":
                             batteryCurrent = entry["value"]
-                        if entry["key"] == "Etdy_cg1":
+                        if entry["name"] == "Daily Charging Energy":
                             batteryTodayChargeEnergy = entry["value"]
-                        if entry["key"] == "Etdy_dcg1":
+                        if entry["name"] == "Daily Discharging Energy":
                             batteryTodayDischargeEnergy = entry["value"]
                         if entry["key"] == "E_B_D":
                             gridPurchasedTodayEnergy = entry["value"]
                         if entry["key"] == "Et_ge0":
                             pSUM = entry["value"]
-                        if entry["key"] == "Etdy_ge1":
+                        if entry["key"] == "Etdy_use1":
                             homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "G_V_L1":
-                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
                         if entry["key"] == "G_C_L1":
                             bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_L1":
+                            bypassAcVoltage = entry["value"]    
                         if entry["key"] == "E_Puse_t1":
                             familyLoadPower = entry["value"]         
-                        if entry["key"] == "E_Suse_t1":
-                            eToday = entry["value"]                         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]                             
     else:
         print("Unexpected JSON structure:", raw_dict)
     
@@ -594,7 +596,7 @@ def run_kobus():
             "bypassAcCurrent":bypassAcCurrent,
             "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
             "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":float(bypassAcVoltage)*float(bypassAcCurrent),
+            "bypassLoadPower":bypassLoadPower,
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
             "timeStr": datetime.now().isoformat(),
@@ -633,48 +635,50 @@ def run_andrew():
                         #print(entry["key"])
                         #print(entry["value"])
                         #print(entry["unit"])
-                        if entry["key"] == "PG_F1":
+                        if entry["name"] == "Grid Frequency":
                             fac = entry["value"]
-                        if entry["key"] == "SN1":
+                        if entry["name"] == "SN":
                             inverterID = entry["value"]
-                        if entry["key"] == "DV1":
+                        if entry["name"] == "DC Voltage PV1":
                             uPv1 = entry["value"]
-                        if entry["key"] == "DV2":
+                        if entry["name"] == "DC Voltage PV2":
                             uPv2 = entry["value"]
-                        if entry["key"] == "DC1":
+                        if entry["name"] == "DC Current PV1":
                             iPv1 = entry["value"]
-                        if entry["key"] == "DC2":
+                        if entry["name"] == "DC Current PV2":
                             iPv2 = entry["value"]
-                        if entry["key"] == "AV1":
-                            uAc1 = entry["value"]
-                        if entry["key"] == "AC1":
+                        if entry["name"] == "AC Current R/U/A":
                             iAc1 = entry["value"]
-                        if entry["key"] == "B_left_cap1":
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
                             SoC = entry["value"]
-                        if entry["key"] == "B_T1":
+                        if entry["name"] == "AC Temperature":
                             inverterTemperature = entry["value"]
-                        if entry["key"] == "B_V1":
+                        if entry["name"] == "Battery Voltage":
                             batteryVoltage = entry["value"]
-                        if entry["key"] == "B_C1":
+                        if entry["name"] == "Battery Current":
                             batteryCurrent = entry["value"]
-                        if entry["key"] == "Etdy_cg1":
+                        if entry["name"] == "Daily Charging Energy":
                             batteryTodayChargeEnergy = entry["value"]
-                        if entry["key"] == "Etdy_dcg1":
+                        if entry["name"] == "Daily Discharging Energy":
                             batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "EG_Etdy_ge1":
+                        if entry["key"] == "Etdy_pu1":
                             gridPurchasedTodayEnergy = entry["value"]
                         if entry["key"] == "Et_ge0":
                             pSUM = entry["value"]
-                        if entry["key"] == "Etdy_ge1":
+                        if entry["key"] == "Etdy_use1":
                             homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "G_V_LN":
-                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
                         if entry["key"] == "G_C_LN":
                             bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
                         if entry["key"] == "E_Puse_t1":
                             familyLoadPower = entry["value"]         
-                        if entry["key"] == "Etdy_use1":
-                            eToday = entry["value"]                         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]                          
     else:
         print("Unexpected JSON structure:", raw_dict)
 
@@ -716,7 +720,7 @@ def run_andrew():
             "bypassAcCurrent":bypassAcCurrent,
             "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
             "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":float(bypassAcVoltage)*float(bypassAcCurrent),
+            "bypassLoadPower":bypassLoadPower,
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
             "timeStr": datetime.now().isoformat(),
