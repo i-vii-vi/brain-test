@@ -419,7 +419,7 @@ def run_kobus():
                             batteryTodayDischargeEnergy = entry["value"]
                         if entry["key"] == "E_B_D":
                             gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "E_S_TO":
+                        if entry["key"] == "E_S_D":
                             gridSoldTodayEnergy = entry["value"]
                         if entry["key"] == "Et_ge0":
                             pSUM = entry["value"]
