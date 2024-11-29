@@ -419,6 +419,8 @@ def run_kobus():
                             batteryTodayDischargeEnergy = entry["value"]
                         if entry["key"] == "E_B_D":
                             gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "E_S_TO":
+                            gridSoldTodayEnergy = entry["value"]
                         if entry["key"] == "Et_ge0":
                             pSUM = entry["value"]
                         if entry["key"] == "Etdy_use1":
@@ -432,7 +434,7 @@ def run_kobus():
                         if entry["key"] == "E_Puse_t1":
                             familyLoadPower = entry["value"]         
                         if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]                             
+                            eToday = entry["value"]                            
     else:
         print("Unexpected JSON structure:", raw_dict)
     
@@ -595,6 +597,7 @@ def run_kobus():
             "bypassAcVoltage":bypassAcVoltage,
             "bypassAcCurrent":bypassAcCurrent,
             "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":gridSoldTodayEnergy,
             "familyLoadPower":familyLoadPower,
             "bypassLoadPower":bypassLoadPower,
             "pSUM":pSUM,
@@ -678,7 +681,7 @@ def run_andrew():
                         if entry["key"] == "E_Puse_t1":
                             familyLoadPower = entry["value"]         
                         if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]                          
+                            eToday = entry["value"]                           
     else:
         print("Unexpected JSON structure:", raw_dict)
 
@@ -719,6 +722,7 @@ def run_andrew():
             "bypassAcVoltage":bypassAcVoltage,
             "bypassAcCurrent":bypassAcCurrent,
             "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
             "familyLoadPower":familyLoadPower,
             "bypassLoadPower":bypassLoadPower,
             "pSUM":pSUM,
@@ -894,6 +898,7 @@ def run_craig():
             "bypassAcVoltage":0,
             "bypassAcCurrent":0,
             "gridPurchasedTodayEnergy":0,
+            "gridSoldTodayEnergy":0,
             "familyLoadPower":0,
             "bypassLoadPower":0,
             "pSUM":0,
