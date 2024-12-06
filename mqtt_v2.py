@@ -2456,60 +2456,58 @@ CLIENT_ID = "brain-learning"
 #except Exception as e:
 #    print(str(e))
 
-while (True)  :
-    try:
-        run_kobus()
-    except Exception as e:
-        print(str(e))
+
+try:
+    run_kobus()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_kevin()
-    except Exception as e:
-        print(str(e))
+try:
+    run_kevin()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_andre()
-    except Exception as e:
-        print(str(e))
+try:
+    run_andre()
+except Exception as e:
+    print(str(e))
     
-    try:
-        run_andrew()
-    except Exception as e:
-        print(str(e))
+try:
+    run_andrew()
+except Exception as e:
+    print(str(e))
     
-    try:
-        run_natalie()
-    except Exception as e:
-        print(str(e))
+try:
+    run_natalie()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_rushil()
-    except Exception as e:
-        print(str(e))
+try:
+    run_rushil()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_jakkie()
-    except Exception as e:
-        print(str(e))
+try:
+    run_jakkie()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_craig()
-    except Exception as e:
-        print(str(e))
+try:
+    run_craig()
+except Exception as e:
+    print(str(e))
         
-    try:
-        run_eddie()
-    except Exception as e:
-        print(str(e))
+try:
+    run_eddie()
+except Exception as e:
+    print(str(e))
     
     #try:
     #    run_patrick()
     #except Exception as e:
     #    print(str(e))
         
-    try:
-        run_neil()
-    except Exception as e:
-        print(str(e))
-    
-    time.sleep(120)
+try:
+    run_neil()
+except Exception as e:
+    print(str(e))
