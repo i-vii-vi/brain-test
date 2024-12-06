@@ -101,9 +101,1262 @@ def multiplug(device_id):
     # Needs to wait for future to be complete
     while not res[0].done():
         time.sleep(0.1)
+        
+def run_patrick():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Patrick Narbel")
+    
+    TOPICDATA = "GOSOLR/BRAIN/864454073547659/DATA"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "1031200237290095"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
 
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    #print(raw_dict)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["name"])
+                        #print(entry["value"])
+                        if entry["key"] == "SN1":
+                            inverterID = entry["value"]+"S"
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "864454073547659",
+        "relay": "1",
+        "controls": [
+            {"channel_1": "Geyser 1", "source": "brain", "state": False},
+            {"channel_2": "Geyser 2", "source": "brain", "state": False},
+            {"channel_3": "Oven", "source": "brain", "state": True},
+            {"channel_4": "Pool", "source": "brain", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+def run_kobus():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Kobus Viljoen")
+    
+    TOPICMODELS = "GOSOLR/BRAIN/864454073547584/MODELS"
+    TOPICRELAYS = "GOSOLR/BRAIN/864454073547584/RELAYS"
+    TOPICUSAGE = "GOSOLR/BRAIN/864454073547584/USAGE"
+    TOPICRISKS = "GOSOLR/BRAIN/864454073547584/RISKS"
+    TOPICALERTS = "GOSOLR/BRAIN/864454073547584/ALERTS"
+    TOPICDATA = "GOSOLR/BRAIN/864454073547584/DATA"
+    TOPICHB = "GOSOLR/BRAIN/864454073547584/HB"
+    TOPICSTATUS = "GOSOLR/BRAIN/864454073547584/STATUS"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547584"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2202269098"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    
+    gridPower = 0
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["name"])
+                        #print(entry["value"])
+                        #print(entry["unit"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage S/V/B":
+                            uAc2 = entry["value"]
+                        if entry["name"] == "AC Voltage T/W/C":
+                            uAc3 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Current S/V/B":
+                            iAc2 = entry["value"]
+                        if entry["name"] == "AC Current T/W/C":
+                            iAc3 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "E_B_D":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "E_S_D":
+                            gridSoldTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_L1":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_L1":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]               
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridTiePower = entry["value"] 
+                        if entry["key"] == "CT_T_E": #E_CT_P
+                            gridPower = gridPower + float(entry["value"])
+                        #if entry["key"] == "G_P_L2": #E_CT_P
+                        #    gridPower = gridPower + float(entry["value"])
+                        #if entry["key"] == "G_P_L3": #E_CT_P
+                        #    gridPower = gridPower + float(entry["value"])
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICHB,
+        payload=json.dumps({
+            "version":"0.7.1(a)",
+            "files":[{"name":"capacity.json","md5":"72f2994f1ca6e64a5e5ecd67a2122c2a"},{"name":"coefficients.json","md5":"32bbe29d9f03a93a854415cfb1db1dde"},{"name":"gosolr.py","md5":"a41ac8bbcdbc90008645cbf6e8e96f6b"},{"name":"inv_def.json","md5":"38ad22a7f96a07b0c39ff1b107aeea24"}]}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Geyser 1",
+                "state": True,
+                "smart": True
+                },
+            "channel_2": {
+                "name": "Geyser 2",
+                "state": True,
+                "smart": True
+                },
+            "channel_3": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "864454073547584",
+        "relay": "1",
+        "controls": [
+            {"channel_1": "Channel 1", "source": "brain", "state": True},
+            {"channel_2": "Channel 2", "source": "brain", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Geyser 1",
+                "state": True,
+                "load": apply_deviation(1500, 0.07)
+                },
+            "channel_2": {
+                "name": "Geyser 2",
+                "state": True,
+                "load": apply_deviation(1900, 0.05)
+                },
+            "channel_3": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRISKS,
+        payload=json.dumps({
+            "risk": {
+                "unplannedOutage": apply_deviation(200, 0.1),
+                "plannedOutage": apply_deviation(100, 0.05),
+                "disconnection": apply_deviation(10, 0.1)
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICALERTS,
+        payload=json.dumps({
+            "alert_1": 0,
+            "alert_2": 0,
+            "alert_3": 0,
+            "alert_4": 0,
+            "alert_5": 0,
+            "alert_6": 0,
+            "alert_7": 0,
+            "alert_8": 0, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "uAc2":uAc2,
+            "iAc2":iAc2,
+            "uAc3":uAc3,
+            "iAc3":iAc3,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":gridSoldTodayEnergy,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":str(gridPower),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+        
+def run_andrew():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Andrew Middleton")
+    
+    TOPICDATA = "GOSOLR/BRAIN/864454073547824/DATA"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2108049103"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print(entry["unit"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "Etdy_pu1":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_LN":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]            
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+def run_neil():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Neil McWilliams")
+    
+    TOPICDATA = "GOSOLR/BRAIN/864454073547717/DATA"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2212032251"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    #print(raw_dict)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "Etdy_pu1":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_LN":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]        
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                    
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+def run_natalie():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Natalie Thom")
+    
+    TOPICDATA = "GOSOLR/BRAIN/864454073547857/DATA"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2107199242"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    #print(raw_dict)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "Etdy_pu1":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_LN":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]     
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                       
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+def run_rushil():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Rushil Rattan")
+    
+    TOPICDATA = "GOSOLR/BRAIN/864454073558102/DATA"
+    TOPICMODELS = "GOSOLR/BRAIN/864454073558102/MODELS"
+    TOPICRELAYS = "GOSOLR/BRAIN/864454073558102/RELAYS"
+    TOPICUSAGE = "GOSOLR/BRAIN/864454073558102/USAGE"
+    TOPICRISKS = "GOSOLR/BRAIN/864454073558102/RISKS"
+    TOPICALERTS = "GOSOLR/BRAIN/864454073558102/ALERTS"
+    TOPICHB = "GOSOLR/BRAIN/864454073558102/HB"
+    TOPICSTATUS = "GOSOLR/BRAIN/864454073558102/STATUS"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073558102"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2305102553"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    #print(raw_dict)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage S/V/B":
+                            uAc2 = entry["value"]
+                        if entry["name"] == "AC Voltage T/W/C":
+                            uAc3 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Current S/V/B":
+                            iAc2 = entry["value"]
+                        if entry["name"] == "AC Current T/W/C":
+                            iAc3 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "E_B_D":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "E_S_D":
+                            gridSoldTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_L1":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_L1":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]         
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridTiePower = entry["value"] 
+                        if entry["key"] == "CT_T_E": #E_CT_P
+                            gridPower = entry["value"]                   
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "uAc2":uAc2,
+            "iAc2":iAc2,
+            "uAc3":uAc3,
+            "iAc3":iAc3,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":gridSoldTodayEnergy,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":str(gridPower),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICHB,
+        payload=json.dumps({
+            "version":"0.7.1(a)",
+            "files":[{"name":"capacity.json","md5":"72f2994f1ca6e64a5e5ecd67a2122c2a"},{"name":"coefficients.json","md5":"32bbe29d9f03a93a854415cfb1db1dde"},{"name":"gosolr.py","md5":"a41ac8bbcdbc90008645cbf6e8e96f6b"},{"name":"inv_def.json","md5":"38ad22a7f96a07b0c39ff1b107aeea24"}]}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Geyser 1",
+                "state": True,
+                "smart": True
+                },
+            "channel_2": {
+                "name": "Pool",
+                "state": True,
+                "smart": True
+                },
+            "channel_3": {
+                "name": "Geyser 2",
+                "state": True,
+                "smart": True
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "864454073558102",
+        "relay": "1",
+        "controls": [
+            {"channel_1": "Geyser 1", "source": "brain", "state": True},
+            {"channel_2": "Pool", "source": "brain", "state": True},
+            {"channel_3": "Geyser 2", "source": "brain", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Geyser 1",
+                "state": True,
+                "load": apply_deviation(2500, 0.05)
+                },
+            "channel_2": {
+                "name": "Pool",
+                "state": True,
+                "load": apply_deviation(1100, 0.05)
+                },
+            "channel_3": {
+                "name": "Geyser 2",
+                "state": apply_deviation(2500, 0.05),
+                "load": 0
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRISKS,
+        payload=json.dumps({
+            "risk": {
+                "unplannedOutage": apply_deviation(200, 0.1),
+                "plannedOutage": apply_deviation(100, 0.05),
+                "disconnection": apply_deviation(10, 0.1)
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICALERTS,
+        payload=json.dumps({
+            "alert_1": 0,
+            "alert_2": 0,
+            "alert_3": 0,
+            "alert_4": 0,
+            "alert_5": 0,
+            "alert_6": 0,
+            "alert_7": 0,
+            "alert_8": 0, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+def run_jakkie():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Jakkie Koekemoer")
+    
+    TOPICDATA = "GOSOLR/BRAIN/868373070932654/DATA"
+    
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2107319089"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "Etdy_pu1":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_LN":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]           
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                       
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+        
 def run_andre():
-    print("Andre Dickson")
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Andre Dickson")
+    
     TOPICDATA = "GOSOLR/BRAIN/866069069857173/DATA"
     TOPICMODELS = "GOSOLR/BRAIN/866069069857173/MODELS"
     TOPICRELAYS = "GOSOLR/BRAIN/866069069857173/RELAYS"
@@ -184,7 +1437,11 @@ def run_andre():
                         if entry["key"] == "Etdy_ge1":
                             eToday = entry["value"]            
                         if entry["key"] == "G_T_P":
-                            gridTiePower = entry["value"]                            
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                        
     else:
         print("Unexpected JSON structure:", raw_dict)
 
@@ -210,8 +1467,8 @@ def run_andre():
             "east": "1.0.4",
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -256,8 +1513,8 @@ def run_andre():
                 "state": False,
                 "smart": False
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -270,8 +1527,8 @@ def run_andre():
         "controls": [
             {"channel_1": "Channel 1", "source": "brain", "state": True}
         ],
-        "timeStr": datetime.now().isoformat(),
-        "dataTimestamp": datetime.now().isoformat()
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
     }),
     qos=mqtt5.QoS.AT_LEAST_ONCE,
     retain=False,
@@ -300,8 +1557,8 @@ def run_andre():
                 "state": False,
                 "load": 0
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -314,8 +1571,8 @@ def run_andre():
                 "plannedOutage": apply_deviation(100, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -331,8 +1588,8 @@ def run_andre():
             "alert_6": 0,
             "alert_7": 0,
             "alert_8": 0, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -364,8 +1621,9 @@ def run_andre():
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
             "gridTiePower":gridTiePower, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -374,89 +1632,30 @@ def run_andre():
     while not res[0].done():
         time.sleep(0.1)
 
-def run_patrick():
-    print("Patrick Narbel")
-    # Constants for Inverter data retrieval
-    #TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    #KEY = "28c595aa93939bab9d"
-    #URL_BASE = "https://gsm.gosolr.co.za"
-    #SERIAL_NUMBER = "2212032251"
-    
-    #req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    #req.add_header("Authorization", f"Bearer {TOKEN}")
-    #req.add_header("x-api-key", KEY)
-    #content = urlopen(req).read()
-
-    #raw_data = content.decode("utf-8")
-    #raw_dict = json.loads(raw_data)
-    #print(raw_dict)
-
-    # Adjust for nested structure: find the list in the JSON
-    #if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-    #    for key, value in raw_dict.items():
-    #        if isinstance(value, list):  # Look for the list of objects
-    #            for entry in value:
-    #                if "key" in entry:  # Check each entry for "key"
-    #                    #print(entry["key"])
-    #                    print(entry["name"])
-                        #print(entry["value"])
-    #else:
-    #    print("Unexpected JSON structure:", raw_dict)
-
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-
-    res = mqtt_connection.publish(
-    topic=TOPICRELAYCONTROL,
-    payload=json.dumps({
-        "imei": "864454073547659",
-        "relay": "1",
-        "controls": [
-            {"channel": "1", "name": "Geyser 1", "state": False},
-            {"channel": "2", "name": "Geyser 2", "state": False},
-            {"channel": "3", "name": "Oven", "state": True},
-            {"channel": "4", "name": "Pool", "state": True}
-        ],
-        "timeStr": datetime.now().isoformat(),
-        "dataTimestamp": datetime.now().isoformat()
-    }),
-    qos=mqtt5.QoS.AT_LEAST_ONCE,
-    retain=False,
+def run_kevin():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
     )
     
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
-
-def run_kobus():
-    print("Kobus Viljoen")
-    TOPICMODELS = "GOSOLR/BRAIN/864454073547584/MODELS"
-    TOPICRELAYS = "GOSOLR/BRAIN/864454073547584/RELAYS"
-    TOPICUSAGE = "GOSOLR/BRAIN/864454073547584/USAGE"
-    TOPICRISKS = "GOSOLR/BRAIN/864454073547584/RISKS"
-    TOPICALERTS = "GOSOLR/BRAIN/864454073547584/ALERTS"
-    TOPICDATA = "GOSOLR/BRAIN/864454073547584/DATA"
-    TOPICHB = "GOSOLR/BRAIN/864454073547584/HB"
-    TOPICSTATUS = "GOSOLR/BRAIN/864454073547584/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547584"
+    print(str(data_timestamp) + ": Kevin Tennendorf")
+    
+    TOPICDATA = "GOSOLR/BRAIN/868373070932639/DATA"
+    TOPICMODELS = "GOSOLR/BRAIN/868373070932639/MODELS"
+    TOPICRELAYS = "GOSOLR/BRAIN/868373070932639/RELAYS"
+    TOPICUSAGE = "GOSOLR/BRAIN/868373070932639/USAGE"
+    TOPICRISKS = "GOSOLR/BRAIN/868373070932639/RISKS"
+    TOPICALERTS = "GOSOLR/BRAIN/868373070932639/ALERTS"
+    TOPICHB = "GOSOLR/BRAIN/868373070932639/HB"
+    TOPICSTATUS = "GOSOLR/BRAIN/868373070932639/STATUS"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932639"
+    
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
     KEY = "28c595aa93939bab9d"
     URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "2202269098"
+    SERIAL_NUMBER = "2211222039"
     
     req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
     req.add_header("Authorization", f"Bearer {TOKEN}")
@@ -473,9 +1672,8 @@ def run_kobus():
                 for entry in value:
                     if "key" in entry:  # Check each entry for "key"
                         #print(entry["key"])
-                        #print(entry["name"])
                         #print(entry["value"])
-                        #print(entry["unit"])
+                        #print(entry["name"])
                         #print()
                         if entry["name"] == "Grid Frequency":
                             fac = entry["value"]
@@ -489,18 +1687,10 @@ def run_kobus():
                             iPv1 = entry["value"]
                         if entry["name"] == "DC Current PV2":
                             iPv2 = entry["value"]
-                        if entry["name"] == "AC Voltage R/U/A":
-                            uAc1 = entry["value"]
-                        if entry["name"] == "AC Voltage S/V/B":
-                            uAc2 = entry["value"]
-                        if entry["name"] == "AC Voltage T/W/C":
-                            uAc3 = entry["value"]
                         if entry["name"] == "AC Current R/U/A":
                             iAc1 = entry["value"]
-                        if entry["name"] == "AC Current S/V/B":
-                            iAc2 = entry["value"]
-                        if entry["name"] == "AC Current T/W/C":
-                            iAc3 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
                         if entry["name"] == "SoC":
                             SoC = entry["value"]
                         if entry["name"] == "AC Temperature":
@@ -513,24 +1703,28 @@ def run_kobus():
                             batteryTodayChargeEnergy = entry["value"]
                         if entry["name"] == "Daily Discharging Energy":
                             batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "E_B_D":
+                        if entry["key"] == "Etdy_pu1":
                             gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "E_S_D":
-                            gridSoldTodayEnergy = entry["value"]
                         if entry["key"] == "Et_ge0":
                             pSUM = entry["value"]
                         if entry["key"] == "Etdy_use1":
                             homeLoadTodayEnergy = entry["value"]
                         if entry["key"] == "E_Puse_t1":
                             bypassLoadPower = entry["value"]    
-                        if entry["key"] == "G_C_L1":
+                        if entry["key"] == "G_C_LN":
                             bypassAcCurrent = entry["value"]    
-                        if entry["key"] == "G_V_L1":
+                        if entry["key"] == "G_V_LN":
                             bypassAcVoltage = entry["value"]    
                         if entry["key"] == "E_Puse_t1":
                             familyLoadPower = entry["value"]         
                         if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]                        
+                            eToday = entry["value"]            
+                        if entry["key"] == "G_T_P":
+                            gridTiePower = entry["value"]   
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                         
     else:
         print("Unexpected JSON structure:", raw_dict)
 
@@ -556,8 +1750,8 @@ def run_kobus():
             "east": "1.0.4",
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -583,14 +1777,14 @@ def run_kobus():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser 1",
+                "name": "Geyser",
                 "state": True,
                 "smart": True
                 },
             "channel_2": {
-                "name": "Geyser 2",
-                "state": True,
-                "smart": True
+                "name": "Pump Type 1",
+                "state": False,
+                "smart": False
                 },
             "channel_3": {
                 "name": "disconnected",
@@ -602,8 +1796,8 @@ def run_kobus():
                 "state": False,
                 "smart": False
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -611,14 +1805,34 @@ def run_kobus():
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
-        "imei": "864454073547584",
+        "imei": "868373070932639",
         "relay": "1",
         "controls": [
-            {"channel": "1", "name": "Geyser 1", "state": True},
-            {"channel": "2", "name": "Geyser 2", "state": True}
+            {"channel_1": "Geyser", "source": "brain", "state": False},
+            {"channel_2": "Pump Type 1", "source": "brain", "state": False},
+            {"channel_3": "disconnected", "source": "brain", "state": False},
+            {"channel_4": "disconnected", "source": "brain", "state": False}
         ],
-        "timeStr": datetime.now().isoformat(),
-        "dataTimestamp": datetime.now().isoformat()
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+    
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070932639",
+        "relay": "2",
+        "controls": [
+            {"channel_1": "Pump Type 2", "source": "brain", "state": False},
+            {"channel_2": "Pump Type 3", "source": "brain", "state": True},
+            {"channel_3": "disconnected", "source": "brain", "state": False},
+            {"channel_4": "disconnected", "source": "brain", "state": False}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
     }),
     qos=mqtt5.QoS.AT_LEAST_ONCE,
     retain=False,
@@ -628,14 +1842,14 @@ def run_kobus():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser 1",
-                "state": True,
-                "load": apply_deviation(1100, 0.05)
+                "name": "Geyser",
+                "state": False,
+                "load": 0
                 },
             "channel_2": {
-                "name": "Geyser 2",
-                "state": True,
-                "load": apply_deviation(1200, 0.05)
+                "name": "Pump Type 1",
+                "state": False,
+                "load": 0
                 },
             "channel_3": {
                 "name": "disconnected",
@@ -647,8 +1861,37 @@ def run_kobus():
                 "state": False,
                 "load": 0
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Pump Type 2",
+                "state": False,
+                "load": 0
+                },
+            "channel_2": {
+                "name": "Pump Type 3",
+                "state": True,
+                "load": apply_deviation(500, 0.05)
+                },
+            "channel_3": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -661,8 +1904,8 @@ def run_kobus():
                 "plannedOutage": apply_deviation(100, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -678,144 +1921,11 @@ def run_kobus():
             "alert_6": 0,
             "alert_7": 0,
             "alert_8": 0, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
-
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "eToday":eToday,
-            "fac":fac,
-            "uPv1":uPv1,
-            "uPv2":uPv2,
-            "iPv1":iPv1,
-            "iPv2":iPv2,
-            "uAc1":uAc1,
-            "iAc1":iAc1,
-            "uAc2":uAc2,
-            "iAc2":iAc2,
-            "uAc3":uAc3,
-            "iAc3":iAc3,
-            "inverterTemperature":inverterTemperature,
-            "batteryVoltage":batteryVoltage,
-            "batteryCurrent":batteryCurrent,
-            "SoC":SoC,
-            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
-            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
-            "bypassAcVoltage":bypassAcVoltage,
-            "bypassAcCurrent":bypassAcCurrent,
-            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
-            "gridSoldTodayEnergy":gridSoldTodayEnergy,
-            "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":bypassLoadPower,
-            "pSUM":pSUM,
-            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
-        
-def run_andrew():
-    print("Andrew Middleton")
-    TOPICDATA = "GOSOLR/BRAIN/864454073547824/DATA"
-    
-    # Constants for Inverter data retrieval
-    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    KEY = "28c595aa93939bab9d"
-    URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "2108049103"
-    
-    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("x-api-key", KEY)
-    content = urlopen(req).read()
-
-    raw_data = content.decode("utf-8")
-    raw_dict = json.loads(raw_data)
-
-    # Adjust for nested structure: find the list in the JSON
-    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-        for key, value in raw_dict.items():
-            if isinstance(value, list):  # Look for the list of objects
-                for entry in value:
-                    if "key" in entry:  # Check each entry for "key"
-                        #print(entry["key"])
-                        #print(entry["value"])
-                        #print(entry["name"])
-                        #print()
-                        if entry["name"] == "Grid Frequency":
-                            fac = entry["value"]
-                        if entry["name"] == "SN":
-                            inverterID = entry["value"]+"D"
-                        if entry["name"] == "DC Voltage PV1":
-                            uPv1 = entry["value"]
-                        if entry["name"] == "DC Voltage PV2":
-                            uPv2 = entry["value"]
-                        if entry["name"] == "DC Current PV1":
-                            iPv1 = entry["value"]
-                        if entry["name"] == "DC Current PV2":
-                            iPv2 = entry["value"]
-                        if entry["name"] == "AC Current R/U/A":
-                            iAc1 = entry["value"]
-                        if entry["name"] == "AC Voltage R/U/A":
-                            uAc1 = entry["value"]
-                        if entry["name"] == "SoC":
-                            SoC = entry["value"]
-                        if entry["name"] == "AC Temperature":
-                            inverterTemperature = entry["value"]
-                        if entry["name"] == "Battery Voltage":
-                            batteryVoltage = entry["value"]
-                        if entry["name"] == "Battery Current":
-                            batteryCurrent = entry["value"]
-                        if entry["name"] == "Daily Charging Energy":
-                            batteryTodayChargeEnergy = entry["value"]
-                        if entry["name"] == "Daily Discharging Energy":
-                            batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "Etdy_pu1":
-                            gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "Et_ge0":
-                            pSUM = entry["value"]
-                        if entry["key"] == "Etdy_use1":
-                            homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "E_Puse_t1":
-                            bypassLoadPower = entry["value"]    
-                        if entry["key"] == "G_C_LN":
-                            bypassAcCurrent = entry["value"]    
-                        if entry["key"] == "G_V_LN":
-                            bypassAcVoltage = entry["value"]    
-                        if entry["key"] == "E_Puse_t1":
-                            familyLoadPower = entry["value"]         
-                        if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]            
-                        if entry["key"] == "G_T_P":
-                            gridTiePower = entry["value"]                            
-    else:
-        print("Unexpected JSON structure:", raw_dict)
-
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-
-    
 
     res = mqtt_connection.publish(
         topic=TOPICDATA,
@@ -844,409 +1954,9 @@ def run_andrew():
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
             "gridTiePower":gridTiePower, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
-
-def run_natalie():
-    print("Natalie Thom")
-    TOPICDATA = "GOSOLR/BRAIN/864454073547857/DATA"
-    
-    # Constants for Inverter data retrieval
-    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    KEY = "28c595aa93939bab9d"
-    URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "2107199242"
-    
-    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("x-api-key", KEY)
-    content = urlopen(req).read()
-
-    raw_data = content.decode("utf-8")
-    raw_dict = json.loads(raw_data)
-    #print(raw_dict)
-
-    # Adjust for nested structure: find the list in the JSON
-    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-        for key, value in raw_dict.items():
-            if isinstance(value, list):  # Look for the list of objects
-                for entry in value:
-                    if "key" in entry:  # Check each entry for "key"
-                        #print(entry["key"])
-                        #print(entry["value"])
-                        #print(entry["name"])
-                        #print()
-                        if entry["name"] == "Grid Frequency":
-                            fac = entry["value"]
-                        if entry["name"] == "SN":
-                            inverterID = entry["value"]+"D"
-                        if entry["name"] == "DC Voltage PV1":
-                            uPv1 = entry["value"]
-                        if entry["name"] == "DC Voltage PV2":
-                            uPv2 = entry["value"]
-                        if entry["name"] == "DC Current PV1":
-                            iPv1 = entry["value"]
-                        if entry["name"] == "DC Current PV2":
-                            iPv2 = entry["value"]
-                        if entry["name"] == "AC Current R/U/A":
-                            iAc1 = entry["value"]
-                        if entry["name"] == "AC Voltage R/U/A":
-                            uAc1 = entry["value"]
-                        if entry["name"] == "SoC":
-                            SoC = entry["value"]
-                        if entry["name"] == "AC Temperature":
-                            inverterTemperature = entry["value"]
-                        if entry["name"] == "Battery Voltage":
-                            batteryVoltage = entry["value"]
-                        if entry["name"] == "Battery Current":
-                            batteryCurrent = entry["value"]
-                        if entry["name"] == "Daily Charging Energy":
-                            batteryTodayChargeEnergy = entry["value"]
-                        if entry["name"] == "Daily Discharging Energy":
-                            batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "Etdy_pu1":
-                            gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "Et_ge0":
-                            pSUM = entry["value"]
-                        if entry["key"] == "Etdy_use1":
-                            homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "E_Puse_t1":
-                            bypassLoadPower = entry["value"]    
-                        if entry["key"] == "G_C_LN":
-                            bypassAcCurrent = entry["value"]    
-                        if entry["key"] == "G_V_LN":
-                            bypassAcVoltage = entry["value"]    
-                        if entry["key"] == "E_Puse_t1":
-                            familyLoadPower = entry["value"]         
-                        if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]                            
-    else:
-        print("Unexpected JSON structure:", raw_dict)
-
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-
-    
-
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "eToday":eToday,
-            "fac":fac,
-            "uPv1":uPv1,
-            "uPv2":uPv2,
-            "iPv1":iPv1,
-            "iPv2":iPv2,
-            "uAc1":uAc1,
-            "iAc1":iAc1,
-            "inverterTemperature":inverterTemperature,
-            "batteryVoltage":batteryVoltage,
-            "batteryCurrent":batteryCurrent,
-            "SoC":SoC,
-            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
-            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
-            "bypassAcVoltage":bypassAcVoltage,
-            "bypassAcCurrent":bypassAcCurrent,
-            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
-            "gridSoldTodayEnergy":0,
-            "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":bypassLoadPower,
-            "pSUM":pSUM,
-            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
-
-def run_rushil():
-    print("Rushil Rattan")
-    TOPICDATA = "GOSOLR/BRAIN/864454073558102/DATA"
-    
-    # Constants for Inverter data retrieval
-    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    KEY = "28c595aa93939bab9d"
-    URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "2305102553"
-    
-    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("x-api-key", KEY)
-    content = urlopen(req).read()
-
-    raw_data = content.decode("utf-8")
-    raw_dict = json.loads(raw_data)
-    #print(raw_dict)
-
-    # Adjust for nested structure: find the list in the JSON
-    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-        for key, value in raw_dict.items():
-            if isinstance(value, list):  # Look for the list of objects
-                for entry in value:
-                    if "key" in entry:  # Check each entry for "key"
-                        #print(entry["key"])
-                        #print(entry["value"])
-                        #print(entry["name"])
-                        #print()
-                        if entry["name"] == "Grid Frequency":
-                            fac = entry["value"]
-                        if entry["name"] == "SN":
-                            inverterID = entry["value"]+"D"
-                        if entry["name"] == "DC Voltage PV1":
-                            uPv1 = entry["value"]
-                        if entry["name"] == "DC Voltage PV2":
-                            uPv2 = entry["value"]
-                        if entry["name"] == "DC Current PV1":
-                            iPv1 = entry["value"]
-                        if entry["name"] == "DC Current PV2":
-                            iPv2 = entry["value"]
-                        if entry["name"] == "AC Voltage R/U/A":
-                            uAc1 = entry["value"]
-                        if entry["name"] == "AC Voltage S/V/B":
-                            uAc2 = entry["value"]
-                        if entry["name"] == "AC Voltage T/W/C":
-                            uAc3 = entry["value"]
-                        if entry["name"] == "AC Current R/U/A":
-                            iAc1 = entry["value"]
-                        if entry["name"] == "AC Current S/V/B":
-                            iAc2 = entry["value"]
-                        if entry["name"] == "AC Current T/W/C":
-                            iAc3 = entry["value"]
-                        if entry["name"] == "SoC":
-                            SoC = entry["value"]
-                        if entry["name"] == "AC Temperature":
-                            inverterTemperature = entry["value"]
-                        if entry["name"] == "Battery Voltage":
-                            batteryVoltage = entry["value"]
-                        if entry["name"] == "Battery Current":
-                            batteryCurrent = entry["value"]
-                        if entry["name"] == "Daily Charging Energy":
-                            batteryTodayChargeEnergy = entry["value"]
-                        if entry["name"] == "Daily Discharging Energy":
-                            batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "E_B_D":
-                            gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "E_S_D":
-                            gridSoldTodayEnergy = entry["value"]
-                        if entry["key"] == "Et_ge0":
-                            pSUM = entry["value"]
-                        if entry["key"] == "Etdy_use1":
-                            homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "E_Puse_t1":
-                            bypassLoadPower = entry["value"]    
-                        if entry["key"] == "G_C_L1":
-                            bypassAcCurrent = entry["value"]    
-                        if entry["key"] == "G_V_L1":
-                            bypassAcVoltage = entry["value"]    
-                        if entry["key"] == "E_Puse_t1":
-                            familyLoadPower = entry["value"]         
-                        if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]                       
-    else:
-        print("Unexpected JSON structure:", raw_dict)
-
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-
-    
-
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "eToday":eToday,
-            "fac":fac,
-            "uPv1":uPv1,
-            "uPv2":uPv2,
-            "iPv1":iPv1,
-            "iPv2":iPv2,
-            "uAc1":uAc1,
-            "iAc1":iAc1,
-            "uAc2":uAc2,
-            "iAc2":iAc2,
-            "uAc3":uAc3,
-            "iAc3":iAc3,
-            "inverterTemperature":inverterTemperature,
-            "batteryVoltage":batteryVoltage,
-            "batteryCurrent":batteryCurrent,
-            "SoC":SoC,
-            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
-            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
-            "bypassAcVoltage":bypassAcVoltage,
-            "bypassAcCurrent":bypassAcCurrent,
-            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
-            "gridSoldTodayEnergy":gridSoldTodayEnergy,
-            "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":bypassLoadPower,
-            "pSUM":pSUM,
-            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
-
-def run_jakkie():
-    print("Jakkie Koekemoer")
-    TOPICDATA = "GOSOLR/BRAIN/868373070932654/DATA"
-    
-    
-    # Constants for Inverter data retrieval
-    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    KEY = "28c595aa93939bab9d"
-    URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "2107319089"
-    
-    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("x-api-key", KEY)
-    content = urlopen(req).read()
-
-    raw_data = content.decode("utf-8")
-    raw_dict = json.loads(raw_data)
-
-    # Adjust for nested structure: find the list in the JSON
-    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-        for key, value in raw_dict.items():
-            if isinstance(value, list):  # Look for the list of objects
-                for entry in value:
-                    if "key" in entry:  # Check each entry for "key"
-                        #print(entry["key"])
-                        #print(entry["value"])
-                        #print(entry["name"])
-                        #print()
-                        if entry["name"] == "Grid Frequency":
-                            fac = entry["value"]
-                        if entry["name"] == "SN":
-                            inverterID = entry["value"]+"D"
-                        if entry["name"] == "DC Voltage PV1":
-                            uPv1 = entry["value"]
-                        if entry["name"] == "DC Voltage PV2":
-                            uPv2 = entry["value"]
-                        if entry["name"] == "DC Current PV1":
-                            iPv1 = entry["value"]
-                        if entry["name"] == "DC Current PV2":
-                            iPv2 = entry["value"]
-                        if entry["name"] == "AC Current R/U/A":
-                            iAc1 = entry["value"]
-                        if entry["name"] == "AC Voltage R/U/A":
-                            uAc1 = entry["value"]
-                        if entry["name"] == "SoC":
-                            SoC = entry["value"]
-                        if entry["name"] == "AC Temperature":
-                            inverterTemperature = entry["value"]
-                        if entry["name"] == "Battery Voltage":
-                            batteryVoltage = entry["value"]
-                        if entry["name"] == "Battery Current":
-                            batteryCurrent = entry["value"]
-                        if entry["name"] == "Daily Charging Energy":
-                            batteryTodayChargeEnergy = entry["value"]
-                        if entry["name"] == "Daily Discharging Energy":
-                            batteryTodayDischargeEnergy = entry["value"]
-                        if entry["key"] == "Etdy_pu1":
-                            gridPurchasedTodayEnergy = entry["value"]
-                        if entry["key"] == "Et_ge0":
-                            pSUM = entry["value"]
-                        if entry["key"] == "Etdy_use1":
-                            homeLoadTodayEnergy = entry["value"]
-                        if entry["key"] == "E_Puse_t1":
-                            bypassLoadPower = entry["value"]    
-                        if entry["key"] == "G_C_LN":
-                            bypassAcCurrent = entry["value"]    
-                        if entry["key"] == "G_V_LN":
-                            bypassAcVoltage = entry["value"]    
-                        if entry["key"] == "E_Puse_t1":
-                            familyLoadPower = entry["value"]         
-                        if entry["key"] == "Etdy_ge1":
-                            eToday = entry["value"]            
-                        if entry["key"] == "G_T_P":
-                            gridTiePower = entry["value"]                            
-    else:
-        print("Unexpected JSON structure:", raw_dict)
-
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-
-    
-
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "eToday":eToday,
-            "fac":fac,
-            "uPv1":uPv1,
-            "uPv2":uPv2,
-            "iPv1":iPv1,
-            "iPv2":iPv2,
-            "uAc1":uAc1,
-            "iAc1":iAc1,
-            "inverterTemperature":inverterTemperature,
-            "batteryVoltage":batteryVoltage,
-            "batteryCurrent":batteryCurrent,
-            "SoC":SoC,
-            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
-            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
-            "bypassAcVoltage":bypassAcVoltage,
-            "bypassAcCurrent":bypassAcCurrent,
-            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
-            "gridSoldTodayEnergy":0,
-            "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":bypassLoadPower,
-            "pSUM":pSUM,
-            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "gridTiePower":gridTiePower, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1256,7 +1966,13 @@ def run_jakkie():
         time.sleep(0.1)
         
 def run_eddie():
-    print("Eddie Dunckley")
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Eddie Dunckley")
+    
     TOPICDATA = "GOSOLR/BRAIN/868373070932472/DATA"
     
     # Constants for Inverter data retrieval
@@ -1328,7 +2044,11 @@ def run_eddie():
                         if entry["key"] == "Etdy_ge1":
                             eToday = entry["value"]            
                         if entry["key"] == "G_T_P":
-                            gridTiePower = entry["value"]                            
+                            gridTiePower = entry["value"]   
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                         
     else:
         print("Unexpected JSON structure:", raw_dict)
 
@@ -1375,8 +2095,9 @@ def run_eddie():
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
             "gridTiePower":gridTiePower, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1386,7 +2107,13 @@ def run_eddie():
         time.sleep(0.1)
 
 def run_craig():
-    print('Craig Smith')
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Craig Smith")
+    
     TOPICDATA = "GOSOLR/BRAIN/866069069789269/DATA"
     TOPICMODELS = "GOSOLR/BRAIN/866069069789269/MODELS"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069789269/STATUS"
@@ -1494,8 +2221,8 @@ def run_craig():
             "east": "1.0.4",
             "gosolr": "2.1.0",
             "manager": "0.1.4", 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1506,13 +2233,13 @@ def run_craig():
         "imei": "866069069789269",
         "relay": "1",
         "controls": [
-            {"channel": "1", "name": "Channel 1", "state": False},
-            {"channel": "2", "name": "Channel 2", "state": False},
-            {"channel": "3", "name": "Channel 3", "state": True},
-            {"channel": "4", "name": "Channel 4", "state": True}
+            {"channel_1": "Channel 1", "source": "brain", "state": False},
+            {"channel_2": "Channel 2", "source": "brain", "state": False},
+            {"channel_3": "Channel 3", "source": "brain", "state": True},
+            {"channel_4": "Channel 4", "source": "brain", "state": True}
         ],
-        "timeStr": datetime.now().isoformat(),
-        "dataTimestamp": datetime.now().isoformat()
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
     }),
     qos=mqtt5.QoS.AT_LEAST_ONCE,
     retain=False,
@@ -1558,8 +2285,8 @@ def run_craig():
                 "state": True,
                 "smart": False
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1587,8 +2314,8 @@ def run_craig():
                 "state": True,
                 "load": apply_deviation(1000, 0.05)
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1601,8 +2328,8 @@ def run_craig():
                 "plannedOutage": apply_deviation(100, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1634,8 +2361,8 @@ def run_craig():
             "bypassLoadPower":float(bypassAcVoltage)*float(bypassAcCurrent),
             "pSUM":pSUM,
             "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "timeStr": datetime.now().isoformat(),
-            "dataTimestamp": datetime.now().isoformat()}),
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
@@ -1729,50 +2456,60 @@ CLIENT_ID = "brain-learning"
 #except Exception as e:
 #    print(str(e))
 
-
-try:
-    run_kobus()
-except Exception as e:
-    print(str(e))
-
-try:
-    run_andre()
-except Exception as e:
-    print(str(e))
-
-try:
-    run_andrew()
-except Exception as e:
-    print(str(e))
-  
-try:
-    run_natalie()
-except Exception as e:
-    print(str(e))
-    
-try:
-    run_rushil()
-except Exception as e:
-    print(str(e))
+while (True)  :
+    try:
+        run_kobus()
+    except Exception as e:
+        print(str(e))
         
-try:
-    run_jakkie()
-except Exception as e:
-    print(str(e))
-       
-try:
-    run_craig()
-except Exception as e:
-    print(str(e))
+    try:
+        run_kevin()
+    except Exception as e:
+        print(str(e))
         
-try:
-    run_eddie()
-except Exception as e:
-    print(str(e))
-   
-try:
-    run_patrick()
-except Exception as e:
-    print(str(e))
+    try:
+        run_andre()
+    except Exception as e:
+        print(str(e))
     
-#    time.sleep(120)
+    try:
+        run_andrew()
+    except Exception as e:
+        print(str(e))
+    
+    try:
+        run_natalie()
+    except Exception as e:
+        print(str(e))
+        
+    try:
+        run_rushil()
+    except Exception as e:
+        print(str(e))
+        
+    try:
+        run_jakkie()
+    except Exception as e:
+        print(str(e))
+        
+    try:
+        run_craig()
+    except Exception as e:
+        print(str(e))
+        
+    try:
+        run_eddie()
+    except Exception as e:
+        print(str(e))
+    
+    #try:
+    #    run_patrick()
+    #except Exception as e:
+    #    print(str(e))
+        
+    try:
+        run_neil()
+    except Exception as e:
+        print(str(e))
+    
+    time.sleep(120)
