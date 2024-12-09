@@ -770,6 +770,146 @@ def run_neil():
     while not res[0].done():
         time.sleep(0.1)
 
+def run_ummar():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Ummar Williams")
+    
+    TOPICDATA = "GOSOLR/BRAIN/868373070932811/DATA"
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2208266617"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    #print(raw_dict)
+
+    # Adjust for nested structure: find the list in the JSON
+    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
+        for key, value in raw_dict.items():
+            if isinstance(value, list):  # Look for the list of objects
+                for entry in value:
+                    if "key" in entry:  # Check each entry for "key"
+                        #print(entry["key"])
+                        #print(entry["value"])
+                        #print(entry["name"])
+                        #print()
+                        if entry["name"] == "Grid Frequency":
+                            fac = entry["value"]
+                        if entry["name"] == "SN":
+                            inverterID = entry["value"]+"D"
+                        if entry["name"] == "DC Voltage PV1":
+                            uPv1 = entry["value"]
+                        if entry["name"] == "DC Voltage PV2":
+                            uPv2 = entry["value"]
+                        if entry["name"] == "DC Current PV1":
+                            iPv1 = entry["value"]
+                        if entry["name"] == "DC Current PV2":
+                            iPv2 = entry["value"]
+                        if entry["name"] == "AC Current R/U/A":
+                            iAc1 = entry["value"]
+                        if entry["name"] == "AC Voltage R/U/A":
+                            uAc1 = entry["value"]
+                        if entry["name"] == "SoC":
+                            SoC = entry["value"]
+                        if entry["name"] == "AC Temperature":
+                            inverterTemperature = entry["value"]
+                        if entry["name"] == "Battery Voltage":
+                            batteryVoltage = entry["value"]
+                        if entry["name"] == "Battery Current":
+                            batteryCurrent = entry["value"]
+                        if entry["name"] == "Daily Charging Energy":
+                            batteryTodayChargeEnergy = entry["value"]
+                        if entry["name"] == "Daily Discharging Energy":
+                            batteryTodayDischargeEnergy = entry["value"]
+                        if entry["key"] == "Etdy_pu1":
+                            gridPurchasedTodayEnergy = entry["value"]
+                        if entry["key"] == "Et_ge0":
+                            pSUM = entry["value"]
+                        if entry["key"] == "Etdy_use1":
+                            homeLoadTodayEnergy = entry["value"]
+                        if entry["key"] == "E_Puse_t1":
+                            bypassLoadPower = entry["value"]    
+                        if entry["key"] == "G_C_LN":
+                            bypassAcCurrent = entry["value"]    
+                        if entry["key"] == "G_V_LN":
+                            bypassAcVoltage = entry["value"]    
+                        if entry["key"] == "E_Puse_t1":
+                            familyLoadPower = entry["value"]         
+                        if entry["key"] == "Etdy_ge1":
+                            eToday = entry["value"]        
+                        if entry["key"] == "G_T_P": #E_CT_P
+                            gridTiePower = entry["value"]    
+                        if entry["key"] == "PG_Pt1": #E_CT_P
+                            gridPower = entry["value"]                    
+    else:
+        print("Unexpected JSON structure:", raw_dict)
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    
+
+    res = mqtt_connection.publish(
+        topic=TOPICDATA,
+        payload=json.dumps({
+            "inverterID":inverterID,
+            "eToday":eToday,
+            "fac":fac,
+            "uPv1":uPv1,
+            "uPv2":uPv2,
+            "iPv1":iPv1,
+            "iPv2":iPv2,
+            "uAc1":uAc1,
+            "iAc1":iAc1,
+            "inverterTemperature":inverterTemperature,
+            "batteryVoltage":batteryVoltage,
+            "batteryCurrent":batteryCurrent,
+            "SoC":SoC,
+            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
+            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
+            "bypassAcVoltage":bypassAcVoltage,
+            "bypassAcCurrent":bypassAcCurrent,
+            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
+            "gridSoldTodayEnergy":0,
+            "familyLoadPower":familyLoadPower,
+            "bypassLoadPower":bypassLoadPower,
+            "pSUM":pSUM,
+            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
+            "gridTiePower":gridTiePower, 
+            "gridPower":gridPower,
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
 def run_natalie():
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
@@ -2641,6 +2781,11 @@ except Exception as e:
         
 try:
     run_eddie()
+except Exception as e:
+    print(str(e))
+
+try:
+    run_ummar()
 except Exception as e:
     print(str(e))
 
