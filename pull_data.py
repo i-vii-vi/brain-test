@@ -394,12 +394,12 @@ def run_kobus():
             "channel_1": {
                 "name": "Geyser 1",
                 "state": True,
-                "load": apply_deviation(1500, 0.07)
+                "load": apply_deviation(2100, 0.07)
                 },
             "channel_2": {
                 "name": "Geyser 2",
                 "state": True,
-                "load": apply_deviation(1900, 0.05)
+                "load": apply_deviation(2500, 0.05)
                 },
             "channel_3": {
                 "name": "disconnected",
