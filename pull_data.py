@@ -949,12 +949,12 @@ def run_ummar():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
+                "name": "disconnected",
                 "state": False,
                 "smart": False
                 },
             "channel_2": {
-                "name": "disconnected",
+                "name": "Geyser",
                 "state": False,
                 "smart": False
                 },
@@ -980,7 +980,7 @@ def run_ummar():
         "imei": "868373070932811",
         "relay": "1",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": False}
+            {"channel_2": "Geyser", "source": "brain", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -993,14 +993,14 @@ def run_ummar():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": False,
-                "load": apply_deviation(2500, 0.05)
-                },
-            "channel_2": {
                 "name": "disconnected",
                 "state": False,
                 "load": 0
+                },
+            "channel_2": {
+                "name": "Geyser",
+                "state": False,
+                "load": apply_deviation(2500, 0.05)
                 },
             "channel_3": {
                 "name": "disconnected",
