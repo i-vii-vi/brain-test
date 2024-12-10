@@ -916,7 +916,7 @@ def run_claire():
         t[0], t[1], t[2], t[3], t[4], t[5]
     )
     
-    print(str(data_timestamp) + ": Wayne Bester")
+    print(str(data_timestamp) + ": Claire Dicey")
     
     TOPICDATA = "GOSOLR/BRAIN/868373070932571/DATA"
     
