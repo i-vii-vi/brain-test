@@ -2204,7 +2204,7 @@ def run_okert():
         t[0], t[1], t[2], t[3], t[4], t[5]
     )
     
-    print(str(data_timestamp) + ": Andre Dickson")
+    print(str(data_timestamp) + ": Okert Els")
     
     TOPICDATA = "GOSOLR/BRAIN/868373070932423/DATA"
     TOPICMODELS = "GOSOLR/BRAIN/868373070932423/MODELS"
