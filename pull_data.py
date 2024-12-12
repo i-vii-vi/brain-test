@@ -4909,6 +4909,115 @@ def run_vivien():
     while not res[0].done():
         time.sleep(0.1)
 
+def run_raymond_2():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": Raymond Spiney")
+    TOPICMODELS = "GOSOLR/BRAIN/868373070931706/MODELS"
+    TOPICRISKS = "GOSOLR/BRAIN/868373070931706/RISKS"
+    TOPICALERTS = "GOSOLR/BRAIN/868373070931706/ALERTS"
+    TOPICHB = "GOSOLR/BRAIN/868373070931706/HB"
+    TOPICSTATUS = "GOSOLR/BRAIN/868373070931706/STATUS"    
+    
+    # Constants for Inverter data retrieval
+    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
+    KEY = "28c595aa93939bab9d"
+    URL_BASE = "https://gsm.gosolr.co.za"
+    SERIAL_NUMBER = "2306032261"
+    
+    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("x-api-key", KEY)
+    content = urlopen(req).read()
+
+    raw_data = content.decode("utf-8")
+    raw_dict = json.loads(raw_data)
+    
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICHB,
+        payload=json.dumps({
+            "version":"0.7.1(a)",
+            "files":[{"name":"capacity.json","md5":"72f2994f1ca6e64a5e5ecd67a2122c2a"},{"name":"coefficients.json","md5":"32bbe29d9f03a93a854415cfb1db1dde"},{"name":"gosolr.py","md5":"a41ac8bbcdbc90008645cbf6e8e96f6b"},{"name":"inv_def.json","md5":"38ad22a7f96a07b0c39ff1b107aeea24"}]}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+
+    res = mqtt_connection.publish(
+        topic=TOPICRISKS,
+        payload=json.dumps({
+            "risk": {
+                "unplannedOutage": apply_deviation(600, 0.1),
+                "plannedOutage": apply_deviation(300, 0.05),
+                "disconnection": apply_deviation(800, 0.1)
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICALERTS,
+        payload=json.dumps({
+            "alert_1": 0,
+            "alert_2": 0,
+            "alert_3": 0,
+            "alert_4": 0,
+            "alert_5": 0,
+            "alert_6": 0,
+            "alert_7": 0,
+            "alert_8": 0, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+    
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
 def run_raymond_1():
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
@@ -8988,6 +9097,11 @@ except Exception as e:
 
 try:
     run_raymond_1()
+except Exception as e:
+    print(str(e))
+
+try:
+    run_raymond_2()
 except Exception as e:
     print(str(e))
 
