@@ -4632,7 +4632,30 @@ def run_vivien():
 
     raw_data = content.decode("utf-8")
     raw_dict = json.loads(raw_data)
-
+    fac = 0
+    inverterID = 0
+    uPv1 = 0
+    uPv2 = 0
+    iPv1 = 0
+    iPv2 = 0
+    iAc1 = 0
+    uAc1 = 0
+    SoC = 0
+    inverterTemperature = 0
+    batteryVoltage = 0
+    batteryCurrent = 0
+    batteryTodayChargeEnergy = 0
+    batteryTodayDischargeEnergy = 0
+    gridPurchasedTodayEnergy = 0
+    pSUM = 0
+    homeLoadTodayEnergy = 0
+    bypassLoadPower = 0
+    bypassAcCurrent = 0
+    bypassAcVoltage = 0
+    familyLoadPower = 0
+    eToday = 0
+    gridTiePower = 0
+    gridPower = 0
     # Adjust for nested structure: find the list in the JSON
     if isinstance(raw_dict, dict):  # JSON starts as a dictionary
         for key, value in raw_dict.items():
