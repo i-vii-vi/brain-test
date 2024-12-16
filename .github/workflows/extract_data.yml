@@ -1,4 +1,4 @@
-name: Pull_Data_2
+name: extract_data
 
 on:
   schedule:
