@@ -9595,11 +9595,11 @@ def run_nic():
                         if entry["key"] == "Etdy_ge1":
                             eToday = entry["value"]            
                         if entry["key"] == "G_T_P":
-                            gridTiePower = entry["value"]   
+                            gridTiePower = entry["value"]    
                         if entry["key"] == "G_T_P": #E_CT_P
                             gridTiePower = entry["value"]    
                         if entry["key"] == "PG_Pt1": #E_CT_P
-                            gridPower = entry["value"]                         
+                            gridPower = entry["value"]                        
     else:
         print("Unexpected JSON structure:", raw_dict)
 
