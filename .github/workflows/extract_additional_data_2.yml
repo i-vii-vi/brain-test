@@ -2,7 +2,7 @@ name: extract_addtional_data_2
 
 on:
   schedule:
-    - cron: "*/70 * * * *" # Runs every 5 minutes
+    - cron: "*/1000 * * * *" # Runs every 5 minutes
   workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
