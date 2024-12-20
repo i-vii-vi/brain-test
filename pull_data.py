@@ -5080,7 +5080,7 @@ def run_faieck():
             "channel_1": {
                 "name": "Geyser 1",
                 "state": True,
-                "load": apply_deviation(2500, 0.05)
+                "load": 0
                 },
             "channel_2": {
                 "name": "disconnected",
