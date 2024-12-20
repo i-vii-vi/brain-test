@@ -10796,6 +10796,6 @@ except Exception as e:
     print(str(e))
 
 try:
-    run_faiek()
+    run_faieck()
 except Exception as e:
     print(str(e))
