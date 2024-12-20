@@ -6198,24 +6198,24 @@ def run_vivien():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
                 "smart": True
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "Indeterminate device",
                 "state": True,
                 "smart": True
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "disconnected",
+                "state": False,
+                "smart": False
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "disconnected",
+                "state": False,
+                "smart": False
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -6229,10 +6229,8 @@ def run_vivien():
         "imei": "868373070932050",
         "relay": "1",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_2": "Indeterminate device", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -6245,23 +6243,23 @@ def run_vivien():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(2500, 0.05)
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "Indeterminate device",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(100, 0.05)
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
+                "name": "disconnected",
+                "state": False,
                 "load": 0
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
+                "name": "disconnected",
+                "state": False,
                 "load": 0
                 }, 
             "timeStr": data_timestamp,
