@@ -111,7 +111,7 @@ def run_patrick():
     print(str(data_timestamp) + ": Patrick Narbel")
     
     TOPICDATA = "GOSOLR/BRAIN/864454073547659/DATA"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073547659"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -204,7 +204,7 @@ def run_kobus():
     TOPICDATA = "GOSOLR/BRAIN/864454073547584/DATA"
     TOPICHB = "GOSOLR/BRAIN/864454073547584/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/864454073547584/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547584"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073547584"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -355,16 +355,6 @@ def run_kobus():
                 "name": "Geyser 2",
                 "state": True,
                 "smart": True
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -400,16 +390,6 @@ def run_kobus():
                 "name": "Geyser 2",
                 "state": True,
                 "load": apply_deviation(2500, 0.05)
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -1770,7 +1750,7 @@ def run_ummar():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932811/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932811/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932811/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932811"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932811"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -1932,23 +1912,8 @@ def run_ummar():
     res = mqtt_connection.publish(
         topic=TOPICRELAYS,
         payload=json.dumps({
-            "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
             "channel_2": {
                 "name": "Geyser",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
                 "state": False,
                 "smart": False
                 }, 
@@ -1976,25 +1941,10 @@ def run_ummar():
     res = mqtt_connection.publish(
         topic=TOPICUSAGE,
         payload=json.dumps({
-            "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
             "channel_2": {
                 "name": "Geyser",
                 "state": False,
                 "load": apply_deviation(2500, 0.05)
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -2053,7 +2003,7 @@ def run_ryan():
     TOPICALERTS = "GOSOLR/BRAIN/866069069789103/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069789103/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069789103/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069789103"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789103"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2220,21 +2170,6 @@ def run_ryan():
                 "state": False,
                 "smart": False
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -2264,21 +2199,6 @@ def run_ryan():
                 "state": False,
                 "load": apply_deviation(2500, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -2336,7 +2256,7 @@ def run_martin():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933413/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933413/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933413/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070933413"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933413"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2503,21 +2423,6 @@ def run_martin():
                 "state": False,
                 "smart": False
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -2547,21 +2452,6 @@ def run_martin():
                 "state": False,
                 "load": apply_deviation(2500, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -2759,7 +2649,7 @@ def run_rushil():
     TOPICALERTS = "GOSOLR/BRAIN/864454073558102/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/864454073558102/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/864454073558102/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073558102"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073558102"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2950,11 +2840,6 @@ def run_rushil():
                 "state": True,
                 "smart": True
                 },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -2996,11 +2881,6 @@ def run_rushil():
                 "state": apply_deviation(2500, 0.05),
                 "load": 0
                 },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3198,7 +3078,7 @@ def run_okert():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932423/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932423/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932423/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932423"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932423"
     
     
     # Constants for Inverter data retrieval
@@ -3331,21 +3211,6 @@ def run_okert():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3375,21 +3240,6 @@ def run_okert():
                 "state": True,
                 "load": apply_deviation(1100, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3481,7 +3331,7 @@ def run_andre():
     TOPICALERTS = "GOSOLR/BRAIN/866069069857173/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069857173/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069857173/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069857173"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069857173"
     
     
     # Constants for Inverter data retrieval
@@ -3614,21 +3464,6 @@ def run_andre():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3658,21 +3493,6 @@ def run_andre():
                 "state": True,
                 "load": apply_deviation(1100, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3764,7 +3584,7 @@ def run_zandi():
     TOPICALERTS = "GOSOLR/BRAIN/866069069798088/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069798088/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069798088/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069798088"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069798088"
     
     
     # Constants for Inverter data retrieval
@@ -3897,21 +3717,6 @@ def run_zandi():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -3941,21 +3746,6 @@ def run_zandi():
                 "state": True,
                 "load": apply_deviation(1100, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4047,7 +3837,7 @@ def run_jarryd():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856407/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856407/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856407/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069856407"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856407"
     
     
     # Constants for Inverter data retrieval
@@ -4180,21 +3970,6 @@ def run_jarryd():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4224,21 +3999,6 @@ def run_jarryd():
                 "state": True,
                 "load": apply_deviation(850, 0.05)
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4330,7 +4090,7 @@ def run_sussanna():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932217/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932217/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932217/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932217"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932217"
     
     
     # Constants for Inverter data retrieval
@@ -4463,21 +4223,6 @@ def run_sussanna():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
-                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4491,9 +4236,6 @@ def run_sussanna():
         "relay": "1",
         "controls": [
             {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4510,21 +4252,6 @@ def run_sussanna():
                 "state": True,
                 "load": 0
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4616,7 +4343,7 @@ def run_ryan():
     TOPICALERTS = "GOSOLR/BRAIN/866069069789103/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069789103/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069789103/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069789103"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789103"
     
     
     # Constants for Inverter data retrieval
@@ -4749,21 +4476,6 @@ def run_ryan():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
-                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4777,9 +4489,6 @@ def run_ryan():
         "relay": "1",
         "controls": [
             {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4796,21 +4505,6 @@ def run_ryan():
                 "state": True,
                 "load": 0
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4902,7 +4596,7 @@ def run_faieck():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932332/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932332/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932332/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932332"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932332"
     
     
     # Constants for Inverter data retrieval
@@ -5035,21 +4729,6 @@ def run_faieck():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -5063,9 +4742,6 @@ def run_faieck():
         "relay": "1",
         "controls": [
             {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "disconnected", "source": "brain", "state": True},
-            {"channel_3": "disconnected", "source": "brain", "state": True},
-            {"channel_4": "disconnected", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5082,21 +4758,6 @@ def run_faieck():
                 "state": True,
                 "load": 0
                 },
-            "channel_2": {
-                "name": "disconnected",
-                "state": True,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": True,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -5188,7 +4849,7 @@ def run_william():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932720/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932720/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932720/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932720"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932720"
     
     
     # Constants for Inverter data retrieval
@@ -5317,22 +4978,17 @@ def run_william():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
                 "smart": True
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "Indeterminate device 1",
                 "state": True,
                 "smart": True
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
-                },
-            "channel_4": {
-                "name": "Channel 4",
+                "name": "Indeterminate device 2",
                 "state": True,
                 "smart": True
                 },
@@ -5348,10 +5004,9 @@ def run_william():
         "imei": "868373070932720",
         "relay": "1",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_2": "Indeterminate device 1", "source": "brain", "state": True},
+            {"channel_3": "Indeterminate device 2", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5364,25 +5019,20 @@ def run_william():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(2500, 0.05)
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "Indeterminate device 1",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(100, 0.05)
                 },
             "channel_3": {
-                "name": "Channel 3",
+                "name": "Indeterminate device 2",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(100, 0.05)
                 },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -5474,7 +5124,7 @@ def run_brian():
     TOPICALERTS = "GOSOLR/BRAIN/866069069798807/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069798807/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069798807/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069798807"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069798807"
     
     
     # Constants for Inverter data retrieval
@@ -5607,21 +5257,6 @@ def run_brian():
                 "state": True,
                 "smart": True
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
-                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -5634,10 +5269,7 @@ def run_brian():
         "imei": "866069069798807",
         "relay": "1",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5652,23 +5284,8 @@ def run_brian():
             "channel_1": {
                 "name": "Geyser",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(2500, 0.05)
                 },
-            "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -5760,7 +5377,7 @@ def run_leendert():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932274/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932274/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932274/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932274"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932274"
     
     
     # Constants for Inverter data retrieval
@@ -5889,22 +5506,12 @@ def run_leendert():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
                 "smart": True
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
-                },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
-                },
-            "channel_4": {
-                "name": "Channel 4",
+                "name": "Indeterminate device",
                 "state": True,
                 "smart": True
                 },
@@ -5920,10 +5527,8 @@ def run_leendert():
         "imei": "868373070932274",
         "relay": "1",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_2": "Indeterminate device", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5936,14 +5541,14 @@ def run_leendert():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(2500, 0.05)
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "Indeterminate device",
                 "state": True,
-                "load": 0
+                "load": apply_deviation(100, 0.05)
                 },
             "channel_3": {
                 "name": "Channel 3",
@@ -6046,7 +5651,7 @@ def run_vivien():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932050/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932050/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932050/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932050"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932050"
     
     
     # Constants for Inverter data retrieval
@@ -6207,16 +5812,6 @@ def run_vivien():
                 "state": True,
                 "smart": True
                 },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -6252,16 +5847,6 @@ def run_vivien():
                 "state": True,
                 "load": apply_deviation(100, 0.05)
                 },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -6922,7 +6507,7 @@ def run_rachel():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933116/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933116/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933116/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070933116"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933116"
     
     
     # Constants for Inverter data retrieval
@@ -7209,7 +6794,7 @@ def run_veronika():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933348/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933348/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933348/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070933348"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933348"
     
     
     # Constants for Inverter data retrieval
@@ -7495,7 +7080,7 @@ def run_jacques():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933769/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933769/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933769/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070933769"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933769"
     
     
     # Constants for Inverter data retrieval
@@ -7781,7 +7366,7 @@ def run_gideon():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932290/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932290/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932290/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932290"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932290"
     
     
     # Constants for Inverter data retrieval
@@ -8067,7 +7652,7 @@ def run_louis():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932431/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932431/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932431/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932431"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932431"
     
     
     # Constants for Inverter data retrieval
@@ -8353,7 +7938,7 @@ def run_esmond():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932605/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932605/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932605/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932605"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932605"
     
     
     # Constants for Inverter data retrieval
@@ -8636,7 +8221,7 @@ def run_kimberleigh():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856464/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856464/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856464/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069856464"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856464"
     
     
     # Constants for Inverter data retrieval
@@ -8919,7 +8504,7 @@ def run_jacques():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933769/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933769/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933769/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070933769"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933769"
     
     
     # Constants for Inverter data retrieval
@@ -9203,7 +8788,7 @@ def run_jack():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856233/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856233/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856233/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069856233"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856233"
     
     
     # Constants for Inverter data retrieval
@@ -9487,7 +9072,7 @@ def run_kevin():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932639/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932639/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932639/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/868373070932639"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932639"
     
     
     # Constants for Inverter data retrieval
@@ -10243,7 +9828,7 @@ def run_craig():
     TOPICHB = "GOSOLR/BRAIN/866069069789269/HB"
     TOPICUSAGE = "GOSOLR/BRAIN/866069069789269/USAGE"
     TOPICRISKS = "GOSOLR/BRAIN/866069069789269/RISKS"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/866069069789269"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789269"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
