@@ -1602,6 +1602,14 @@ def run_gideon():
     print(str(data_timestamp) + ": Gideon van Zyl")
     
     TOPICDATA = "GOSOLR/BRAIN/868373070932522/DATA"
+    TOPICMODELS = "GOSOLR/BRAIN/868373070932522/MODELS"
+    TOPICRELAYS = "GOSOLR/BRAIN/868373070932522/RELAYS"
+    TOPICUSAGE = "GOSOLR/BRAIN/868373070932522/USAGE"
+    TOPICRISKS = "GOSOLR/BRAIN/868373070932522/RISKS"
+    TOPICALERTS = "GOSOLR/BRAIN/868373070932522/ALERTS"
+    TOPICHB = "GOSOLR/BRAIN/868373070932522/HB"
+    TOPICSTATUS = "GOSOLR/BRAIN/868373070932522/STATUS"
+    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932522"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -1693,7 +1701,110 @@ def run_gideon():
     connect_future = mqtt_connection.connect()
     connect_future.result()
 
+    res = mqtt_connection.publish(
+        topic=TOPICMODELS,
+        payload=json.dumps({
+            "edge": "1.3.0",
+            "parsec": "1.4.1(a)",
+            "east": "1.0.4",
+            "gosolr": "2.1.0",
+            "manager": "0.1.4", 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICSTATUS,
+        payload=json.dumps({
+            "connected": True}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICHB,
+        payload=json.dumps({
+            "version":"0.7.1(a)",
+            "files":[{"name":"capacity.json","md5":"72f2994f1ca6e64a5e5ecd67a2122c2a"},{"name":"coefficients.json","md5":"32bbe29d9f03a93a854415cfb1db1dde"},{"name":"gosolr.py","md5":"a41ac8bbcdbc90008645cbf6e8e96f6b"},{"name":"inv_def.json","md5":"38ad22a7f96a07b0c39ff1b107aeea24"}]}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_2": {
+                "name": "Geyser",
+                "state": False,
+                "smart": False
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
     
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070932522",
+        "relay": "1",
+        "controls": [
+            {"channel_2": "Geyser", "source": "brain", "state": False}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICUSAGE,
+        payload=json.dumps({
+            "channel_2": {
+                "name": "Geyser",
+                "state": False,
+                "load": apply_deviation(2500, 0.05)
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRISKS,
+        payload=json.dumps({
+            "risk": {
+                "unplannedOutage": apply_deviation(200, 0.1),
+                "plannedOutage": apply_deviation(100, 0.05),
+                "disconnection": apply_deviation(10, 0.1)
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICALERTS,
+        payload=json.dumps({
+            "alert_1": 0,
+            "alert_2": 0,
+            "alert_3": 0,
+            "alert_4": 0,
+            "alert_5": 0,
+            "alert_6": 0,
+            "alert_7": 0,
+            "alert_8": 0, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
 
     res = mqtt_connection.publish(
         topic=TOPICDATA,
