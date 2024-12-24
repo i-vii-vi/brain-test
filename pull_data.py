@@ -4729,6 +4729,21 @@ def run_faieck():
                 "state": True,
                 "smart": True
                 },
+            "channel_2": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                },
+            "channel_3": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
+                "smart": False
+                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -4754,8 +4769,23 @@ def run_faieck():
         topic=TOPICUSAGE,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser 1",
+                "name": "Geyser",
                 "state": True,
+                "load": apply_deviation(2600, 0.05)
+                },
+            "channel_2": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                },
+            "channel_3": {
+                "name": "disconnected",
+                "state": False,
+                "load": 0
+                },
+            "channel_4": {
+                "name": "disconnected",
+                "state": False,
                 "load": 0
                 },
             "timeStr": data_timestamp,
