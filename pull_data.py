@@ -1737,8 +1737,8 @@ def run_gideon():
         payload=json.dumps({
             "channel_2": {
                 "name": "Geyser",
-                "state": False,
-                "smart": False
+                "state": True,
+                "smart": True
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -1752,7 +1752,7 @@ def run_gideon():
         "imei": "868373070932522",
         "relay": "1",
         "controls": [
-            {"channel_2": "Geyser", "source": "brain", "state": False}
+            {"channel_2": "Geyser", "source": "brain", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -1766,7 +1766,7 @@ def run_gideon():
         payload=json.dumps({
             "channel_2": {
                 "name": "Geyser",
-                "state": False,
+                "state": True,
                 "load": apply_deviation(2500, 0.05)
                 }, 
             "timeStr": data_timestamp,
