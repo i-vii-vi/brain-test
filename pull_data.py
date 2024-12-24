@@ -4727,7 +4727,7 @@ def run_faieck():
             "channel_1": {
                 "name": "Geyser",
                 "state": True,
-                "smart": True
+                "smart": False
                 },
             "channel_2": {
                 "name": "disconnected",
@@ -4756,7 +4756,7 @@ def run_faieck():
         "imei": "868373070932332",
         "relay": "1",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_1": "Geyser", "source": "brain", "state": False},
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
