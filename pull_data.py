@@ -111,7 +111,7 @@ def run_patrick():
     print(str(data_timestamp) + ": Patrick Narbel")
     
     TOPICDATA = "GOSOLR/BRAIN/864454073547659/DATA"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073547659"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/864454073547659/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -171,11 +171,12 @@ def run_patrick():
     payload=json.dumps({
         "imei": "864454073547659",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser 1", "source": "brain", "state": False},
-            {"channel_2": "Geyser 2", "source": "brain", "state": False},
-            {"channel_3": "Oven", "source": "brain", "state": True},
-            {"channel_4": "Pool", "source": "brain", "state": True}
+            {"channel_1": "Geyser 1", "state": False},
+            {"channel_2": "Geyser 2", "state": False},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -204,7 +205,7 @@ def run_kobus():
     TOPICDATA = "GOSOLR/BRAIN/864454073547584/DATA"
     TOPICHB = "GOSOLR/BRAIN/864454073547584/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/864454073547584/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073547584"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/864454073547584/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -367,9 +368,10 @@ def run_kobus():
     payload=json.dumps({
         "imei": "864454073547584",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -1609,7 +1611,7 @@ def run_gideon():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932522/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932522/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932522/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932522"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932522/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -1751,8 +1753,9 @@ def run_gideon():
     payload=json.dumps({
         "imei": "868373070932522",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_2": "Geyser", "source": "brain", "state": True}
+            {"channel_2": "Geyser", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -1861,7 +1864,7 @@ def run_ummar():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932811/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932811/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932811/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932811"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932811/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2039,8 +2042,9 @@ def run_ummar():
     payload=json.dumps({
         "imei": "868373070932811",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_2": "Geyser", "source": "brain", "state": False}
+            {"channel_2": "Geyser", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -2114,7 +2118,7 @@ def run_ryan():
     TOPICALERTS = "GOSOLR/BRAIN/866069069789103/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069789103/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069789103/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789103"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069789103/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2292,8 +2296,9 @@ def run_ryan():
     payload=json.dumps({
         "imei": "866069069789103",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": False}
+            {"channel_1": "Geyser", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -2367,7 +2372,7 @@ def run_martin():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933413/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933413/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933413/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933413"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933413/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2545,8 +2550,9 @@ def run_martin():
     payload=json.dumps({
         "imei": "868373070933413",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": False}
+            {"channel_1": "Geyser", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -2754,13 +2760,10 @@ def run_rushil():
     
     TOPICDATA = "GOSOLR/BRAIN/864454073558102/DATA"
     TOPICMODELS = "GOSOLR/BRAIN/864454073558102/MODELS"
-    TOPICRELAYS = "GOSOLR/BRAIN/864454073558102/RELAYS"
-    TOPICUSAGE = "GOSOLR/BRAIN/864454073558102/USAGE"
     TOPICRISKS = "GOSOLR/BRAIN/864454073558102/RISKS"
     TOPICALERTS = "GOSOLR/BRAIN/864454073558102/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/864454073558102/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/864454073558102/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/864454073558102"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -2933,70 +2936,7 @@ def run_rushil():
         retain=False,
     )
 
-    res = mqtt_connection.publish(
-        topic=TOPICRELAYS,
-        payload=json.dumps({
-            "channel_1": {
-                "name": "Geyser 1",
-                "state": True,
-                "smart": True
-                },
-            "channel_2": {
-                "name": "Pool",
-                "state": True,
-                "smart": True
-                },
-            "channel_3": {
-                "name": "Geyser 2",
-                "state": True,
-                "smart": True
-                },
-            "timeStr": data_timestamp,
-            "dataTimestamp": data_timestamp}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    res = mqtt_connection.publish(
-    topic=TOPICRELAYCONTROL,
-    payload=json.dumps({
-        "imei": "864454073558102",
-        "relay": "1",
-        "controls": [
-            {"channel_1": "Geyser 1", "source": "brain", "state": True},
-            {"channel_2": "Pool", "source": "brain", "state": True},
-            {"channel_3": "Geyser 2", "source": "brain", "state": True}
-        ],
-        "timeStr": data_timestamp,
-        "dataTimestamp": data_timestamp
-    }),
-    qos=mqtt5.QoS.AT_LEAST_ONCE,
-    retain=False,
-    )
 
-    res = mqtt_connection.publish(
-        topic=TOPICUSAGE,
-        payload=json.dumps({
-            "channel_1": {
-                "name": "Geyser 1",
-                "state": True,
-                "load": apply_deviation(2500, 0.05)
-                },
-            "channel_2": {
-                "name": "Pool",
-                "state": True,
-                "load": apply_deviation(1100, 0.05)
-                },
-            "channel_3": {
-                "name": "Geyser 2",
-                "state": apply_deviation(2500, 0.05),
-                "load": 0
-                },
-            "timeStr": data_timestamp,
-            "dataTimestamp": data_timestamp}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
 
     res = mqtt_connection.publish(
         topic=TOPICRISKS,
@@ -3189,7 +3129,7 @@ def run_okert():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932423/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932423/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932423/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932423"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932423/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -3333,8 +3273,9 @@ def run_okert():
     payload=json.dumps({
         "imei": "868373070932423",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -3442,7 +3383,7 @@ def run_andre():
     TOPICALERTS = "GOSOLR/BRAIN/866069069857173/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069857173/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069857173/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069857173"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069857173/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -3586,8 +3527,9 @@ def run_andre():
     payload=json.dumps({
         "imei": "866069069857173",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -3695,7 +3637,7 @@ def run_zandi():
     TOPICALERTS = "GOSOLR/BRAIN/866069069798088/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069798088/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069798088/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069798088"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069798088/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -3839,8 +3781,9 @@ def run_zandi():
     payload=json.dumps({
         "imei": "866069069798088",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -3948,7 +3891,7 @@ def run_jarryd():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856407/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856407/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856407/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856407"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069856407/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -4092,8 +4035,9 @@ def run_jarryd():
     payload=json.dumps({
         "imei": "866069069856407",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Solar Geyser", "source": "brain", "state": True}
+            {"channel_1": "Solar Geyser", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4201,7 +4145,7 @@ def run_sussanna():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932217/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932217/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932217/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932217"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932217/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -4345,8 +4289,9 @@ def run_sussanna():
     payload=json.dumps({
         "imei": "868373070932217",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_1": "Geyser", "state": True},
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4454,7 +4399,7 @@ def run_ryan():
     TOPICALERTS = "GOSOLR/BRAIN/866069069789103/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069789103/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069789103/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789103"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069789103/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -4598,8 +4543,9 @@ def run_ryan():
     payload=json.dumps({
         "imei": "866069069789103",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
+            {"channel_1": "Geyser", "state": True},
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4707,7 +4653,7 @@ def run_faieck():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932332/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932332/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932332/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932332"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932332/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -4866,8 +4812,9 @@ def run_faieck():
     payload=json.dumps({
         "imei": "868373070932332",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": False},
+            {"channel_1": "Geyser", "state": False},
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -4990,7 +4937,7 @@ def run_william():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932720/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932720/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932720/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932720"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932720/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -5144,10 +5091,11 @@ def run_william():
     payload=json.dumps({
         "imei": "868373070932720",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Indeterminate device 1", "source": "brain", "state": True},
-            {"channel_3": "Indeterminate device 2", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "state": True},
+            {"channel_2": "Indeterminate device 1", "state": True},
+            {"channel_3": "Indeterminate device 2", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5265,7 +5213,7 @@ def run_brian():
     TOPICALERTS = "GOSOLR/BRAIN/866069069798807/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069798807/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069798807/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069798807"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069798807/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -5409,8 +5357,9 @@ def run_brian():
     payload=json.dumps({
         "imei": "866069069798807",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5518,7 +5467,7 @@ def run_leendert():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932274/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932274/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932274/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932274"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932274/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -5667,9 +5616,10 @@ def run_leendert():
     payload=json.dumps({
         "imei": "868373070932274",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Indeterminate device", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "state": True},
+            {"channel_2": "Indeterminate device", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -5792,7 +5742,7 @@ def run_vivien():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932050/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932050/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932050/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932050"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932050/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -5964,9 +5914,10 @@ def run_vivien():
     payload=json.dumps({
         "imei": "868373070932050",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": True},
-            {"channel_2": "Indeterminate device", "source": "brain", "state": True}
+            {"channel_1": "Geyser", "state": True},
+            {"channel_2": "Indeterminate device", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -6648,7 +6599,7 @@ def run_rachel():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933116/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933116/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933116/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933116"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933116/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -6807,11 +6758,12 @@ def run_rachel():
     payload=json.dumps({
         "imei": "868373070933116",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -6935,7 +6887,7 @@ def run_veronika():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933348/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933348/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933348/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933348"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933348/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -7094,11 +7046,12 @@ def run_veronika():
     payload=json.dumps({
         "imei": "868373070933348",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -7221,7 +7174,7 @@ def run_jacques():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933769/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933769/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933769/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933769"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933769/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -7380,11 +7333,12 @@ def run_jacques():
     payload=json.dumps({
         "imei": "868373070933769",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -7507,7 +7461,7 @@ def run_gideon():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932290/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932290/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932290/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932290"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932290/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -7666,11 +7620,12 @@ def run_gideon():
     payload=json.dumps({
         "imei": "868373070932290",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -7793,7 +7748,7 @@ def run_louis():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932431/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932431/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932431/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932431"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932431/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -7952,11 +7907,12 @@ def run_louis():
     payload=json.dumps({
         "imei": "868373070932431",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": True},
-            {"channel_2": "Channel 2", "source": "brain", "state": True},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -8079,7 +8035,7 @@ def run_esmond():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932605/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932605/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932605/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932605"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932605/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -8238,8 +8194,9 @@ def run_esmond():
     payload=json.dumps({
         "imei": "868373070932605",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_2": "disconnected", "source": "brain", "state": False}
+            {"channel_2": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -8362,7 +8319,7 @@ def run_kimberleigh():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856464/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856464/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856464/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856464"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069856464/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -8521,8 +8478,9 @@ def run_kimberleigh():
     payload=json.dumps({
         "imei": "866069069856464",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_2": "disconnected", "source": "brain", "state": False}
+            {"channel_2": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -8645,7 +8603,7 @@ def run_jacques():
     TOPICALERTS = "GOSOLR/BRAIN/868373070933769/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070933769/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070933769/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070933769"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933769/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -8804,8 +8762,9 @@ def run_jacques():
     payload=json.dumps({
         "imei": "868373070933769",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "disconnected", "source": "brain", "state": False}
+            {"channel_1": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -8929,7 +8888,7 @@ def run_jack():
     TOPICALERTS = "GOSOLR/BRAIN/866069069856233/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069856233/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069856233/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069856233"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069856233/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -9088,8 +9047,9 @@ def run_jack():
     payload=json.dumps({
         "imei": "866069069856233",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "disconnected", "source": "brain", "state": False}
+            {"channel_1": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -9213,7 +9173,7 @@ def run_kevin():
     TOPICALERTS = "GOSOLR/BRAIN/868373070932639/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/868373070932639/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/868373070932639/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/868373070932639"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932639/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -9372,11 +9332,12 @@ def run_kevin():
     payload=json.dumps({
         "imei": "868373070932639",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "source": "brain", "state": False},
-            {"channel_2": "Pump Type 1", "source": "brain", "state": False},
-            {"channel_3": "disconnected", "source": "brain", "state": False},
-            {"channel_4": "disconnected", "source": "brain", "state": False}
+            {"channel_1": "Geyser", "state": False},
+            {"channel_2": "Pump Type 1", "state": False},
+            {"channel_3": "disconnected", "state": False},
+            {"channel_4": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -9390,11 +9351,12 @@ def run_kevin():
     payload=json.dumps({
         "imei": "868373070932639",
         "relay": "2",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Pump Type 2", "source": "brain", "state": False},
-            {"channel_2": "Pump Type 3", "source": "brain", "state": True},
-            {"channel_3": "disconnected", "source": "brain", "state": False},
-            {"channel_4": "disconnected", "source": "brain", "state": False}
+            {"channel_1": "Pump Type 2", "state": False},
+            {"channel_2": "Pump Type 3", "state": True},
+            {"channel_3": "disconnected", "state": False},
+            {"channel_4": "disconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -9546,7 +9508,7 @@ def run_joe():
     TOPICALERTS = "GOSOLR/BRAIN/866069069792180/ALERTS"
     TOPICHB = "GOSOLR/BRAIN/866069069792180/HB"
     TOPICSTATUS = "GOSOLR/BRAIN/866069069792180/STATUS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069792180"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069792180/RELAYCONTROL"
     
     
     # Constants for Inverter data retrieval
@@ -9705,8 +9667,9 @@ def run_joe():
     payload=json.dumps({
         "imei": "866069069792180",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Indeterminate device", "source": "brain", "state": True}
+            {"channel_1": "Indeterminate device", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -10253,7 +10216,7 @@ def run_craig():
     TOPICHB = "GOSOLR/BRAIN/866069069789269/HB"
     TOPICUSAGE = "GOSOLR/BRAIN/866069069789269/USAGE"
     TOPICRISKS = "GOSOLR/BRAIN/866069069789269/RISKS"
-    TOPICRELAYCONTROL = "GOSOLR/RELAYCONTROL/BRAIN/866069069789269"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069789269/RELAYCONTROL"
     
     # Constants for Inverter data retrieval
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
@@ -10364,11 +10327,12 @@ def run_craig():
     payload=json.dumps({
         "imei": "866069069789269",
         "relay": "1",
+        "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "source": "brain", "state": False},
-            {"channel_2": "Channel 2", "source": "brain", "state": False},
-            {"channel_3": "Channel 3", "source": "brain", "state": True},
-            {"channel_4": "Channel 4", "source": "brain", "state": True}
+            {"channel_1": "Channel 1", "state": False},
+            {"channel_2": "Channel 2", "state": False},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
