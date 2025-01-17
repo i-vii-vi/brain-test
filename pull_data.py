@@ -288,7 +288,7 @@ def run_vardy():
                 "name": "Pump",
                 "state": True,
                 "load": apply_deviation(1500, 0.07)
-                }
+                },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
