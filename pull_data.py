@@ -255,9 +255,7 @@ def run_vardy():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Pump",
-                "state": True,
-                "smart": True
+                "name": "Pump"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -492,14 +490,10 @@ def run_kobus():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser 1",
-                "state": True,
-                "smart": True
+                "name": "Geyser 1"
                 },
             "channel_2": {
-                "name": "Geyser 2",
-                "state": True,
-                "smart": True
+                "name": "Geyser 2"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -1882,9 +1876,7 @@ def run_gideon():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_2": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -2171,9 +2163,7 @@ def run_ummar():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_2": {
-                "name": "Geyser",
-                "state": False,
-                "smart": False
+                "name": "Geyser"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -2425,9 +2415,7 @@ def run_ryan():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": False,
-                "smart": False
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -2679,9 +2667,7 @@ def run_martin():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": False,
-                "smart": False
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -3402,9 +3388,7 @@ def run_okert():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -3656,9 +3640,7 @@ def run_andre():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -3910,9 +3892,7 @@ def run_zandi():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -4164,9 +4144,7 @@ def run_jarryd():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Solar Geyser",
-                "state": True,
-                "smart": True
+                "name": "Solar Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -4418,9 +4396,7 @@ def run_sussanna():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -4672,9 +4648,7 @@ def run_ryan():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -4926,24 +4900,7 @@ def run_faieck():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": False
-                },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -4974,21 +4931,6 @@ def run_faieck():
                 "name": "Geyser",
                 "state": True,
                 "load": apply_deviation(2600, 0.05)
-                },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -5210,19 +5152,13 @@ def run_william():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "channel_2": {
-                "name": "Indeterminate device 1",
-                "state": True,
-                "smart": True
+                "name": "Indeterminate device 1"
                 },
             "channel_3": {
-                "name": "Indeterminate device 2",
-                "state": True,
-                "smart": True
+                "name": "Indeterminate device 2"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -5486,9 +5422,7 @@ def run_brian():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -5740,14 +5674,10 @@ def run_leendert():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "channel_2": {
-                "name": "Indeterminate device",
-                "state": True,
-                "smart": True
+                "name": "Indeterminate device"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -5785,16 +5715,6 @@ def run_leendert():
                 "state": True,
                 "load": apply_deviation(100, 0.05)
                 },
-            "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "load": 0
-                }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
@@ -6038,14 +5958,10 @@ def run_vivien():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "channel_2": {
-                "name": "Indeterminate device",
-                "state": True,
-                "smart": True
+                "name": "Indeterminate device"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -6872,24 +6788,16 @@ def run_rachel():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
-                "state": True,
-                "smart": True
+                "name": "Channel 1"
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
+                "name": "Channel 2"
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "Channel 3"
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "Channel 4"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -7160,24 +7068,16 @@ def run_veronika():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
-                "state": True,
-                "smart": True
+                "name": "Channel 1"
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
+                "name": "Channel 2"
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "Channel 3"
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "Channel 4"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -7447,24 +7347,16 @@ def run_jacques():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
-                "state": True,
-                "smart": True
+                "name": "Channel 1"
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
+                "name": "Channel 2"
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "Channel 3"
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "Channel 4"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -7734,24 +7626,16 @@ def run_gideon():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
-                "state": True,
-                "smart": True
+                "name": "Channel 1"
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
+                "name": "Channel 2"
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "Channel 3"
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "Channel 4"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -8021,24 +7905,16 @@ def run_louis():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
-                "state": True,
-                "smart": True
+                "name": "Channel 1"
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
-                "smart": True
+                "name": "Channel 2"
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
-                "smart": True
+                "name": "Channel 3"
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
-                "smart": True
+                "name": "Channel 4"
                 },
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -8308,24 +8184,16 @@ def run_esmond():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -8592,24 +8460,16 @@ def run_kimberleigh():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -8876,24 +8736,16 @@ def run_jacques():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -9161,24 +9013,16 @@ def run_jack():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 },
             "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "disconnected"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -9446,24 +9290,10 @@ def run_kevin():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
-                "state": True,
-                "smart": True
+                "name": "Geyser"
                 },
             "channel_2": {
-                "name": "Pump Type 1",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
+                "name": "Pump Type 1"
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -9479,9 +9309,7 @@ def run_kevin():
         "source": "brain",
         "controls": [
             {"channel_1": "Geyser", "state": False},
-            {"channel_2": "Pump Type 1", "state": False},
-            {"channel_3": "disconnected", "state": False},
-            {"channel_4": "disconnected", "state": False}
+            {"channel_2": "Pump Type 1", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -9498,9 +9326,7 @@ def run_kevin():
         "source": "brain",
         "controls": [
             {"channel_1": "Pump Type 2", "state": False},
-            {"channel_2": "Pump Type 3", "state": True},
-            {"channel_3": "disconnected", "state": False},
-            {"channel_4": "disconnected", "state": False}
+            {"channel_2": "Pump Type 3", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -9519,16 +9345,6 @@ def run_kevin():
                 },
             "channel_2": {
                 "name": "Pump Type 1",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
                 "state": False,
                 "load": 0
                 }, 
@@ -9550,16 +9366,6 @@ def run_kevin():
                 "name": "Pump Type 3",
                 "state": True,
                 "load": apply_deviation(500, 0.05)
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -9784,21 +9590,6 @@ def run_joe():
                 "name": "Indeterminate device",
                 "state": True,
                 "smart": False
-                },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
-                "smart": False
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -9828,21 +9619,6 @@ def run_joe():
             "channel_1": {
                 "name": "Indeterminate device",
                 "state": True,
-                "load": 0
-                },
-            "channel_2": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_3": {
-                "name": "disconnected",
-                "state": False,
-                "load": 0
-                },
-            "channel_4": {
-                "name": "disconnected",
-                "state": False,
                 "load": 0
                 }, 
             "timeStr": data_timestamp,
