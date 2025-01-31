@@ -5498,7 +5498,7 @@ def run_faieck():
             "alert_5": 0,
             "alert_6": 0,
             "alert_7": 0,
-            "alert_8": "Power profile | Updated"0, 
+            "alert_8": "Power profile | Updated", 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
