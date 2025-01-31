@@ -408,8 +408,8 @@ def run_vardy():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(350, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(750, 0.1),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -635,12 +635,12 @@ def run_kobus():
             "channel_1": {
                 "name": "Geyser 1",
                 "state": True,
-                "load": apply_deviation(2100, 0.07)
+                "load": apply_deviation(1600, 0.07)
                 },
             "channel_2": {
                 "name": "Geyser 2",
                 "state": True,
-                "load": apply_deviation(2500, 0.05)
+                "load": apply_deviation(1900, 0.05)
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -652,8 +652,8 @@ def run_kobus():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -2205,8 +2205,8 @@ def run_gideon():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -2455,8 +2455,8 @@ def run_cuan():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -2742,7 +2742,7 @@ def run_ummar():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(800, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -2994,7 +2994,7 @@ def run_ryan():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -3245,8 +3245,8 @@ def run_martin():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -3608,8 +3608,8 @@ def run_rushil():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(900, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -3966,8 +3966,8 @@ def run_okert():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(500, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -4218,8 +4218,8 @@ def run_andre():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(300, 0.1),
+                "plannedOutage": apply_deviation(500, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -4470,8 +4470,8 @@ def run_zandi():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(300, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -4722,8 +4722,8 @@ def run_jarryd():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(300, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -4974,8 +4974,8 @@ def run_sussanna():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -5227,7 +5227,7 @@ def run_ryan():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(500, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -5478,8 +5478,8 @@ def run_faieck():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -5748,8 +5748,8 @@ def run_william():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -6000,8 +6000,8 @@ def run_brian():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(300, 0.1),
+                "plannedOutage": apply_deviation(300, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -6262,7 +6262,7 @@ def run_leendert():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(500, 0.1),
-                "plannedOutage": apply_deviation(300, 0.05),
+                "plannedOutage": apply_deviation(600, 0.05),
                 "disconnection": apply_deviation(100, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -6545,8 +6545,8 @@ def run_vivien():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(300, 0.1),
+                "plannedOutage": apply_deviation(500, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -6689,8 +6689,8 @@ def run_raymond_2():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(600, 0.1),
-                "plannedOutage": apply_deviation(300, 0.05),
-                "disconnection": apply_deviation(800, 0.1)
+                "plannedOutage": apply_deviation(800, 0.05),
+                "disconnection": apply_deviation(700, 0.1)
                 }, 
             "timeStr": data_timestamp,
             "dataTimestamp": data_timestamp}),
@@ -7393,8 +7393,8 @@ def run_rachel():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(300, 0.1),
+                "plannedOutage": apply_deviation(500, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -7673,8 +7673,8 @@ def run_veronika():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -7953,7 +7953,7 @@ def run_jacques():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(800, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -8232,7 +8232,7 @@ def run_gideon():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -8511,7 +8511,7 @@ def run_louis():
         payload=json.dumps({
             "risk": {
                 "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "plannedOutage": apply_deviation(700, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -8786,8 +8786,8 @@ def run_esmond():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(400, 0.1),
+                "plannedOutage": apply_deviation(800, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
@@ -9062,8 +9062,8 @@ def run_kimberleigh():
         topic=TOPICRISKS,
         payload=json.dumps({
             "risk": {
-                "unplannedOutage": apply_deviation(200, 0.1),
-                "plannedOutage": apply_deviation(100, 0.05),
+                "unplannedOutage": apply_deviation(500, 0.1),
+                "plannedOutage": apply_deviation(800, 0.05),
                 "disconnection": apply_deviation(10, 0.1)
                 }, 
             "timeStr": data_timestamp,
