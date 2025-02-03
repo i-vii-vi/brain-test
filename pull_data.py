@@ -11035,7 +11035,7 @@ except Exception as e:
     
 try:
     CLIENT_ID = "brain-learning-e"
-    run_natalie()
+    #run_natalie()
 except Exception as e:
     print(str(e))
         
