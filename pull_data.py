@@ -10923,6 +10923,165 @@ def run_craig():
     while not res[0].done():
         time.sleep(0.1)
 
+def run_866069069785903():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": 866069069785903")
+    
+    
+    TOPICRELAYS = "GOSOLR/BRAIN/866069069785903/RELAYS"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/866069069785903/RELAYCONTROL"
+    
+    
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "866069069785903",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Channel 1",
+                "state": True,
+                "smart": False
+                },
+            "channel_2": {
+                "name": "Channel 2",
+                "state": True,
+                "smart": False
+                },
+            "channel_3": {
+                "name": "Channel 3",
+                "state": True,
+                "smart": False
+                },
+            "channel_4": {
+                "name": "Channel 4",
+                "state": True,
+                "smart": False
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+   
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
+
+def run_868373070932670():
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5]
+    )
+    
+    print(str(data_timestamp) + ": 868373070932670")
+    
+    
+    TOPICRELAYS = "GOSOLR/BRAIN/868373070932670/RELAYS"
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070932670/RELAYCONTROL"
+    
+    
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070932670",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Channel 1", "state": True},
+            {"channel_2": "Channel 2", "state": True},
+            {"channel_3": "Channel 3", "state": True},
+            {"channel_4": "Channel 4", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYS,
+        payload=json.dumps({
+            "channel_1": {
+                "name": "Channel 1",
+                "state": True,
+                "smart": False
+                },
+            "channel_2": {
+                "name": "Channel 2",
+                "state": True,
+                "smart": False
+                },
+            "channel_3": {
+                "name": "Channel 3",
+                "state": True,
+                "smart": False
+                },
+            "channel_4": {
+                "name": "Channel 4",
+                "state": True,
+                "smart": False
+                }, 
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp}),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+   
+    # Needs to wait for future to be complete
+    while not res[0].done():
+        time.sleep(0.1)
+
 def apply_deviation(load, deviation_percent):
     deviation_factor = random.uniform(1 - deviation_percent, 1 + deviation_percent)
     adjusted_load = round(load * deviation_factor)  # Round off the adjusted load
@@ -11292,5 +11451,17 @@ except Exception as e:
 try:
     CLIENT_ID = "brain-learning-au"
     run_mark()
+except Exception as e:
+    print(str(e))
+
+try:
+    CLINET_ID = "brain-learning-av"
+    run_866069069785903()
+except Exception as e:
+    print(str(e))
+
+try:
+    CLIENT_ID = "brain-learning-aw"
+    run_868373070932670()
 except Exception as e:
     print(str(e))
