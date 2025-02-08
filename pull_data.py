@@ -10957,10 +10957,10 @@ def run_866069069785903():
         "relay": "1",
         "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "state": True},
-            {"channel_2": "Channel 2", "state": True},
-            {"channel_3": "Channel 3", "state": True},
-            {"channel_4": "Channel 4", "state": True}
+            {"channel_1": "Geyser", "state": True},
+            {"channel_2": "disconnected", "state": False},
+            {"channel_3": "disconnected", "state": False},
+            {"channel_4": "diconnected", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -10973,23 +10973,23 @@ def run_866069069785903():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser",
                 "state": True,
                 "smart": False
                 },
             "channel_2": {
-                "name": "Channel 2",
-                "state": True,
+                "name": "disconnected",
+                "state": False,
                 "smart": False
                 },
             "channel_3": {
-                "name": "Channel 3",
-                "state": True,
+                "name": "disconnected",
+                "state": False,
                 "smart": False
                 },
             "channel_4": {
-                "name": "Channel 4",
-                "state": True,
+                "name": "disconnected",
+                "state": False,
                 "smart": False
                 }, 
             "timeStr": data_timestamp,
@@ -11462,6 +11462,6 @@ except Exception as e:
 
 try:
     CLIENT_ID = "brain-learning-aw"
-    run_868373070932670()
+    #run_868373070932670()
 except Exception as e:
     print(str(e))
