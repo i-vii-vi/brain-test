@@ -10957,10 +10957,10 @@ def run_866069069785903():
         "relay": "1",
         "source": "brain",
         "controls": [
-            {"channel_1": "Geyser", "state": True},
+            {"channel_1": "Geyser 1", "state": True},
             {"channel_2": "disconnected", "state": False},
             {"channel_3": "disconnected", "state": False},
-            {"channel_4": "diconnected", "state": False}
+            {"channel_4": "Geyser 2", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -10973,7 +10973,7 @@ def run_866069069785903():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Geyser",
+                "name": "Geyser 1",
                 "state": True,
                 "smart": False
                 },
@@ -10988,7 +10988,7 @@ def run_866069069785903():
                 "smart": False
                 },
             "channel_4": {
-                "name": "disconnected",
+                "name": "Geyser 2",
                 "state": True,
                 "smart": False
                 }, 
@@ -11037,10 +11037,10 @@ def run_868373070932670():
         "relay": "1",
         "source": "brain",
         "controls": [
-            {"channel_1": "Channel 1", "state": True},
-            {"channel_2": "Channel 2", "state": True},
-            {"channel_3": "Channel 3", "state": True},
-            {"channel_4": "Channel 4", "state": True}
+            {"channel_1": "Geyser 1", "state": True},
+            {"channel_2": "disconnected", "state": True},
+            {"channel_3": "disconnected", "state": True},
+            {"channel_4": "Geyser 2", "state": True}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -11053,22 +11053,22 @@ def run_868373070932670():
         topic=TOPICRELAYS,
         payload=json.dumps({
             "channel_1": {
-                "name": "Channel 1",
+                "name": "Geyser 1",
                 "state": True,
                 "smart": False
                 },
             "channel_2": {
-                "name": "Channel 2",
+                "name": "disconnected",
                 "state": True,
                 "smart": False
                 },
             "channel_3": {
-                "name": "Channel 3",
+                "name": "disconnected",
                 "state": True,
                 "smart": False
                 },
             "channel_4": {
-                "name": "Channel 4",
+                "name": "Geyser 2",
                 "state": True,
                 "smart": False
                 }, 
