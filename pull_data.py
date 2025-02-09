@@ -10979,17 +10979,17 @@ def run_866069069785903():
                 },
             "channel_2": {
                 "name": "disconnected",
-                "state": False,
+                "state": True,
                 "smart": False
                 },
             "channel_3": {
                 "name": "disconnected",
-                "state": False,
+                "state": True,
                 "smart": False
                 },
             "channel_4": {
                 "name": "disconnected",
-                "state": False,
+                "state": True,
                 "smart": False
                 }, 
             "timeStr": data_timestamp,
@@ -11462,6 +11462,6 @@ except Exception as e:
 
 try:
     CLIENT_ID = "brain-learning-aw"
-    #run_868373070932670()
+    run_868373070932670()
 except Exception as e:
     print(str(e))
