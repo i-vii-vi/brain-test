@@ -11456,12 +11456,12 @@ except Exception as e:
 
 try:
     CLINET_ID = "brain-learning-av"
-    run_866069069785903()
+    #run_866069069785903()
 except Exception as e:
     print(str(e))
 
 try:
     CLIENT_ID = "brain-learning-aw"
-    run_868373070932670()
+    #run_868373070932670()
 except Exception as e:
     print(str(e))
