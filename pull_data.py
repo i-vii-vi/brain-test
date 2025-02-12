@@ -11312,7 +11312,7 @@ except Exception as e:
 
 try:
     CLIENT_ID = "brain-learning-x"
-    run_shaun()
+    #run_shaun()
 except Exception as e:
     print(str(e))
 
