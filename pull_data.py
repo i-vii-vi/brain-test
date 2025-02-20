@@ -110,37 +110,7 @@ def run_patrick():
     
     print(str(data_timestamp) + ": Patrick Narbel")
     
-    TOPICDATA = "GOSOLR/BRAIN/864454073547659/DATA"
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/864454073547659/RELAYCONTROL"
-    
-    # Constants for Inverter data retrieval
-    TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
-    KEY = "28c595aa93939bab9d"
-    URL_BASE = "https://gsm.gosolr.co.za"
-    SERIAL_NUMBER = "1031200237290095"
-    
-    req = Request(f"{URL_BASE}/solarman/device/sn/{SERIAL_NUMBER}")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("x-api-key", KEY)
-    content = urlopen(req).read()
-
-    raw_data = content.decode("utf-8")
-    raw_dict = json.loads(raw_data)
-    #print(raw_dict)
-
-    # Adjust for nested structure: find the list in the JSON
-    if isinstance(raw_dict, dict):  # JSON starts as a dictionary
-        for key, value in raw_dict.items():
-            if isinstance(value, list):  # Look for the list of objects
-                for entry in value:
-                    if "key" in entry:  # Check each entry for "key"
-                        #print(entry["key"])
-                        #print(entry["name"])
-                        #print(entry["value"])
-                        if entry["key"] == "SN1":
-                            inverterID = entry["value"]+"S"
-    else:
-        print("Unexpected JSON structure:", raw_dict)
+    TOPICRELAYCONTROL = "GOSOLR/BRAIN/868373070933652/RELAYCONTROL"
 
     mqtt_client = mqtt5_client_builder.mtls_from_bytes(
         endpoint=MQTT_BROKER_ENDPOINT,
@@ -155,28 +125,18 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-    
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "timeStr": data_timestamp,
-            "dataTimestamp": data_timestamp}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
 
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
-        "imei": "864454073547659",
+        "imei": "868373070933652",
         "relay": "1",
         "source": "brain",
         "controls": [
             {"channel_1": "Geyser 1", "state": False},
             {"channel_2": "Geyser 2", "state": False},
             {"channel_3": "Oven", "state": True},
-            {"channel_4": "Pool", "state": True}
+            {"channel_4": "Pool", "state": False}
         ],
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp
@@ -11257,10 +11217,12 @@ try:
     run_okert()
 except Exception as e:
     print(str(e))
-    #try:
-    #    run_patrick()
-    #except Exception as e:
-    #    print(str(e))
+
+try:
+    CLIENT_ID = "brain-relays-868373070933652"
+    run_patrick()
+except Exception as e:
+    print(str(e))
         
 try:
     CLIENT_ID = "brain-learning-p"
