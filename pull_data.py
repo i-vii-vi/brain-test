@@ -1,15 +1,24 @@
 from datetime import datetime
 import json
 import time
+from typing import Dict, List, Tuple
 from urllib.request import Request, urlopen
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
-import random
+import os
+import logging
+from dataclasses import dataclass
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Constants for MQTT connection
 MQTT_BROKER_ENDPOINT = "a1xz7n0flroqhn-ats.iot.eu-west-1.amazonaws.com"
 CLIENT_ID = "brain-relays-868373070933652"
 TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
 
+# Certificate strings
 IOT_CERTIFICATE = """-----BEGIN CERTIFICATE-----
 MIIDWTCCAkGgAwIBAgIUXO6FV19qM6tVnJLOwaV2B8wgwGMwDQYJKoZIhvcNAQEL
 BQAwTTFLMEkGA1UECwxCQW1hem9uIFdlYiBTZXJ2aWNlcyBPPUFtYXpvbi5jb20g
@@ -73,108 +82,217 @@ o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----"""
 
-def check_channels(time_str):
-    # Convert the input time to a datetime object
-    current_time = datetime.strptime(time_str, "%H:%M")
-    
-    # Default statuses for channels
-    channel_1_status = "High"
-    channel_2_status = "High"
-    channel_3_status = "High"
-    channel_4_status = "High"
-    
-    # Channel 4 low from 06:55 to 18:05
-    if current_time >= datetime.strptime("06:55", "%H:%M") and current_time <= datetime.strptime("18:05", "%H:%M"):
-        print('pool time')
-        channel_1_status = "Low"
-        channel_2_status = "Low"
-        channel_3_status = "High"
-        channel_4_status = "High"
-    
-    # Channel 1 low from 09:35 to 11:50
-    if current_time >= datetime.strptime("09:35", "%H:%M") and current_time <= datetime.strptime("11:50", "%H:%M"):
-        print('pool and geyser 1')
-        channel_1_status = "High"
-        channel_2_status = "Low"
-        channel_3_status = "High"
-        channel_4_status = "High"
-    
-    # Channels 1 and 2 low from 11:50 to 12:40
-    if current_time >= datetime.strptime("11:50", "%H:%M") and current_time <= datetime.strptime("12:40", "%H:%M"):
-        print('pool time and oven time')
-        channel_1_status = "Low"
-        channel_2_status = "Low"
-        channel_3_status = "High"
-        channel_4_status = "High"
-    
-    # Channel 1 low from 12:40 to 13:52
-    if current_time >= datetime.strptime("12:40", "%H:%M") and current_time <= datetime.strptime("13:52", "%H:%M"):
-        print('Geyser 2')
-        channel_1_status = "Low"
-        channel_2_status = "High"
-        channel_3_status = "High"
-        channel_4_status = "High"
-    
-    # Channel 1 low from 16:52 to 17:49
-    if current_time >= datetime.strptime("16:52", "%H:%M") and current_time <= datetime.strptime("17:49", "%H:%M"):
-        print('Geyser 1')
-        channel_1_status = "High"
-        channel_2_status = "Low"
-        channel_3_status = "High"
-        channel_4_status = "High"
-    
-    # Channel 4 low from 17:40 to 18:15
-    if current_time >= datetime.strptime("17:40", "%H:%M") and current_time <= datetime.strptime("18:15", "%H:%M"):
-        channel_4_status = "Low"
-    
-    # Output the status of all channels
-    print(f"Channel 1 status: {channel_1_status}")
-    print(f"Channel 2 status: {channel_2_status}")
-    print(f"Channel 3 status: {channel_3_status}")
-    print(f"Channel 4 status: {channel_4_status}")
-    
-    # Define a timestamp for the payload
-    data_timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    
-    # Initialize and connect the MQTT client BEFORE publishing
-    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
-        endpoint=MQTT_BROKER_ENDPOINT,
-        client_id=CLIENT_ID,
-        cert_bytes=IOT_CERTIFICATE.encode(),
-        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
-        ca_bytes=AWS_ROOT_CA.encode(),
-        clean_session=True,
-        keep_alive_secs=10,
-    )
-    mqtt_connection = mqtt_client.new_connection()
-    connect_future = mqtt_connection.connect()
-    connect_future.result()
-    
-    # Publish the payload with the corrected controls structure
-    res = mqtt_connection.publish(
-        topic=TOPICRELAYCONTROL,
-        payload=json.dumps({
-            "imei": "864454073547659",
-            "relay": "1",
-            "source": "brain",
-            "controls": [
-                {"channel": "Channel_1", "state": channel_1_status},
-                {"channel": "Channel_2", "state": channel_2_status},
-                {"channel": "Channel_3", "state": channel_3_status},
-                {"channel": "Channel_4", "state": channel_4_status}
-            ],
-            "timeStr": data_timestamp,
-            "dataTimestamp": data_timestamp
-        }),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-    
-    # Optionally, wait until the publish is complete
-    if res:
-        while not res[0].done():
-            time.sleep(0.1)
+@dataclass
+class RelayConfig:
+    mqtt_broker: str
+    client_id: str
+    topic: str
+    cert: str
+    key: str
+    root_ca: str
+    use_files: bool = False
 
-# Example usage:
-current_time_str = datetime.now().strftime("%H:%M")
-check_channels(current_time_str)
+@dataclass
+class ChannelState:
+    channel: str
+    state: str
+
+class RelayController:
+    def __init__(self, config: RelayConfig):
+        self.config = config
+        self.mqtt_client = None
+        self.mqtt_connection = None
+        self._initialize_mqtt()
+
+    def _initialize_mqtt(self):
+        """Initialize MQTT client with credentials from either files or strings"""
+        try:
+            if self.config.use_files:
+                with open(self.config.cert, 'r') as f:
+                    cert = f.read()
+                with open(self.config.key, 'r') as f:
+                    key = f.read()
+                with open(self.config.root_ca, 'r') as f:
+                    root_ca = f.read()
+            else:
+                cert = self.config.cert
+                key = self.config.key
+                root_ca = self.config.root_ca
+
+            self.mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+                endpoint=self.config.mqtt_broker,
+                client_id=self.config.client_id,
+                cert_bytes=cert.encode(),
+                pri_key_bytes=key.encode(),
+                ca_bytes=root_ca.encode(),
+                clean_session=True,
+                keep_alive_secs=30,
+            )
+            self.mqtt_connection = self.mqtt_client.new_connection()
+        except Exception as e:
+            logger.error(f"Failed to initialize MQTT client: {e}")
+            raise
+
+    def connect(self):
+        """Establish MQTT connection with error handling"""
+        try:
+            if not self.mqtt_connection:
+                self._initialize_mqtt()
+            connect_future = self.mqtt_connection.connect()
+            connect_future.result(timeout=5.0)  # Wait up to 5 seconds
+            logger.info("Successfully connected to MQTT broker")
+        except Exception as e:
+            logger.error(f"Failed to connect to MQTT broker: {e}")
+            raise
+
+    def disconnect(self):
+        """Safely disconnect from MQTT broker"""
+        if self.mqtt_connection:
+            try:
+                disconnect_future = self.mqtt_connection.disconnect()
+                disconnect_future.result(timeout=5.0)
+                logger.info("Successfully disconnected from MQTT broker")
+            except Exception as e:
+                logger.error(f"Error during disconnect: {e}")
+
+    def determine_channel_states(self, current_time: datetime) -> List[ChannelState]:
+        """Determine the state of all channels based on the current time"""
+        # Initialize default states
+        states = {
+            "Channel_1": "True",
+            "Channel_2": "True",
+            "Channel_3": "True",
+            "Channel_4": "True"
+        }
+        
+        # Define time ranges and their effects
+        time_rules = [
+            {
+                "start": "06:55",
+                "end": "18:05",
+                "channels": {"Channel_1": "False", "Channel_2": "False", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool"
+            },
+            {
+                "start": "09:35",
+                "end": "11:50",
+                "channels": {"Channel_1": "True", "Channel_2": "False", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool and geyser 1"
+            },
+            {
+                "start": "12:35",
+                "end": "13:50",
+                "channels": {"Channel_1": "True", "Channel_2": "False", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool and geyser 1"
+            },
+            {
+                "start": "13:50",
+                "end": "16:10",
+                "channels": {"Channel_1": "False", "Channel_2": "True", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool and geyser 1"
+            },
+            {
+                "start": "16:10",
+                "end": "18:05",
+                "channels": {"Channel_1": "False", "Channel_2": "False", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool and geyser 1"
+            },
+            {
+                "start": "18:05",
+                "end": "19:30",
+                "channels": {"Channel_1": "False", "Channel_2": "False", "Channel_3": "True", "Channel_4": "True"},
+                "description": "Pool and geyser 1"
+            }
+        ]
+
+        current_time_str = current_time.strftime("%H:%M")
+        
+        # Apply rules in priority order
+        for rule in time_rules:
+            if self._is_time_between(current_time_str, rule["start"], rule["end"]):
+                for channel, state in rule["channels"].items():
+                    states[channel] = state
+                logger.info(f"Applied rule: {rule['description']}")
+
+        return [ChannelState(channel=k, state=v) for k, v in states.items()]
+
+
+    def _is_time_between(self, current: str, start: str, end: str) -> bool:
+        """Check if current time is between start and end times"""
+        current_time = datetime.strptime(current, "%H:%M").time()
+        start_time = datetime.strptime(start, "%H:%M").time()
+        end_time = datetime.strptime(end, "%H:%M").time()
+        
+        if start_time <= end_time:
+            return start_time <= current_time <= end_time
+        else:  # Handle overnight ranges
+            return current_time >= start_time or current_time <= end_time
+
+    def publish_states(self, states: List[ChannelState]):
+        """Publish channel states to MQTT broker"""
+        try:
+            data_timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+            payload = {
+                "imei": "864454073547659",
+                "relay": "1",
+                "source": "brain",
+                "controls": [
+                    {"channel": state.channel, "state": state.state}
+                    for state in states
+                ],
+                "timeStr": data_timestamp,
+                "dataTimestamp": data_timestamp
+            }
+
+            publish_future = self.mqtt_connection.publish(
+                topic=self.config.topic,
+                payload=json.dumps(payload),
+                qos=mqtt5.QoS.AT_LEAST_ONCE,
+                retain=False,
+            )
+            publish_future.result(timeout=5.0)  # Wait up to 5 seconds
+            logger.info("Successfully published channel states")
+        except Exception as e:
+            logger.error(f"Failed to publish channel states: {e}")
+            raise
+
+def main():
+    # Create configuration with hardcoded credentials
+    config = RelayConfig(
+        mqtt_broker=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        topic=TOPICRELAYCONTROL,
+        cert=IOT_CERTIFICATE,
+        key=IOT_PRIVATE_KEY,
+        root_ca=AWS_ROOT_CA,
+        use_files=False  # Using string certificates instead of files
+    )
+
+    # Create the controller
+    controller = RelayController(config)
+    
+    try:
+        # Connect to MQTT broker
+        controller.connect()
+        
+        # Get current time and check channel states
+        current_time = datetime.now()
+        current_time_str = current_time.strftime("%H:%M")
+        logger.info(f"Checking channel states for time: {current_time_str}")
+        
+        # Check channels
+        states = controller.determine_channel_states(current_time)
+        
+        # Publish the states
+        controller.publish_states(states)
+        
+        logger.info("Successfully published channel states")
+        
+    except Exception as e:
+        logger.error(f"Error in main execution: {e}")
+    finally:
+        # Always disconnect properly
+        controller.disconnect()
+
+if __name__ == "__main__":
+    main()
