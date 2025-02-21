@@ -107,6 +107,10 @@ def run_patrick():
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
         t[0], t[1], t[2], t[3], t[4], t[5]
     )
+
+    hours = t.tm_hour
+    minutes = t.tm_min
+    seconds = t.tm_sec
     
     print(str(data_timestamp) + ": Patrick Narbel")
     
@@ -125,7 +129,7 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-
+    if ((hours >9) && (hours <=20))
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
@@ -133,9 +137,200 @@ def run_patrick():
         "relay": "1",
         "source": "brain",
         "controls": [
-            {"channel_1": "Geyser 1", "state": False},
-            {"channel_2": "Geyser 2", "state": False},
             {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+    
+    delay(5000)
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours >=19) && (hours <=15)
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours >=14) && (hours <=17)
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser2", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours >8) && (hours <=20))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 14) && ((minutes >= 0 $$ minutes <=35))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": True},
+            {"channel_2": "Geyser2", "state": True},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 14) && ((minutes >= 35 $$ minutes <=59))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": True},
+            {"channel_2": "Geyser2", "state": false},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 15) && ((minutes >= 30 $$ minutes <=59))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": False},
+            {"channel_2": "Geyser2", "state": True},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 16) && ((minutes >= 00 $$ minutes <=45))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": True},
+            {"channel_2": "Geyser2", "state": False},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 18) && ((minutes >= 00 $$ minutes <=45))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": Trie},
+            {"channel_2": "Geyser2", "state": False},
+            {"channel_3": "Oven", "state": True},
+            {"channel_4": "Pool", "state": True}
+        ],
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp
+    }),
+    qos=mqtt5.QoS.AT_LEAST_ONCE,
+    retain=False,
+    )
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+    if ((hours == 18) && ((minutes >= 45 $$ minutes <=59))
+    res = mqtt_connection.publish(
+    topic=TOPICRELAYCONTROL,
+    payload=json.dumps({
+        "imei": "868373070933652",
+        "relay": "1",
+        "source": "brain",
+        "controls": [
+            {"channel_1": "Geyser1, "state": True},
+            {"channel_2": "Geyser2", "state": False},
+            {"channel_3": "Oven", "state": Fase},
             {"channel_4": "Pool", "state": False}
         ],
         "timeStr": data_timestamp,
@@ -11122,101 +11317,101 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 CLIENT_ID = "brain-learning"
 
+try:
+ f   run_patrick()
+except Exception as e:
+    print(str(e))
+
+
 #try:
-#    run_patrick()
+ #   CLIENT_ID = "brain-learning-a"
+  #  run_kobus()
 #except Exception as e:
-#    print(str(e))
-
-
-try:
-    CLIENT_ID = "brain-learning-a"
-    run_kobus()
-except Exception as e:
-    print(str(e))
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-b"
-    run_kevin()
-except Exception as e:
-    print(str(e))
+#try:
+    3CLIENT_ID = "brain-learning-b"
+    #run_kevin()
+#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-c"
-    run_andre()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-c"
+    #run_andre()
+#except Exception as e:
+    #print(str(e))
     
-try:
-    CLIENT_ID = "brain-learning-d"
-    run_andrew()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-d"
+    #run_andrew()
+#except Exception as e:
+    #print(str(e))
     
-try:
-    CLIENT_ID = "brain-learning-e"
+#try:
+    #CLIENT_ID = "brain-learning-e"
     #run_natalie()
-except Exception as e:
-    print(str(e))
+#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-f"
-    run_rushil()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-f"
+    #run_rushil()
+#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-g"
-    run_jakkie()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-g"
+    #run_jakkie()
+#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-h"
-    run_craig()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-h"
+    #run_craig()
+#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-i"
-    run_eddie()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-i"
+    #run_eddie()
+X#except Exception as e:
+    #print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-j"
-    run_eddie_2()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-j"
+    #run_eddie_2()
+X#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-k"
-    run_ummar()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-k"
+    #run_ummar()
+X#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-l"
-    run_nic()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-l"
+    #run_nic()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-m"
-    run_ryan()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-m"
+    #run_ryan()
+#except Exception as e:
+   # print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-n"
-    run_martin()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-n"
+    #run_martin()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-o"
-    run_okert()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-o"
+    #run_okert()
+#except Exception as e:
+    #print(str(e))
 
 try:
     CLIENT_ID = "brain-relays-868373070933652"
@@ -11224,14 +11419,14 @@ try:
 except Exception as e:
     print(str(e))
         
-try:
-    CLIENT_ID = "brain-learning-p"
-    run_neil()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-p"
+    #run_neil()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-q"
+#try:
+    #CLIENT_ID = "brain-learning-q"
     run_wayne()
 except Exception as e:
     print(str(e))
@@ -11290,140 +11485,140 @@ try:
 except Exception as e:
     print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-aa"
-    run_kimberleigh()
-except Exception as e:
-    print(str(e))
+$try:
+    $CLIENT_ID = "brain-learning-aa"
+    $run_kimberleigh()
+$except Exception as e:
+    $print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ab"
-    run_jack()
-except Exception as e:
-    print(str(e))
+$try:
+    $CLIENT_ID = "brain-learning-ab"
+    $run_jack()
+$except Exception as e:
+    $print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ac"
-    run_william()
+$try:
+    $CLIENT_ID = "brain-learning-ac"
+    $run_william()
 except Exception as e:
-    print(str(e))
+    $print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ad"
-    run_louis()
-except Exception as e:
-    print(str(e))
+$try:
+    $CLIENT_ID = "brain-learning-ad"
+    $run_louis()
+$except Exception as e:
+    $print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ae"
-    run_gideon()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ae"
+    #run_gideon()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-af"
-    run_jacques()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-af"
+    #run_jacques()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ag"
-    run_veronika()
-except Exception as e:
-    print(str(e))
+#Ctry:
+    #CLIENT_ID = "brain-learning-ag"
+    #run_veronika()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ah"
-    run_rachel()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ah"
+    #run_rachel()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ai"
-    run_raymond_1()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ai"
+    #run_raymond_1()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-aj"
-    run_raymond_2()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-aj"
+    #run_raymond_2()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ak"
-    run_raymond_3()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ak"
+    #run_raymond_3()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-al"
-    run_vivien()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-al"
+    #run_vivien()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-am"
-    run_leendert()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-am"
+    #run_leendert()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-an"
-    run_brian()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-an"
+    #run_brian()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ao"
-    run_sussanna()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ao"
+    #run_sussanna()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ap"
-    run_ryan()
-except Exception as e:
-    print(str(e))
+#try:
+   # CLIENT_ID = "brain-learning-ap"
+    #run_ryan()
+e#xcept Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-aq"
-    run_faieck()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-aq"
+    #run_faieck()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-ar"
-    run_joe()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-ar"
+    #run_joe()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-at"
-    run_cuan()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-at"
+    #run_cuan()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-as"
-    run_vardy()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-as"
+    #run_vardy()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-au"
-    run_mark()
-except Exception as e:
-    print(str(e))
+#try:
+    #CLIENT_ID = "brain-learning-au"
+    #run_mark()
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLINET_ID = "brain-learning-av"
+#try:
+    #CLINET_ID = "brain-learning-av"
     #run_866069069785903()
-except Exception as e:
-    print(str(e))
+#except Exception as e:
+    #print(str(e))
 
-try:
-    CLIENT_ID = "brain-learning-aw"
+#try:
+    #CLIENT_ID = "brain-learning-aw"
     #run_868373070932670()
-except Exception as e:
-    print(str(e))
+#except Exception as e:
+    #print(str(e))
