@@ -199,6 +199,8 @@ def run_patrick():
         "relay": "1",
         "source": "brain",
         "controls": [
+            {"channel_3": "Oven", "state": False},
+            {"channel_3": "Oven", "state": False},
             {"channel_3": "Oven", "state": True},
             {"channel_4": "Pool", "state": True}
         ],
