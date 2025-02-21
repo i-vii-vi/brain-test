@@ -100,42 +100,6 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-
-    
-
-    res = mqtt_connection.publish(
-        topic=TOPICDATA,
-        payload=json.dumps({
-            "inverterID":inverterID,
-            "eToday":eToday,
-            "fac":fac,
-            "uPv1":uPv1,
-            "uPv2":uPv2,
-            "iPv1":iPv1,
-            "iPv2":iPv2,
-            "uAc1":uAc1,
-            "iAc1":iAc1,
-            "inverterTemperature":inverterTemperature,
-            "batteryVoltage":batteryVoltage,
-            "batteryCurrent":batteryCurrent,
-            "SoC":SoC,
-            "batteryTodayChargeEnergy":batteryTodayChargeEnergy,
-            "batteryTodayDischargeEnergy":batteryTodayDischargeEnergy,
-            "bypassAcVoltage":bypassAcVoltage,
-            "bypassAcCurrent":bypassAcCurrent,
-            "gridPurchasedTodayEnergy":gridPurchasedTodayEnergy,
-            "gridSoldTodayEnergy":0,
-            "familyLoadPower":familyLoadPower,
-            "bypassLoadPower":bypassLoadPower,
-            "pSUM":pSUM,
-            "homeLoadTodayEnergy":homeLoadTodayEnergy, 
-            "gridTiePower":gridTiePower, 
-            "gridPower":gridPower,
-            "timeStr": data_timestamp,
-            "dataTimestamp": data_timestamp}),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
     
     # Needs to wait for future to be complete
     while not res[0].done():
