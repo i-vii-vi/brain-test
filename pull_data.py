@@ -6,7 +6,7 @@ from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 import random
 
-// AWS IoT Details
+
 const char* mqttBrokerEndpoint = "a1xz7n0flroqhn-ats.iot.eu-west-1.amazonaws.com";
 const char* clientID = "brain-relays-868373070933652";
 
