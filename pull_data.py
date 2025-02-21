@@ -6,9 +6,9 @@ from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 import random
 
-
-const char* mqttBrokerEndpoint = "a1xz7n0flroqhn-ats.iot.eu-west-1.amazonaws.com";
-const char* clientID = "brain-relays-868373070933652";
+# Correct Python variable assignments
+MQTT_BROKER_ENDPOINT = "a1xz7n0flroqhn-ats.iot.eu-west-1.amazonaws.com"
+CLIENT_ID = "brain-relays-868373070933652"
 
 IOT_CERTIFICATE = """-----BEGIN CERTIFICATE-----
 MIIDWTCCAkGgAwIBAgIUXO6FV19qM6tVnJLOwaV2B8wgwGMwDQYJKoZIhvcNAQEL
@@ -73,89 +73,21 @@ o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----"""
 
-
-        
 def run_patrick():
+    # Get current time in GMT
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
         t[0], t[1], t[2], t[3], t[4], t[5]
     )
-    
     hours = t.tm_hour
     minutes = t.tm_min
-    seconds = t.tm_sec
 
-    channel_1_status = True
-    channel_1_status = True
-    channel_1_status = True
-    channel_1_status = True
-
-    print(str(data_timestamp) + ": Patrick Narbel")
+    print(f"{data_timestamp}: Patrick Narbel")
     
     TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
-
-    # The Oven is always ON
-    default_controls = [
-        {"channel_3": "Oven", "state": True}  # Oven ON always
-    ]
-
-    # 07:05 SAST (05:05 GMT) → Turn ON Pool Pump
-    if hours == 5 and minutes == 5:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "864454073547659",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_4": "Pool", "state": True}  # Pool Pump ON
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
- # 09:35 SAST (07:35 GMT) → Keep Pool ON + Turn ON Geyser 1
-    elif hours == 7 and minutes == 35:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "868373070933652",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_1": "Geyser1", "state": True},  # Geyser 1 ON
-                    {"channel_4": "Pool", "state": True}  # Keep Pool Pump ON
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
-
-    # 11:55 SAST (09:55 GMT) → Turn OFF Geyser 1, Keep Pool Pump ON
-    elif hours == 9 and minutes == 55:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "868373070933652",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_1": "Geyser1", "state": False},  # Geyser 1 OFF
-                    {"channel_4": "Pool", "state": True}  # Keep Pool Pump ON
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
-
-        print("Unexpected JSON structure:", raw_dict)
-
+    default_controls = [{"channel_3": "Oven", "state": True}]
+    
+    # Initialize and connect the MQTT client BEFORE publishing
     mqtt_client = mqtt5_client_builder.mtls_from_bytes(
         endpoint=MQTT_BROKER_ENDPOINT,
         client_id=CLIENT_ID,
@@ -166,13 +98,69 @@ def run_patrick():
         keep_alive_secs=10,
     )
     mqtt_connection = mqtt_client.new_connection()
-
     connect_future = mqtt_connection.connect()
     connect_future.result()
     
-    # Needs to wait for future to be complete
-    while not res[0].done():
-        time.sleep(0.1)
+    res = None  # To track the publish result
+
+    # Schedule messages based on time (using GMT here)
+    if hours == 5 and minutes == 5:
+        res = mqtt_connection.publish(
+            topic=TOPICRELAYCONTROL,
+            payload=json.dumps({
+                "imei": "864454073547659",
+                "relay": "1",
+                "source": "brain",
+                "controls": default_controls + [
+                    {"channel_4": "Pool", "state": True}
+                ],
+                "timeStr": data_timestamp,
+                "dataTimestamp": data_timestamp
+            }),
+            qos=mqtt5.QoS.AT_LEAST_ONCE,
+            retain=False,
+        )
+    elif hours == 7 and minutes == 35:
+        res = mqtt_connection.publish(
+            topic=TOPICRELAYCONTROL,
+            payload=json.dumps({
+                "imei": "868373070933652",
+                "relay": "1",
+                "source": "brain",
+                "controls": default_controls + [
+                    {"channel_1": "Geyser1", "state": True},
+                    {"channel_4": "Pool", "state": True}
+                ],
+                "timeStr": data_timestamp,
+                "dataTimestamp": data_timestamp
+            }),
+            qos=mqtt5.QoS.AT_LEAST_ONCE,
+            retain=False,
+        )
+    elif hours == 9 and minutes == 55:
+        res = mqtt_connection.publish(
+            topic=TOPICRELAYCONTROL,
+            payload=json.dumps({
+                "imei": "868373070933652",
+                "relay": "1",
+                "source": "brain",
+                "controls": default_controls + [
+                    {"channel_1": "Geyser1", "state": False},
+                    {"channel_4": "Pool", "state": True}
+                ],
+                "timeStr": data_timestamp,
+                "dataTimestamp": data_timestamp
+            }),
+            qos=mqtt5.QoS.AT_LEAST_ONCE,
+            retain=False,
+        )
+    
+    # Wait for the publish to complete if a publish was triggered
+    if res:
+        while not res[0].done():
+            time.sleep(0.1)
+    else:
+        print("No publish operation was triggered at this time.")
 
 try:
     run_patrick()
