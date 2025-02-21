@@ -129,7 +129,7 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-    if ((hours >9) && (hours <=20))
+    if ((hours >9) & (hours <=20))
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
@@ -151,7 +151,7 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-    if ((hours >=19) && (hours <=15)
+    if ((hours >=19) & (hours <=15)
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
@@ -213,7 +213,7 @@ def run_patrick():
 
     connect_future = mqtt_connection.connect()
     connect_future.result()
-    if ((hours == 14) && ((minutes >= 0 $$ minutes <=35))
+    if ((hours == 14) && ((minutes >= 0 $ minutes <=5))
     res = mqtt_connection.publish(
     topic=TOPICRELAYCONTROL,
     payload=json.dumps({
@@ -222,7 +222,7 @@ def run_patrick():
         "source": "brain",
         "controls": [
             {"channel_1": "Geyser1, "state": True},
-            {"channel_2": "Geyser2", "state": True},
+            {"channel_2": "Geyser2", "state": False},
             {"channel_3": "Oven", "state": True},
             {"channel_4": "Pool", "state": True}
         ],
