@@ -1,14 +1,14 @@
+from datetime import datetime
 import json
 import time
-from datetime import datetime
 from urllib.request import Request, urlopen
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 import random
 
-# Correct Python variable assignments
 MQTT_BROKER_ENDPOINT = "a1xz7n0flroqhn-ats.iot.eu-west-1.amazonaws.com"
 CLIENT_ID = "brain-relays-868373070933652"
+TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
 
 IOT_CERTIFICATE = """-----BEGIN CERTIFICATE-----
 MIIDWTCCAkGgAwIBAgIUXO6FV19qM6tVnJLOwaV2B8wgwGMwDQYJKoZIhvcNAQEL
@@ -73,19 +73,68 @@ o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----"""
 
-def run_patrick():
-    # Get current time in GMT
-    t = time.gmtime()
-    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
-        t[0], t[1], t[2], t[3], t[4], t[5]
-    )
-    hours = t.tm_hour
-    minutes = t.tm_min
-
-    print(f"{data_timestamp}: Patrick Narbel")
+def check_channels(time_str):
+    # Convert the input time to a datetime object
+    current_time = datetime.strptime(time_str, "%H:%M")
     
-    TOPICRELAYCONTROL = "GOSOLR/BRAIN/RELAYCONTROL/864454073547659"
-    default_controls = [{"channel_3": "Oven", "state": True}]
+    # Default statuses for channels
+    channel_1_status = "High"
+    channel_2_status = "High"
+    channel_3_status = "High"
+    channel_4_status = "High"
+    
+    # Channel 4 low from 06:55 to 18:05
+    if current_time >= datetime.strptime("06:55", "%H:%M") and current_time <= datetime.strptime("18:05", "%H:%M"):
+        print('pool time')
+        channel_1_status = "Low"
+        channel_2_status = "Low"
+        channel_3_status = "High"
+        channel_4_status = "High"
+    
+    # Channel 1 low from 09:35 to 11:50
+    if current_time >= datetime.strptime("09:35", "%H:%M") and current_time <= datetime.strptime("11:50", "%H:%M"):
+        print('pool and geyser 1')
+        channel_1_status = "High"
+        channel_2_status = "Low"
+        channel_3_status = "High"
+        channel_4_status = "High"
+    
+    # Channels 1 and 2 low from 11:50 to 12:40
+    if current_time >= datetime.strptime("11:50", "%H:%M") and current_time <= datetime.strptime("12:40", "%H:%M"):
+        print('pool time and oven time')
+        channel_1_status = "Low"
+        channel_2_status = "Low"
+        channel_3_status = "High"
+        channel_4_status = "High"
+    
+    # Channel 1 low from 12:40 to 13:52
+    if current_time >= datetime.strptime("12:40", "%H:%M") and current_time <= datetime.strptime("13:52", "%H:%M"):
+        print('Geyser 2')
+        channel_1_status = "Low"
+        channel_2_status = "High"
+        channel_3_status = "High"
+        channel_4_status = "High"
+    
+    # Channel 1 low from 16:52 to 17:49
+    if current_time >= datetime.strptime("16:52", "%H:%M") and current_time <= datetime.strptime("17:49", "%H:%M"):
+        print('Geyser 1')
+        channel_1_status = "High"
+        channel_2_status = "Low"
+        channel_3_status = "High"
+        channel_4_status = "High"
+    
+    # Channel 4 low from 17:40 to 18:15
+    if current_time >= datetime.strptime("17:40", "%H:%M") and current_time <= datetime.strptime("18:15", "%H:%M"):
+        channel_4_status = "Low"
+    
+    # Output the status of all channels
+    print(f"Channel 1 status: {channel_1_status}")
+    print(f"Channel 2 status: {channel_2_status}")
+    print(f"Channel 3 status: {channel_3_status}")
+    print(f"Channel 4 status: {channel_4_status}")
+    
+    # Define a timestamp for the payload
+    data_timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     
     # Initialize and connect the MQTT client BEFORE publishing
     mqtt_client = mqtt5_client_builder.mtls_from_bytes(
@@ -101,68 +150,31 @@ def run_patrick():
     connect_future = mqtt_connection.connect()
     connect_future.result()
     
-    res = None  # To track the publish result
-
-    # Schedule messages based on time (using GMT here)
-    if hours == 5 and minutes == 5:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "864454073547659",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_4": "Pool", "state": True}
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
-    elif hours == 7 and minutes == 35:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "868373070933652",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_1": "Geyser1", "state": True},
-                    {"channel_4": "Pool", "state": True}
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
-    elif hours == 9 and minutes == 55:
-        res = mqtt_connection.publish(
-            topic=TOPICRELAYCONTROL,
-            payload=json.dumps({
-                "imei": "868373070933652",
-                "relay": "1",
-                "source": "brain",
-                "controls": default_controls + [
-                    {"channel_1": "Geyser1", "state": False},
-                    {"channel_4": "Pool", "state": True}
-                ],
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp
-            }),
-            qos=mqtt5.QoS.AT_LEAST_ONCE,
-            retain=False,
-        )
+    # Publish the payload with the corrected controls structure
+    res = mqtt_connection.publish(
+        topic=TOPICRELAYCONTROL,
+        payload=json.dumps({
+            "imei": "864454073547659",
+            "relay": "1",
+            "source": "brain",
+            "controls": [
+                {"channel": "Channel_1", "state": channel_1_status},
+                {"channel": "Channel_2", "state": channel_2_status},
+                {"channel": "Channel_3", "state": channel_3_status},
+                {"channel": "Channel_4", "state": channel_4_status}
+            ],
+            "timeStr": data_timestamp,
+            "dataTimestamp": data_timestamp
+        }),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
     
-    # Wait for the publish to complete if a publish was triggered
+    # Optionally, wait until the publish is complete
     if res:
         while not res[0].done():
             time.sleep(0.1)
-    else:
-        print("No publish operation was triggered at this time.")
 
-try:
-    run_patrick()
-except Exception as e:
-    print(str(e))
+# Example usage:
+current_time_str = datetime.now().strftime("%H:%M")
+check_channels(current_time_str)
