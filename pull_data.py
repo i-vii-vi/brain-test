@@ -238,7 +238,7 @@ def run_patrick():
 
 
 try:
- f   run_patrick()
+    run_patrick()
 except Exception as e:
     print(str(e))
 
