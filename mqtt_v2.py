@@ -2925,7 +2925,7 @@ while True:
         run_updatedRelays(imei="868373070932621")
         run_heartbeat(
             imei="868373070932621",
-            brainFirmware_version="1.0.0.1",
+            brainFirmware_version="1.0.3.7",
             reboot_timestamp="2025-06-13T12:04:00Z",
             general_system_state=True,
             inverter_coms_state=True,
