@@ -2987,7 +2987,7 @@ try:
      run_updatedRelays(imei="868373070932621")
      run_heartbeat(
          imei="868373070932621",
-         brainFirmware_version="1.0.0.1",
+         brainFirmware_version="1.0.3.7",
          reboot_timestamp="2025-06-13T12:04:00Z",
          general_system_state=True,
          inverter_coms_state=True,
@@ -3071,9 +3071,9 @@ try:
          pair_version="2.0.5",
          manager_version="0.9.13",
          parsec_version="1.5.11",
-         inverter_type="deye-3p",
+         inverter_type="solis-3p",
          order_number="PI-SIM",
-         inverter_sn="2202269098"
+         inverter_sn="00000"
      )
      CLIENT_ID = "brain-868373070929031"
      run_watchdog(imei="868373070929031", deviceCount="1")
