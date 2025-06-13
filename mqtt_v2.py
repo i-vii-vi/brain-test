@@ -2875,7 +2875,9 @@ o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----"""
 
-while True:
+loopRun = True
+
+while (loopRun):
     try:
         CLIENT_ID = "brain-learning-n-s"
         run_2305052900()
@@ -6018,3 +6020,4 @@ while True:
     print()
     
     #time.sleep(5)
+loopRun = False
