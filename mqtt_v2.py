@@ -168,8 +168,8 @@ def run_dubai(imei):
     iPv1 = round(round(random.uniform(9, 11), 2)*cosine_val, 2)
     uPv2 = round(random.uniform(0, 1), 2)*cosine_val
     iPv2 = round(round(random.uniform(0, 1), 2)*cosine_val, 2)
-    uPv2 = round(random.uniform(230, 242), 2)*cosine_val
-    iPv2 = round(round(random.uniform(7, 10), 2)*cosine_val, 2)
+    uPv3 = round(random.uniform(230, 242), 2)*cosine_val
+    iPv3 = round(round(random.uniform(7, 10), 2)*cosine_val, 2)
 
     mqtt_data_payload = {
         "dataTimestamp": data_timestamp,
