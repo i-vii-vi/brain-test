@@ -187,6 +187,8 @@ def run_dubai(imei):
         "scaleFactor": cosine_val*cosine_val
     }
 
+    print(mqtt_data_payload)
+
     res = mqtt_connection.publish(
         topic=TOPICDATA,
         payload=json.dumps(mqtt_data_payload),
