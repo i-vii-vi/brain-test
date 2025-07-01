@@ -183,7 +183,8 @@ def run_dubai(imei):
         "uPv3": uPv3,
         "iPv1": iPv1,
         "uPv1": uPv1,
-        "gridPower": iAc1*uAc1
+        "gridPower": iAc1*uAc1,
+        "scaleFactor": cosine_val*cosine_val
     }
 
     res = mqtt_connection.publish(
