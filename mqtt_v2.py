@@ -167,7 +167,7 @@ def run_dubai(imei):
     uPv1 = round(round(random.uniform(228, 241), 2)*cosine_val, 2)
     iPv1 = round(round(random.uniform(9, 11), 2)*cosine_val, 2)
     uPv2 = round(round(random.uniform(220, 250), 2)*cosine_val, 2)
-    iPv2 = round(round(random.uniform(0, 1), 2)*cosine_val, 2)
+    iPv2 = round(round(random.uniform(6, 8), 2)*cosine_val, 2)
     uPv3 = round(round(random.uniform(230, 242), 2)*cosine_val, 2)
     iPv3 = round(round(random.uniform(8, 10), 2)*cosine_val, 2)
 
