@@ -29,7 +29,7 @@ def cosine_value_with_noise(input_time):
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
     period = 24
-    peak_time = 13.5  # 13:30 in decimal hours
+    peak_time = 10.5  # 13:30 in decimal hours
 
     # Base cosine value shifted to [0, 1]
     base_value = 0.5 * (math.cos((2 * math.pi / period)
