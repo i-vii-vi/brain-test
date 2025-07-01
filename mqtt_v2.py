@@ -164,8 +164,12 @@ def run_dubai(imei):
     gridFrequency = round(random.uniform(49, 51), 1)
     uAc1 = 0#round(random.uniform(230, 242), 2)
     iAc1 = 0#round(round(random.uniform(9, 11), 2)*cosine_val, 2)
-    uPv1 = round(random.uniform(230, 242), 2)
+    uPv1 = round(random.uniform(410, 542), 2)*cosine_val
     iPv1 = round(round(random.uniform(9, 11), 2)*cosine_val, 2)
+    uPv2 = round(random.uniform(0, 1), 2)*cosine_val
+    iPv2 = round(round(random.uniform(0, 1), 2)*cosine_val, 2)
+    uPv2 = round(random.uniform(230, 242), 2)*cosine_val
+    iPv2 = round(round(random.uniform(7, 10), 2)*cosine_val, 2)
 
     mqtt_data_payload = {
         "dataTimestamp": data_timestamp,
@@ -173,6 +177,10 @@ def run_dubai(imei):
         "gridFrequency": gridFrequency,
         "iAc1": iAc1,
         "uAc1": uAc1,
+        "iAc2": iAc2,
+        "uAc2": uAc2,
+        "iAc3": iAc3,
+        "uAc3": uAc3,
         "iPv1": iPv1,
         "uPv1": uPv1,
         "gridPower": iAc1*uAc1
