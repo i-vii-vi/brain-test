@@ -184,7 +184,7 @@ def run_dubai(imei):
         "iPv1": iPv1,
         "uPv1": uPv1,
         "gridPower": iAc1*uAc1,
-        "scaleFactor": cosine_val*cosine_val
+        "scaleFactor": round(cosine_val, 3)
     }
 
     print(mqtt_data_payload)
