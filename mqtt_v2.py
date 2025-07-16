@@ -2998,7 +2998,7 @@ try:
      run_updatedRelays(imei="868373070932621")
      run_heartbeat(
          imei="868373070932621",
-         brainFirmware_version="1.0.3.7",
+         brainFirmware_version="1.0.3.9(α)",
          reboot_timestamp="2025-06-13T12:04:00Z",
          general_system_state=True,
          inverter_coms_state=True,
@@ -3017,9 +3017,9 @@ try:
          order_number="14822",
          inverter_sn="2107199242"
      )
-     CLIENT_ID = "brain-868373070929080"
-     run_watchdog(imei="868373070929080", deviceCount="4")
-     run_updatedRelays(imei="868373070929080")
+     #CLIENT_ID = "brain-868373070929080"
+     #run_watchdog(imei="868373070929080", deviceCount="4")
+     #run_updatedRelays(imei="868373070929080")
      CLIENT_ID = "brain-868373070931391"
      run_watchdog(imei="868373070931391", deviceCount="1")
      CLIENT_ID = "brain-868373070932571"
@@ -3028,8 +3028,8 @@ try:
      run_watchdog(imei="868373070932886", deviceCount="1")
      CLIENT_ID = "brain-868373070935624"
      run_watchdog(imei="868373070935624", deviceCount="0")
-     CLIENT_ID = "brain-868373070926805"
-     run_watchdog(imei="868373070926805", deviceCount="1")
+     #CLIENT_ID = "brain-868373070926805"
+     #run_watchdog(imei="868373070926805", deviceCount="1")
      CLIENT_ID = "brain-868373070934213"
      run_watchdog(imei="868373070934213", deviceCount="1")
      CLIENT_ID = "brain-868373070933603"
