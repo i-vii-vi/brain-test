@@ -379,24 +379,24 @@ def run_watchdog(imei, deviceCount):
             {"name": "bootloader", "value": random.choice(
                 online_like_options_brain)},
             {"name": "status", "value": random.choice(status_options_brain)}
-        ],
-        "relayFirmware": [
-            {"name": "status", "value": random.choice(status_options)},
-            {"name": "pair_r", "value": random.choice(online_like_options)},
-            {"name": "edge_r", "value": random.choice(online_like_options)},
-            {"name": "deviceCount", "value": deviceCount},
-            {"name": "activeChannels", "value": "4"}
-        ],
-        "brainModules": [
-            {"name": "status", "value": random.choice(status_options_brain)},
-            {"name": "gosolr", "value": random.choice(
-                online_like_options_brain)},
-            {"name": "pair", "value": random.choice(
-                online_like_options_brain)},
-            {"name": "edge", "value": random.choice(
-                online_like_options_brain)},
-            {"name": "manager", "value": random.choice(
-                online_like_options_brain)}
+        ]#,
+        #"relayFirmware": [
+            #{"name": "status", "value": random.choice(status_options)},
+            #{"name": "pair_r", "value": random.choice(online_like_options)},
+            #{"name": "edge_r", "value": random.choice(online_like_options)},
+            #{"name": "deviceCount", "value": deviceCount},
+            #{"name": "activeChannels", "value": "4"}
+        #],
+        #"brainModules": [
+            #{"name": "status", "value": random.choice(status_options_brain)},
+            #{"name": "gosolr", "value": random.choice(
+                #online_like_options_brain)},
+            #{"name": "pair", "value": random.choice(
+                #online_like_options_brain)},
+            #{"name": "edge", "value": random.choice(
+                #online_like_options_brain)},
+            #{"name": "manager", "value": random.choice(
+                #online_like_options_brain)}
         ]
     }
 
@@ -3028,8 +3028,8 @@ try:
      run_watchdog(imei="868373070932886", deviceCount="1")
      CLIENT_ID = "brain-868373070935624"
      run_watchdog(imei="868373070935624", deviceCount="0")
-     #CLIENT_ID = "brain-868373070926805"
-     #run_watchdog(imei="868373070926805", deviceCount="1")
+     CLIENT_ID = "brain-868373070926805"
+     run_watchdog(imei="868373070926805", deviceCount="1")
      CLIENT_ID = "brain-868373070934213"
      run_watchdog(imei="868373070934213", deviceCount="1")
      CLIENT_ID = "brain-868373070933603"
