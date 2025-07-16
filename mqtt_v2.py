@@ -379,24 +379,24 @@ def run_watchdog(imei, deviceCount):
             {"name": "bootloader", "value": random.choice(
                 online_like_options_brain)},
             {"name": "status", "value": random.choice(status_options_brain)}
-        ]#,
-        #"relayFirmware": [
-            #{"name": "status", "value": random.choice(status_options)},
-            #{"name": "pair_r", "value": random.choice(online_like_options)},
-            #{"name": "edge_r", "value": random.choice(online_like_options)},
-            #{"name": "deviceCount", "value": deviceCount},
-            #{"name": "activeChannels", "value": "4"}
-        #],
-        #"brainModules": [
-            #{"name": "status", "value": random.choice(status_options_brain)},
-            #{"name": "gosolr", "value": random.choice(
-                #online_like_options_brain)},
-            #{"name": "pair", "value": random.choice(
-                #online_like_options_brain)},
-            #{"name": "edge", "value": random.choice(
-                #online_like_options_brain)},
-            #{"name": "manager", "value": random.choice(
-                #online_like_options_brain)}
+        ],
+        "relayFirmware": [
+            {"name": "status", "value": random.choice(status_options)},
+            {"name": "pair_r", "value": random.choice(online_like_options)},
+            {"name": "edge_r", "value": random.choice(online_like_options)},
+            {"name": "deviceCount", "value": deviceCount},
+            {"name": "activeChannels", "value": "4"}
+        ],
+        "brainModules": [
+            {"name": "status", "value": random.choice(status_options_brain)},
+            {"name": "gosolr", "value": random.choice(
+                online_like_options_brain)},
+            {"name": "pair", "value": random.choice(
+                online_like_options_brain)},
+            {"name": "edge", "value": random.choice(
+                online_like_options_brain)},
+            {"name": "manager", "value": random.choice(
+                online_like_options_brain)}
         ]
     }
 
