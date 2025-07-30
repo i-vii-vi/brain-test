@@ -3028,8 +3028,8 @@ try:
      run_watchdog(imei="868373070932886", deviceCount="1")
      CLIENT_ID = "brain-868373070935624"
      run_watchdog(imei="868373070935624", deviceCount="0")
-     CLIENT_ID = "brain-868373070926805"
-     run_watchdog(imei="868373070926805", deviceCount="1")
+     #CLIENT_ID = "brain-868373070926805"
+     #run_watchdog(imei="868373070926805", deviceCount="1")
      CLIENT_ID = "brain-868373070934213"
      run_watchdog(imei="868373070934213", deviceCount="1")
      CLIENT_ID = "brain-868373070933603"
