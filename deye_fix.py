@@ -10,6 +10,42 @@ import math
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 
+def error_handle(imei):
+    t = time.gmtime()
+    data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
+        t[0], t[1], t[2], t[3], t[4], t[5])
+
+    TOPICERROR = f"GOSOLR/ERRORS/{imei}"
+
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id=CLIENT_ID,
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICERROR,
+        payload=json.dumps(
+            {
+                "error":"error",
+                "timeStr": data_timestamp,
+                "dataTimestamp": data_timestamp,
+            }
+        ),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
+
+    while not res[0].done():
+        time.sleep(0.1)
 
 def run_data_deye3p(imei, inverter_serial):
     t = time.gmtime()
