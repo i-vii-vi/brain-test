@@ -736,6 +736,11 @@ try:
 except:
     print("error")
 
+try:
+    run_data(imei="868373072915657", inverter_serial="2305268422")
+except:
+    print("error")
+
 print()
 
 # time.sleep(5)
