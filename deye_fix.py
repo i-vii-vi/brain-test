@@ -445,10 +445,33 @@ o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----"""
 
+TOPICERROR = f"GOSOLR/BRAIN/ERRORS/{imei}"
+
 try:
     run_data(imei="868373070931227", inverter_serial="2209158492")
-except:
-    print("error")
+except Exception as e:
+    mqtt_client = mqtt5_client_builder.mtls_from_bytes(
+        endpoint=MQTT_BROKER_ENDPOINT,
+        client_id="pi-error-handle",
+        cert_bytes=IOT_CERTIFICATE.encode(),
+        pri_key_bytes=IOT_PRIVATE_KEY.encode(),
+        ca_bytes=AWS_ROOT_CA.encode(),
+        clean_session=True,
+        keep_alive_secs=10,
+    )
+    mqtt_connection = mqtt_client.new_connection()
+
+    connect_future = mqtt_connection.connect()
+    connect_future.result()
+
+    res = mqtt_connection.publish(
+        topic=TOPICERROR,
+        payload=json.dumps(
+            {"error": e, "timeStr": data_timestamp, "dataTimestamp": data_timestamp}
+        ),
+        qos=mqtt5.QoS.AT_LEAST_ONCE,
+        retain=False,
+    )
 
 try:
     run_data(imei="868373070931565", inverter_serial="2501124292")
