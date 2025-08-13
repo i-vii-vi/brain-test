@@ -1,4 +1,4 @@
-name: extract_data_a
+name: run_deye_a
 
 on:
   schedule:
