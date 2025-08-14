@@ -38,16 +38,29 @@ def error_handle(imei, error):
         "An anomalous trend was detected on this Brain",
         "This Brain has restarted due to a system error"
     ]
+    m_key_000 = [
+        "E52-P-K",
+        "E48-P-P",
+        "E52-L-P"
+    ]
+
+    error_001_nlp = [
+        "The registers reported corrupted values",
+        "The registers could not be read properly",
+        "There appears to be a fault on the communication line",
+        "An error occurred when reading the registers",
+        "It looks like there is a fault in the communication protocol"
+    ]
 
     # Assign nlp_response only if error is "0"
     if error == "0":
         error_type = "000"
         nlp_response = random.choice(error_000_nlp)
-        matched_key = "E52-P-K"
+        matched_key = random.choice(m_key_000)
     else:
         if error == "1":
             error_type = "001"
-            nlp_response = "The registers reported corrupted values"
+            nlp_response = random.choice(error_001_nlp)
             matched_key = "E47-D-D"
         else:
             error_type = "100"
