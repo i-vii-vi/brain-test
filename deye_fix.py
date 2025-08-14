@@ -31,10 +31,18 @@ def error_handle(imei, error):
     connect_future = mqtt_connection.connect()
     connect_future.result()
 
+    error_000_nlp = [
+        "There is a general error on this Brain",
+        "A general error on this Brain has been identified",
+        "This Brain is exhibited erroneous behaviour",
+        "An anomalous trend was detected on this Brain",
+        "This Brain has restarted due to a system error"
+    ]
+
     # Assign nlp_response only if error is "0"
     if error == "0":
         error_type = "000"
-        nlp_response = "There is a general error on this Brain"
+        nlp_response = random.choice(error_000_nlp)
         matched_key = "E52-P-K"
     else:
         if error == "1":
