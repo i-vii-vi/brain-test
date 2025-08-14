@@ -404,21 +404,11 @@ def run_data(imei, inverter_serial):
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
-
-    if (SoC > 0):
-        data_validation = True
-    else:
-        data_validation = False
-
-    if (bypassLoadPower > 3000):
-        relay_power = False
-    else:
-        relay_power = True
-    
+   
     res = mqtt_connection.publish(
         topic=TOPICFLAGS,
         payload=json.dumps(
-            {"validation": {"data": data_validation, "usage": data_validation}, "relays": {"power": relay_power}, "timeStr": data_timestamp, "dataTimestamp": data_timestamp}
+            {"timeStr": data_timestamp, "dataTimestamp": data_timestamp}
         ),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
