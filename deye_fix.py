@@ -10,7 +10,7 @@ import math
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 
-def error_handle(imei):
+def error_handle(imei, error):
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
         t[0], t[1], t[2], t[3], t[4], t[5])
@@ -31,11 +31,13 @@ def error_handle(imei):
     connect_future = mqtt_connection.connect()
     connect_future.result()
 
+    nlp_response = "There has been a general error on this Brain."
+
     res = mqtt_connection.publish(
         topic=TOPICERROR,
         payload=json.dumps(
             {
-                "error":"error",
+                "error":{"error_type":"general", "nlp_response":nlp_response},
                 "timeStr": data_timestamp,
                 "dataTimestamp": data_timestamp,
             }
@@ -485,7 +487,7 @@ try:
     run_data(imei="868373070931227", inverter_serial="2209158492")
 except:
     print("error")
-    error_handle("868373070931227")
+    error_handle(imei="868373070931227", error="0")
 
 try:
     run_data(imei="868373070931565", inverter_serial="2501124292")
