@@ -37,9 +37,15 @@ def error_handle(imei, error):
         nlp_response = "There is a general error on this Brain"
         matched_key = "E52-P-K"
     else:
-        error_type = "100"
-        nlp_response = "NA"
-        matched_key = "NA"
+        if error == "1":
+            error_type = "001"
+            nlp_response = "The registers reported corrupted values"
+            matched_key = "E47-D-D"
+        else:
+            error_type = "100"
+            nlp_response = "NA"
+            matched_key = "NA"
+    
 
     payload_data = {
         "error": {
@@ -417,6 +423,9 @@ def run_data(imei, inverter_serial):
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
+
+    if (inverterID == "registerReadError"):
+        error_handle(imei,"1")
 
     while not res[0].done():
         time.sleep(0.1)
