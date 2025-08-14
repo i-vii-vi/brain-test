@@ -234,7 +234,6 @@ def run_data(imei, inverter_serial):
 
     TOPICDATA = f"GOSOLR/BRAIN/{imei}/DATA"
     TOPICKEYMETRICS = f"GOSOLR/BRAIN/{imei}/KEY-METRICS"
-    TOPICKEYMETRICS = f"GOSOLR/BRAIN/{imei}/FLAGS"
     TOKEN = "238c59c51665df09c9bc72daaa9c48074003939bac857a109f0b767b9d4e8622"
     KEY = "28c595aa93939bab9d"
     URL_BASE = "https://gsm.gosolr.co.za"
@@ -400,15 +399,6 @@ def run_data(imei, inverter_serial):
         payload=json.dumps(
             {"fields": {"psum": pSUM, "homeloadtodayenergy": homeLoadTodayEnergy, "soc": SoC, "etoday": eToday,
                         "fac": fac, "bypassloadpower": bypassLoadPower}, "timeStr": data_timestamp, "dataTimestamp": data_timestamp}
-        ),
-        qos=mqtt5.QoS.AT_LEAST_ONCE,
-        retain=False,
-    )
-   
-    res = mqtt_connection.publish(
-        topic=TOPICFLAGS,
-        payload=json.dumps(
-            {"timeStr": data_timestamp, "dataTimestamp": data_timestamp}
         ),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
