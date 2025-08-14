@@ -493,281 +493,337 @@ try:
     run_data(imei="868373070931565", inverter_serial="2501124292")
 except:
     print("error")
+    error_handle(imei="868373070931565", error="0")
 
 try:
     run_data(imei="868373070931102", inverter_serial="2206276178")
 except:
     print("error")
+    error_handle(imei="868373070931102", error="0")
 
 try:
     run_data(imei="868373070933603", inverter_serial="2304288455")
 except:
     print("error")
+    error_handle(imei="868373070933603", error="0")
 
 try:
     run_data(imei="868373070932639", inverter_serial="2303266007")
 except:
     print("error")
+    error_handle(imei="868373070932639", error="0")
 
 try:
     run_data(imei="868373070931664", inverter_serial="2211238422")
 except:
     print("error")
+    error_handle(imei="868373070931664", error="0")
 
 try:
     run_data(imei="868373070933363", inverter_serial="2209257308")
 except:
     print("error")
+    error_handle(imei="868373070933363", error="0")
 
 try:
     run_data(imei="868373070933116", inverter_serial="2304256477")
 except:
     print("error")
+    error_handle(imei="868373070933116", error="0")
 
 try:
     run_data(imei="868373070932720", inverter_serial="2303200214")
 except:
     print("error")
+    error_handle(imei="868373070932720", error="0")
 
 try:
     run_data(imei="868373070931524", inverter_serial="2208068231")
 except:
     print("error")
+    error_handle(imei="868373070931524", error="0")
 
 try:
     run_data(imei="868373070930849", inverter_serial="2303250346")
 except:
     print("error")
+    error_handle(imei="868373070930849", error="0")
 
 try:
     run_data(imei="868373070933843", inverter_serial="2106294063")
 except:
     print("error")
+    error_handle(imei="868373070933843", error="0")
 
 try:
     run_data(imei="868373070932522", inverter_serial="2306090282")
 except:
     print("error")
+    error_handle(imei="868373070932522", error="0")
 
 try:
     run_data(imei="868373070931292", inverter_serial="2305066035")
 except:
     print("error")
+    error_handle(imei="868373070931292", error="0")
 
 try:
     run_data(imei="868373070933041", inverter_serial="2304260750")
 except:
     print("error")
+    error_handle(imei="868373070933041", error="0")
 
 try:
     run_data(imei="868373070930112", inverter_serial="2208182472")
 except:
     print("error")
+    error_handle(imei="868373070930112", error="0")
 
 try:
     run_data(imei="868373070930385", inverter_serial="2211017640")
 except:
     print("error")
+    error_handle(imei="868373070930385", error="0")
 
 try:
     run_data(imei="868373070935210", inverter_serial="2304254298")
 except:
     print("error")
+    error_handle(imei="868373070935210", error="0")
 
 try:
     run_data(imei="868373070917051", inverter_serial="2304156386")
 except:
     print("error")
+    error_handle(imei="868373070917051", error="0")
 
 try:
     run_data(imei="868373070928538", inverter_serial="2107179045")
 except:
     print("error")
+    error_handle(imei="868373070928538", error="0")
 
 try:
     run_data(imei="868373070936259", inverter_serial="2210159573")
 except:
     print("error")
+    error_handle(imei="868373070936259", error="0")
 
 try:
     run_data(imei="868373070935921", inverter_serial="2208278932")
 except:
     print("error")
+    error_handle(imei="868373070935921", error="0")
 
 try:
     run_data(imei="868373070927647", inverter_serial="2304158510")
 except:
     print("error")
+    error_handle(imei="868373070927647", error="0")
 
 try:
     run_data(imei="868373070920980", inverter_serial="2306200231")
 except:
     print("error")
+    error_handle(imei="868373070920980", error="0")
 
 try:
     run_data(imei="868373070915899", inverter_serial="2306178933")
 except:
     print("error")
+    error_handle(imei="868373070915899", error="0")
 
 try:
     run_data(imei="868373070931433", inverter_serial="2211236035")
 except:
     print("error")
+    error_handle(imei="868373070931433", error="0")
 
 try:
     run_data(imei="868373070916327", inverter_serial="2211127492")
 except:
     print("error")
+    error_handle(imei="868373070916327", error="0")
 
 try:
     run_data(imei="868373070916061", inverter_serial="2210145607")
 except:
     print("error")
+    error_handle(imei="868373070916061", error="0")
 
 try:
     run_data(imei="868373070931276", inverter_serial="2107054365")
 except:
     print("error")
+    error_handle(imei="868373070931276", error="0")
 
 try:
     run_data(imei="868373070930823", inverter_serial="2305066101")
 except:
     print("error")
+    error_handle(imei="868373070930823", error="0")
 
 try:
     run_data(imei="868373070932761", inverter_serial="2303078668")
 except:
     print("error")
+    error_handle(imei="868373070932761", error="0")
 
 try:
     run_data(imei="868373070931508", inverter_serial="2208266617")
 except:
     print("error")
+    error_handle(imei="868373070931508", error="0")
 
 try:
     run_data(imei="868373070926797", inverter_serial="2209233278")
 except:
     print("error")
+    error_handle(imei="868373070926797", error="0")
 
 try:
     run_data(imei="868373070931441", inverter_serial="2107319089")
 except:
     print("error")
+    error_handle(imei="868373070931441", error="0")
 
 try:
     run_data(imei="868373070931060", inverter_serial="2506022293")
 except:
     print("error")
+    error_handle(imei="868373070931060", error="0")
 
 try:
     run_data(imei="868373070927167", inverter_serial="2506025130")
 except:
     print("error")
+    error_handle(imei="868373070927167", error="0")
 
 try:
     run_data(imei="868373070931540", inverter_serial="2304198322")
 except:
     print("error")
+    error_handle(imei="868373070931540", error="0")
 
 try:
     run_data(imei="868373070909520", inverter_serial="2501123222")
 except:
     print("error")
+    error_handle(imei="868373070909520", error="0")
 
 try:
     run_data(imei="866069069856381", inverter_serial="2303046167")
 except:
     print("error")
+    error_handle(imei="866069069856381", error="0")
 
 try:
     run_data(imei="868373070931326", inverter_serial="2212022364")
 except:
     print("error")
+    error_handle(imei="868373070931326", error="0")
 
 try:
     run_data(imei="868373070926763", inverter_serial="2208068775")
 except:
     print("error")
+    error_handle(imei="868373070926763", error="0")
 
 try:
     run_data(imei="868373070930765", inverter_serial="2303068686")
 except:
     print("error")
+    error_handle(imei="868373070930765", error="0")
 
 try:
     run_data(imei="868373070917184", inverter_serial="2501154134")
 except:
     print("error")
+    error_handle(imei="868373070917184", error="0")
 
 try:
     run_data(imei="868373070932126", inverter_serial="2501141654")
 except:
     print("error")
+    error_handle(imei="868373070932126", error="0")
 
 try:
     run_data(imei="868373070928991", inverter_serial="2305116451")
 except:
     print("error")
+    error_handle(imei="868373070928991", error="0")
 
 try:
     run_data(imei="868373070930088", inverter_serial="2303148004")
 except:
     print("error")
+    error_handle(imei="868373070930088", error="0")
 
 try:
     run_data(imei="868373070934791", inverter_serial="2211222039")
 except:
     print("error")
+    error_handle(imei="868373070934791", error="0")
 
 try:
     run_data(imei="868373070932001", inverter_serial="2211282010")
 except:
     print("error")
+    error_handle(imei="868373070932001", error="0")
 
 try:
     run_data(imei="868373070932233", inverter_serial="2304046516")
 except:
     print("error")
+    error_handle(imei="868373070932233", error="0")
 
 try:
     run_data(imei="868373070930096", inverter_serial="2501124132")
 except:
     print("error")
+    error_handle(imei="868373070930096", error="0")
 
 try:
     run_data(imei="868373070929502", inverter_serial="2305126005")
 except:
     print("error")
+    error_handle(imei="868373070929502", error="0")
 
 try:
     run_data(imei="868373072915657", inverter_serial="2305268422")
 except:
     print("error")
+    error_handle(imei="868373072915657", error="0")
 
 try:
     run_data(imei="868373070919529", inverter_serial="2303018106")
 except:
     print("error")
+    error_handle(imei="868373070919529", error="0")
 
 try:
     run_data(imei="868373070931060", inverter_serial="2506022293")
 except:
     print("error")
+    error_handle(imei="868373070931060", error="0")
 
 try:
     run_data(imei="868373070927167", inverter_serial="2506025130")
 except:
     print("error")
+    error_handle(imei="868373070927167", error="0")
 
 try:
     run_data(imei="868373070920113", inverter_serial="2506022294")
 except:
     print("error")
+    error_handle(imei="868373070920113", error="0")
 
 try:
     run_data(imei="868373070917051", inverter_serial="2304156386")
 except:
     print("error")
+    error_handle(imei="868373070917051", error="0")
 
 print()
 
