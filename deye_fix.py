@@ -31,17 +31,29 @@ def error_handle(imei, error):
     connect_future = mqtt_connection.connect()
     connect_future.result()
 
-    nlp_response = "There has been a general error on this Brain."
+    # Assign nlp_response only if error is "0"
+    if error == "0":
+        error_type = "000"
+        nlp_response = "There is a general error on this Brain"
+        matched_key = "E52-P-K"
+    else:
+        error_type = "100"
+        nlp_response = "NA"
+        matched_key = "NA"
+
+    payload_data = {
+        "error": {
+            "error_type": error_type,
+            "nlp_response": nlp_response,
+            "matched_key": matched_key
+        },
+        "timeStr": data_timestamp,
+        "dataTimestamp": data_timestamp,
+    }
 
     res = mqtt_connection.publish(
         topic=TOPICERROR,
-        payload=json.dumps(
-            {
-                "error":{"error_type":"general", "nlp_response":nlp_response},
-                "timeStr": data_timestamp,
-                "dataTimestamp": data_timestamp,
-            }
-        ),
+        payload=json.dumps(payload_data),
         qos=mqtt5.QoS.AT_LEAST_ONCE,
         retain=False,
     )
