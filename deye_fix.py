@@ -43,9 +43,9 @@ def error_handle(imei, error):
 
     payload_data = {
         "error": {
-            "error_type": error_type,
-            "nlp_response": nlp_response,
-            "matched_key": matched_key
+            "flag": error_type,
+            "nlp": nlp_response,
+            "m_key": matched_key
         },
         "timeStr": data_timestamp,
         "dataTimestamp": data_timestamp,
