@@ -485,6 +485,7 @@ try:
     run_data(imei="868373070931227", inverter_serial="2209158492")
 except:
     print("error")
+    error_handle("868373070931227")
 
 try:
     run_data(imei="868373070931565", inverter_serial="2501124292")
