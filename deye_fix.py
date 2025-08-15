@@ -43,13 +43,20 @@ def error_handle(imei, error):
         "E48-P-P",
         "E52-L-P"
     ]
+    m_key_001 = [
+        "E47-D-D",
+        "E47-D-E",
+        "E50-K-P"
+    ]
 
     error_001_nlp = [
         "The registers reported corrupted values",
         "The registers could not be read properly",
         "There appears to be a fault on the communication line",
         "An error occurred when reading the registers",
-        "It looks like there is a fault in the communication protocol"
+        "It looks like there is a fault in the communication protocol",
+        "Pins are misaligned between the Brain and inverter",
+        "The communication cable is likely twisted"
     ]
 
     # Assign nlp_response only if error is "0"
@@ -61,7 +68,7 @@ def error_handle(imei, error):
         if error == "1":
             error_type = "001"
             nlp_response = random.choice(error_001_nlp)
-            matched_key = "E47-D-D"
+            matched_key = random.choice(m_key_001)
         else:
             error_type = "100"
             nlp_response = "NA"
