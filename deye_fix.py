@@ -48,6 +48,11 @@ def error_handle(imei, error):
         "E47-D-E",
         "E50-K-P"
     ]
+    m_key_002 = [
+        "S02-A-B",
+        "S01-A-A",
+        "S02-B-G"
+    ]
 
     error_001_nlp = [
         "The registers reported corrupted values",
@@ -57,6 +62,11 @@ def error_handle(imei, error):
         "It looks like there is a fault in the communication protocol",
         "Pins are misaligned between the Brain and inverter",
         "The communication cable is likely twisted"
+    ]
+    error_002_nlp = [
+        "There is an inconsistency in system settings",
+        "This Brain is not registered correctly",
+        "The plant could not be found on Dynamo"
     ]
 
     # Assign nlp_response only if error is "0"
@@ -70,9 +80,14 @@ def error_handle(imei, error):
             nlp_response = random.choice(error_001_nlp)
             matched_key = random.choice(m_key_001)
         else:
-            error_type = "100"
-            nlp_response = "NA"
-            matched_key = "NA"
+            if error == "2":
+                error_type = "002"
+                nlp_response = random.choice(error_002_nlp)
+                matched_key = random.choice(m_key_002)
+            else:
+                error_type = "100"
+                nlp_response = "NA"
+                matched_key = "NA"
     
 
     payload_data = {
@@ -536,43 +551,43 @@ try:
     run_data(imei="868373070931227", inverter_serial="2209158492")
 except:
     print("error")
-    error_handle(imei="868373070931227", error="0")
+    error_handle(imei="868373070931227", error="2")
 
 try:
     run_data(imei="868373070931565", inverter_serial="2501124292")
 except:
     print("error")
-    error_handle(imei="868373070931565", error="0")
+    error_handle(imei="868373070931565", error="2")
 
 try:
     run_data(imei="868373070931102", inverter_serial="2206276178")
 except:
     print("error")
-    error_handle(imei="868373070931102", error="0")
+    error_handle(imei="868373070931102", error="2")
 
 try:
     run_data(imei="868373070933603", inverter_serial="2304288455")
 except:
     print("error")
-    error_handle(imei="868373070933603", error="0")
+    error_handle(imei="868373070933603", error="2")
 
 try:
     run_data(imei="868373070932639", inverter_serial="2303266007")
 except:
     print("error")
-    error_handle(imei="868373070932639", error="0")
+    error_handle(imei="868373070932639", error="2")
 
 try:
     run_data(imei="868373070931664", inverter_serial="2211238422")
 except:
     print("error")
-    error_handle(imei="868373070931664", error="0")
+    error_handle(imei="868373070931664", error="2")
 
 try:
     run_data(imei="868373070933363", inverter_serial="2209257308")
 except:
     print("error")
-    error_handle(imei="868373070933363", error="0")
+    error_handle(imei="868373070933363", error="2")
 
 try:
     run_data(imei="868373070933116", inverter_serial="2304256477")
