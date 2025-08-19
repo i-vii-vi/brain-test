@@ -68,7 +68,7 @@ def uPv2_val(input_time):
     noisy_value = base_value * noise_factor
 
     # Clip to max 1.0 to avoid exceeding due to noise
-    return min(noisy_value, random.uniform(0.99,1.05)
+    return min(noisy_value, random.uniform(0.99,1.05))
 
 def uPv3_val(input_time):
     """
@@ -6189,6 +6189,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
