@@ -3232,70 +3232,6 @@ except Exception as e:
      print(str(e))
 
 try:
-     CLIENT_ID = "brain-6d3f2f22fb10"
-     t = time.gmtime()
-     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
-         t[0], t[1], t[2], t[3], t[4], t[5])
-     run_heartbeat(
-         imei="6D3F2F22FB10",
-         brainFirmware_version="1.0.0.1",
-         reboot_timestamp="2025-08-17T12:52:00Z",
-         general_system_state=True,
-         inverter_coms_state=False,
-         relay_pair_state=False,
-         devices_state=False,
-         system_control_state=False,
-         internal_state=True,
-         relayFirmware_version="0.0.0.0",
-         gosolr_version="1.0.0.0",
-         edge_version="1.0.0.0",
-         east_version="0.0.0.0",
-         pair_version="0.0.0.0",
-         manager_version="0.0.0",
-         parsec_version="0.0.0",
-         inverter_type="pulse-00",
-         order_number="6D3F2F22FB10",
-         inverter_sn="00000"
-     )
-     run_status(imei="6D3F2F22FB10",
-                network_type="wifi | 5g")
-     run_dubai(imei="6D3F2F22FB10")
-except Exception as e:
-     print(str(e))
-
-try:
-     CLIENT_ID = "brain-502ddf35ab23"
-     t = time.gmtime()
-     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
-         t[0], t[1], t[2], t[3], t[4], t[5])
-     run_heartbeat(
-         imei="502DDF35AB23",
-         brainFirmware_version="1.0.0.1",
-         reboot_timestamp="2025-08-17T12:52:00Z",
-         general_system_state=True,
-         inverter_coms_state=False,
-         relay_pair_state=False,
-         devices_state=False,
-         system_control_state=False,
-         internal_state=True,
-         relayFirmware_version="0.0.0.0",
-         gosolr_version="1.0.0.0",
-         edge_version="1.0.0.0",
-         east_version="0.0.0.0",
-         pair_version="0.0.0.0",
-         manager_version="0.0.0",
-         parsec_version="0.0.0",
-         inverter_type="pulse-00",
-         order_number="502DDF35AB23",
-         inverter_sn="00000"
-     )
-     run_status(imei="502DDF35AB23",
-                network_type="wifi | 5g")
-     run_dubai(imei="502DDF35AB23")
-except Exception as e:
-     print(str(e))
-
-try:
      CLIENT_ID = "brain-868373070926797"
      run_data(imei="868373070926797", inverter_serial="2209233278")
 except Exception as e:
@@ -6409,6 +6345,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
