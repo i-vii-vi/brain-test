@@ -429,7 +429,7 @@ def run_dubai(imei):
         "iPv1": iPv1,
         "uPv1": uPv1,
         "gridPower": iAc1*uAc1,
-        "scaleFactor": round(cosine_val, 2)
+        "scaleFactor": log(round(cosine_val, 2)+1)
     }
 
     print(mqtt_data_payload)
@@ -6345,6 +6345,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
