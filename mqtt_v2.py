@@ -27,12 +27,12 @@ def uPv1_val(input_time):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24+ random(-0.1, 0.1)
+    period = 24+ random.uniform(-0.1, 0.1)
     peak_time = 11.5  # 13:30 in decimal hours
 
     # Base cosine value shifted to [0, 1]
-    base_value = random(0.45,0.55) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random(0.9,1.1))
+    base_value = random.uniform(0.45,0.55) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random.uniform(0.9,1.1))
 
     # Add ±2% noise
     noise_factor = 1 + random.uniform(-0.02, 0.05)
@@ -56,19 +56,19 @@ def uPv2_val(input_time):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24 + random(-0.1, 0.1)
+    period = 24 + random.uniform(-0.1, 0.1)
     peak_time = 11.0  # 13:30 in decimal hours
 
     # Base cosine value shifted to [0, 1]
-    base_value = random(0.4,0.6) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random(0.8,1.1))
+    base_value = random.uniform(0.4,0.6) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random.uniform(0.8,1.1))
 
     # Add ±2% noise
     noise_factor = 1 + random.uniform(-0.03, 0.07)
     noisy_value = base_value * noise_factor
 
     # Clip to max 1.0 to avoid exceeding due to noise
-    return min(noisy_value, 1.0)
+    return min(noisy_value, random.uniform(0.99,1.05)
 
 def uPv3_val(input_time):
     """
@@ -85,12 +85,12 @@ def uPv3_val(input_time):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24+ random(-0.1, 0.1)
+    period = 24+ random.uniform(-0.1, 0.1)
     peak_time = 11.5  # 13:30 in decimal hours
 
     # Base cosine value shifted to [0, 1]
-    base_value = random(0.5,0.6) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random(0.95,1.2))
+    base_value = random.uniform(0.5,0.6) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random.uniform(0.95,1.2))
 
     # Add ±2% noise
     noise_factor = 1 + random.uniform(-0.04, 0.02)
@@ -6189,5 +6189,6 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
