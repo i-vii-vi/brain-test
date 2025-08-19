@@ -3202,6 +3202,12 @@ except Exception as e:
      print(str(e))
 
 try:
+     CLIENT_ID = "brain-learning-r-v"
+     run_data(imei="868373070935574", inverter_serial="1031200239070234")
+except Exception as e:
+     print(str(e))
+
+try:
      CLIENT_ID = "brain-5f1a2f30eb16"
      t = time.gmtime()
      data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
@@ -6347,6 +6353,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
