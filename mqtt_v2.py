@@ -12,6 +12,92 @@ from awsiot import mqtt5_client_builder
 
 "familyLoadPower" == 0
 
+def uPv1_val(input_time):
+    """
+    Returns a cosine-based value with a 24-hour period peaking at 13:30,
+    scaled to [0, 1], and adds up to ±2% noise.
+
+    Parameters:
+    - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
+
+    Returns:
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    """
+    if isinstance(input_time, datetime):
+        input_time = input_time.time()
+
+    hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
+    period = 24+ random(-0.1, 0.1)
+    peak_time = 11.5  # 13:30 in decimal hours
+
+    # Base cosine value shifted to [0, 1]
+    base_value = random(0.45,0.55) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random(0.9,1.1))
+
+    # Add ±2% noise
+    noise_factor = 1 + random.uniform(-0.02, 0.05)
+    noisy_value = base_value * noise_factor
+
+    # Clip to max 1.0 to avoid exceeding due to noise
+    return min(noisy_value, 1.0)
+
+def uPv2_val(input_time):
+    """
+    Returns a cosine-based value with a 24-hour period peaking at 13:30,
+    scaled to [0, 1], and adds up to ±2% noise.
+
+    Parameters:
+    - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
+
+    Returns:
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    """
+    if isinstance(input_time, datetime):
+        input_time = input_time.time()
+
+    hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
+    period = 24 + random(-0.1, 0.1)
+    peak_time = 11.0  # 13:30 in decimal hours
+
+    # Base cosine value shifted to [0, 1]
+    base_value = random(0.4,0.6) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random(0.8,1.1))
+
+    # Add ±2% noise
+    noise_factor = 1 + random.uniform(-0.03, 0.07)
+    noisy_value = base_value * noise_factor
+
+    # Clip to max 1.0 to avoid exceeding due to noise
+    return min(noisy_value, 1.0)
+
+def uPv3_val(input_time):
+    """
+    Returns a cosine-based value with a 24-hour period peaking at 13:30,
+    scaled to [0, 1], and adds up to ±2% noise.
+
+    Parameters:
+    - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
+
+    Returns:
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    """
+    if isinstance(input_time, datetime):
+        input_time = input_time.time()
+
+    hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
+    period = 24+ random(-0.1, 0.1)
+    peak_time = 11.5  # 13:30 in decimal hours
+
+    # Base cosine value shifted to [0, 1]
+    base_value = random(0.5,0.6) * (math.cos((2 * math.pi / period)
+                        * (hours - peak_time)) + random(0.95,1.2))
+
+    # Add ±2% noise
+    noise_factor = 1 + random.uniform(-0.04, 0.02)
+    noisy_value = base_value * noise_factor
+
+    # Clip to max 1.0 to avoid exceeding due to noise
+    return min(noisy_value, 1.0)
 
 def cosine_value_with_noise(input_time):
     """
@@ -142,6 +228,9 @@ def run_dubai(imei):
 
     # Call your function with current time
     cosine_val = cosine_value_with_noise(current_time)
+    upv1 = uPv1_val(current_time)
+    upv2 = uPv2_val(current_time)
+    upv3 = uPv3_val(current_time)
 
     print(f"{data_timestamp}: DATA for IMEI {imei}")
 
@@ -162,13 +251,13 @@ def run_dubai(imei):
     connect_future.result()
 
     gridFrequency = round(random.uniform(49, 51), 1)
-    uAc1 = 0#round(random.uniform(230, 242), 2)
-    iAc1 = 0#round(round(random.uniform(9, 11), 2)*cosine_val, 2)
-    uPv1 = round(round(random.uniform(228, 241), 2)*cosine_val,1)
+    uAc1 = round(random.uniform(230, 242), 2)
+    iAc1 = round(round(random.uniform(9, 11), 2)*cosine_val, 2)
+    uPv1 = round(round(random.uniform(228, 241), 2)*upv1_val,1)
     iPv1 = round(round(random.uniform(5, 8), 2)*cosine_val, 1)
-    uPv2 = round(round(random.uniform(220, 250), 2)*cosine_val, 1)
+    uPv2 = round(round(random.uniform(220, 250), 2)*upv2_val, 1)
     iPv2 = round(round(random.uniform(5, 9), 2)*cosine_val, 1)
-    uPv3 = round(round(random.uniform(230, 242), 2)*cosine_val, 1)
+    uPv3 = round(round(random.uniform(230, 242), 2)*upv3_val, 1)
     iPv3 = round(round(random.uniform(6, 9), 2)*cosine_val, 1)
 
     mqtt_data_payload = {
@@ -6100,4 +6189,5 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
