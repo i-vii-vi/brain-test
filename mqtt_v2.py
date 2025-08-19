@@ -286,11 +286,11 @@ def run_dubai(imei):
     gridFrequency = round(random.uniform(49, 51), 1)
     uAc1 = round(random.uniform(230, 242), 2)
     iAc1 = round(round(random.uniform(9, 11), 2)*cosine_val, 2)
-    uPv1 = round(round(random.uniform(228, 241), 2)*upv1_val,1)
+    uPv1 = round(round(random.uniform(228, 241), 2)*upv1,1)
     iPv1 = round(round(random.uniform(5, 8), 2)*cosine_val, 1)
-    uPv2 = round(round(random.uniform(220, 250), 2)*upv2_val, 1)
+    uPv2 = round(round(random.uniform(220, 250), 2)*upv2, 1)
     iPv2 = round(round(random.uniform(5, 9), 2)*cosine_val, 1)
-    uPv3 = round(round(random.uniform(230, 242), 2)*upv3_val, 1)
+    uPv3 = round(round(random.uniform(230, 242), 2)*upv3, 1)
     iPv3 = round(round(random.uniform(6, 9), 2)*cosine_val, 1)
 
     mqtt_data_payload = {
@@ -6222,6 +6222,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
