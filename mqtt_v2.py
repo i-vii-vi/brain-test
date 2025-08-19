@@ -14,90 +14,123 @@ from awsiot import mqtt5_client_builder
 
 def uPv1_val(input_time):
     """
-    Returns a cosine-based value with a 24-hour period peaking at 13:30,
-    scaled to [0, 1], and adds up to ±2% noise.
+    Returns a cosine-based value with a 24-hour period peaking at ~13:30,
+    scaled to [0, 1], with small daily variations, a secondary sine wave,
+    and ±2% noise.
 
     Parameters:
     - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
 
     Returns:
-    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1])
     """
     if isinstance(input_time, datetime):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24+ random.uniform(-0.1, 0.1)
-    peak_time = 11.5  # 13:30 in decimal hours
 
-    # Base cosine value shifted to [0, 1]
-    base_value = random.uniform(0.45,0.55) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random.uniform(0.9,1.1))
+    # Daily variation factors
+    period = 24 + random.uniform(-0.3, 0.5)        # main period ~24h
+    peak_time = 13.5 + random.uniform(-0.4, 0.3)   # ~13:30 peak with jitter
+    amplitude = 1.0 + random.uniform(-0.07, 0.05)  # vary amplitude ±5%
+
+    # Main daily cosine [0,1]
+    base_value = (math.cos((2 * math.pi / period) * (hours - peak_time)) + 1) / 2
+    base_value *= amplitude
+
+    # Secondary sine (smaller, faster fluctuations ~8h period)
+    sub_period = period / 3 + random.uniform(-0.5, 0.2)   # ~8h period
+    sub_amplitude = 0.1 + random.uniform(-0.06, 0.02)     # amplitude around 0.1
+    sub_wave = sub_amplitude * math.sin((2 * math.pi / sub_period) * hours)
+
+    combined_value = base_value + sub_wave
 
     # Add ±2% noise
-    noise_factor = 1 + random.uniform(-0.02, 0.05)
-    noisy_value = base_value * noise_factor
+    noise_factor = 1 + random.uniform(-0.03, 0.05)
+    noisy_value = combined_value * noise_factor
 
-    # Clip to max 1.0 to avoid exceeding due to noise
-    return min(noisy_value, 1.0)
+    # Clip to [0, 1]
+    return min(max(noisy_value, 0.0), 1.0)
 
 def uPv2_val(input_time):
     """
-    Returns a cosine-based value with a 24-hour period peaking at 13:30,
-    scaled to [0, 1], and adds up to ±2% noise.
+    Returns a cosine-based value with a 24-hour period peaking at ~13:30,
+    scaled to [0, 1], with small daily variations, a secondary sine wave,
+    and ±2% noise.
 
     Parameters:
     - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
 
     Returns:
-    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1])
     """
     if isinstance(input_time, datetime):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24 + random.uniform(-0.1, 0.1)
-    peak_time = 11.0  # 13:30 in decimal hours
 
-    # Base cosine value shifted to [0, 1]
-    base_value = random.uniform(0.4,0.6) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random.uniform(0.8,1.1))
+    # Daily variation factors
+    period = 24 + random.uniform(-0.3, 0.5)        # main period ~24h
+    peak_time = 13.5 + random.uniform(-0.4, 0.3)   # ~13:30 peak with jitter
+    amplitude = 1.0 + random.uniform(-0.07, 0.05)  # vary amplitude ±5%
+
+    # Main daily cosine [0,1]
+    base_value = (math.cos((2 * math.pi / period) * (hours - peak_time)) + 1) / 2
+    base_value *= amplitude
+
+    # Secondary sine (smaller, faster fluctuations ~8h period)
+    sub_period = period / 3 + random.uniform(-0.5, 0.2)   # ~8h period
+    sub_amplitude = 0.1 + random.uniform(-0.06, 0.02)     # amplitude around 0.1
+    sub_wave = sub_amplitude * math.sin((2 * math.pi / sub_period) * hours)
+
+    combined_value = base_value + sub_wave
 
     # Add ±2% noise
-    noise_factor = 1 + random.uniform(-0.03, 0.07)
-    noisy_value = base_value * noise_factor
+    noise_factor = 1 + random.uniform(-0.03, 0.05)
+    noisy_value = combined_value * noise_factor
 
-    # Clip to max 1.0 to avoid exceeding due to noise
-    return min(noisy_value, random.uniform(0.99,1.05))
+    # Clip to [0, 1]
+    return min(max(noisy_value, 0.0), 1.0)
 
 def uPv3_val(input_time):
     """
-    Returns a cosine-based value with a 24-hour period peaking at 13:30,
-    scaled to [0, 1], and adds up to ±2% noise.
+    Returns a cosine-based value with a 24-hour period peaking at ~13:30,
+    scaled to [0, 1], with small daily variations, a secondary sine wave,
+    and ±2% noise.
 
     Parameters:
     - input_time (datetime.time or datetime.datetime): Time at which to evaluate the function.
 
     Returns:
-    - float: Non-negative cosine-based value with noise (range: approximately [0, 1.02])
+    - float: Non-negative cosine-based value with noise (range: approximately [0, 1])
     """
     if isinstance(input_time, datetime):
         input_time = input_time.time()
 
     hours = input_time.hour + input_time.minute / 60 + input_time.second / 3600
-    period = 24+ random.uniform(-0.1, 0.1)
-    peak_time = 11.5  # 13:30 in decimal hours
 
-    # Base cosine value shifted to [0, 1]
-    base_value = random.uniform(0.5,0.6) * (math.cos((2 * math.pi / period)
-                        * (hours - peak_time)) + random.uniform(0.95,1.2))
+    # Daily variation factors
+    period = 24 + random.uniform(-0.3, 0.5)        # main period ~24h
+    peak_time = 13.5 + random.uniform(-0.4, 0.3)   # ~13:30 peak with jitter
+    amplitude = 1.0 + random.uniform(-0.07, 0.05)  # vary amplitude ±5%
+
+    # Main daily cosine [0,1]
+    base_value = (math.cos((2 * math.pi / period) * (hours - peak_time)) + 1) / 2
+    base_value *= amplitude
+
+    # Secondary sine (smaller, faster fluctuations ~8h period)
+    sub_period = period / 3 + random.uniform(-0.5, 0.2)   # ~8h period
+    sub_amplitude = 0.1 + random.uniform(-0.06, 0.02)     # amplitude around 0.1
+    sub_wave = sub_amplitude * math.sin((2 * math.pi / sub_period) * hours)
+
+    combined_value = base_value + sub_wave
 
     # Add ±2% noise
-    noise_factor = 1 + random.uniform(-0.04, 0.02)
-    noisy_value = base_value * noise_factor
+    noise_factor = 1 + random.uniform(-0.03, 0.05)
+    noisy_value = combined_value * noise_factor
 
-    # Clip to max 1.0 to avoid exceeding due to noise
-    return min(noisy_value, 1.0)
+    # Clip to [0, 1]
+    return min(max(noisy_value, 0.0), 1.0)
 
 def cosine_value_with_noise(input_time):
     """
@@ -6189,6 +6222,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
