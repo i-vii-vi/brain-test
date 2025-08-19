@@ -7,6 +7,8 @@ import hashlib
 
 import math
 
+from math import log
+
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 
@@ -6345,6 +6347,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
