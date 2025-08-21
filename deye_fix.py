@@ -53,6 +53,14 @@ def error_handle(imei, error):
         "S01-A-A",
         "S02-B-G"
     ]
+    error_019_nlp = [
+        "There is a fault on the inverter main board",
+        "The RS485 Meter Port appears to be faulty"
+    ]
+    m_key_019 = [
+        "E14-W-E",
+        "E69-P-R"
+    ]
 
     error_001_nlp = [
         "The registers reported corrupted values",
@@ -85,9 +93,14 @@ def error_handle(imei, error):
                 nlp_response = random.choice(error_002_nlp)
                 matched_key = random.choice(m_key_002)
             else:
-                error_type = "100"
-                nlp_response = "NA"
-                matched_key = "NA"
+                if error == "19":
+                    error_type = "019"
+                    nlp_response = random.choice(error_019_nlp)
+                    matched_key = random.choice(m_key_019)
+                else:
+                    error_type = "100"
+                    nlp_response = "NA"
+                    matched_key = "NA"
     
 
     payload_data = {
@@ -563,7 +576,7 @@ try:
     run_data(imei="868373070931102", inverter_serial="2206276178")
 except:
     print("error")
-    error_handle(imei="868373070931102", error="2")
+    error_handle(imei="868373070931102", error="19")
 
 try:
     run_data(imei="868373070933603", inverter_serial="2304288455")
