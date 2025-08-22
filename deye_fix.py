@@ -604,7 +604,7 @@ try:
     run_data(imei="868373070931102", inverter_serial="2206276178")
 except:
     print("error")
-    error_handle(imei="868373070931102", error="19")
+    #error_handle(imei="868373070931102", error="19")
     error_handle(imei="868373070931102", error="8")
     error_handle(imei="868373070931102", error="94")
 
