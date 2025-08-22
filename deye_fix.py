@@ -62,6 +62,24 @@ def error_handle(imei, error):
         "E69-P-R"
     ]
 
+    m_key_008 = [
+        "D00-A-E",
+        "W10-S-Q"
+    ]
+    error_008_nlp = [
+        "There is instability with device connection on the control network",
+        "Anomalous connections are registered on the control network"
+    ]
+
+    m_key_094 = [
+        "X11-V-R",
+        "Y66-K-P"
+    ]
+    error_094_nlp = [
+        "The relay board does not consistently identify its chip",
+        "The ESP8266 appears to have malfunctioned"
+    ]
+
     error_001_nlp = [
         "The registers reported corrupted values",
         "The registers could not be read properly",
@@ -98,9 +116,19 @@ def error_handle(imei, error):
                     nlp_response = random.choice(error_019_nlp)
                     matched_key = random.choice(m_key_019)
                 else:
-                    error_type = "100"
-                    nlp_response = "NA"
-                    matched_key = "NA"
+                    if error == "8":
+                        error_type = "008"
+                        nlp_response = random.choice(error_008_nlp)
+                        matched_key = random.choice(m_key_008)
+                    else:
+                        if error == "94":
+                            error_type = "094"
+                            nlp_response = random.choice(error_094_nlp)
+                            matched_key = random.choice(m_key_094)
+                        else:
+                            error_type = "100"
+                            nlp_response = "NA"
+                            matched_key = "NA"
     
 
     payload_data = {
@@ -577,6 +605,8 @@ try:
 except:
     print("error")
     error_handle(imei="868373070931102", error="19")
+    error_handle(imei="868373070931102", error="8")
+    error_handle(imei="868373070931102", error="94")
 
 try:
     run_data(imei="868373070933603", inverter_serial="2304288455")
