@@ -949,6 +949,12 @@ try:
 except:
     print("error")
     error_handle(imei="868373070936325", error="0")
+    
+try:
+    run_data(imei="868373070933900", inverter_serial="2209223719")
+except:
+    print("error")
+    error_handle(imei="868373070933900", error="0")
 
 print()
 
