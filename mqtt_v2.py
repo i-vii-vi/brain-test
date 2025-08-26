@@ -3212,30 +3212,30 @@ try:
      t = time.gmtime()
      data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
          t[0], t[1], t[2], t[3], t[4], t[5])
-     run_heartbeat(
-         imei="5F1A2F30EB16",
-         brainFirmware_version="1.0.0.1",
-         reboot_timestamp="2025-05-25T11:56:00Z",
-         general_system_state=True,
-         inverter_coms_state=False,
-         relay_pair_state=False,
-         devices_state=False,
-         system_control_state=False,
-         internal_state=True,
-         relayFirmware_version="0.0.0.0",
-         gosolr_version="1.0.0.0",
-         edge_version="1.0.0.0",
-         east_version="0.0.0.0",
-         pair_version="0.0.0.0",
-         manager_version="0.0.0",
-         parsec_version="0.0.0",
-         inverter_type="sungro",
-         order_number="00000",
-         inverter_sn="00000"
-     )
-     run_status(imei="5F1A2F30EB16",
-                network_type="wifi | 5g")
-     run_dubai(imei="5F1A2F30EB16")
+     #run_heartbeat(
+     #    imei="5F1A2F30EB16",
+     #    brainFirmware_version="1.0.0.1",
+     #    reboot_timestamp="2025-05-25T11:56:00Z",
+     #    general_system_state=True,
+     #    inverter_coms_state=False,
+     #    relay_pair_state=False,
+     #    devices_state=False,
+     #    system_control_state=False,
+     #    internal_state=True,
+     #    relayFirmware_version="0.0.0.0",
+     #    gosolr_version="1.0.0.0",
+     #    edge_version="1.0.0.0",
+     #    east_version="0.0.0.0",
+     #    pair_version="0.0.0.0",
+     #    manager_version="0.0.0",
+     #    parsec_version="0.0.0",
+     #    inverter_type="sungro",
+     #    order_number="00000",
+     #    inverter_sn="00000"
+     #)
+     #run_status(imei="5F1A2F30EB16",
+     #           network_type="wifi | 5g")
+     #run_dubai(imei="5F1A2F30EB16")
 except Exception as e:
      print(str(e))
 
@@ -4441,20 +4441,20 @@ try:
      CLIENT_ID = "brain-868373070934213"
      run_heartbeat(
          imei="868373070934213",
-         brainFirmware_version="1.0.3.7",
-         reboot_timestamp="2025-06-12T13:47:00Z",
+         brainFirmware_version="1.1.1.0(β)",
+         reboot_timestamp="2025-08-26T13:47:00Z",
          general_system_state=True,
          inverter_coms_state=True,
          relay_pair_state=True,
          devices_state=True,
-         system_control_state=False,
+         system_control_state=True,
          internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
-         edge_version="1.8.7",
-         east_version="1.0.17",
-         pair_version="2.0.5",
-         manager_version="0.9.13",
+         relayFirmware_version="3.5.1.10(β)",
+         gosolr_version="2.8.0.2(π)",
+         edge_version="2.9.8",
+         east_version="1.8.22",
+         pair_version="3.2.5",
+         manager_version="0.9.15",
          parsec_version="1.5.11",
          inverter_type="deye-1p",
          order_number="54490",
@@ -4472,9 +4472,9 @@ try:
                 channel_2_mode=False,
                 channel_3_mode=False,
                 channel_4_mode=False,
-                channel_1_usage=round(random.uniform(0, 10), 1),
-                channel_2_usage=round(random.uniform(0, 10), 1),
-                channel_3_usage=round(random.uniform(0, 10), 1),
+                channel_1_usage=round(random.uniform(2000, 3500), 1),
+                channel_2_usage=round(random.uniform(3100, 3400), 1),
+                channel_3_usage=round(random.uniform(800, 1000), 1),
                 channel_4_usage=0)
      run_relaycontrol(imei="868373070934213",
                       channel_1_device="Geyser 1",
@@ -4482,13 +4482,10 @@ try:
                       channel_3_device="Swimming pool",
                       channel_4_device="disconnected",
                       channel_1_state=True,
-                      channel_2_state=False,
-                      channel_3_state=False,
+                      channel_2_state=True,
+                      channel_3_state=True,
                       channel_4_state=False
                       )
-     run_tariffs(imei="868373070934213",
-                 buy_tariff="5.58",
-                 sell_tariff="0.00")
      run_data(imei="868373070934213", inverter_serial="2305102553")
 except Exception as e:
      print(str(e))
@@ -6271,6 +6268,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
