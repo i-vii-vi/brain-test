@@ -3310,8 +3310,6 @@ try:
      run_watchdog(imei="868373070933736", deviceCount="1")
      CLIENT_ID = "brain-868373070930070"
      run_watchdog(imei="868373070930070", deviceCount="1")
-     CLIENT_ID = "brain-868373070932282"
-     run_watchdog(imei="868373070932282", deviceCount="1")
      CLIENT_ID = "brain-868373070931524"
      run_watchdog(imei="868373070931524", deviceCount="1")
      CLIENT_ID = "brain-868373070933603"
@@ -3324,29 +3322,6 @@ try:
      run_watchdog(imei="868373070926888", deviceCount="1")
      CLIENT_ID = "brain-868373070933520"
      run_watchdog(imei="868373070933520", deviceCount="1")
-     run_watchdog(imei="868373070933520-SIM", deviceCount="1")
-     run_updatedRelays(imei="868373070933520-SIM")
-     run_heartbeat(
-         imei="868373070933520-SIM",
-         brainFirmware_version="1.0.3.7",
-         reboot_timestamp="2025-06-12T13:47:00Z",
-         general_system_state=True,
-         inverter_coms_state=True,
-         relay_pair_state=True,
-         devices_state=True,
-         system_control_state=True,
-         internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
-         edge_version="1.8.7",
-         east_version="1.0.17",
-         pair_version="2.0.5",
-         manager_version="0.9.13",
-         parsec_version="1.5.11",
-         inverter_type="solis-3p",
-         order_number="PI-SIM",
-         inverter_sn="00000"
-     )
      CLIENT_ID = "brain-868373070929031"
      run_watchdog(imei="868373070929031", deviceCount="1")
      CLIENT_ID = "brain-868373070932324"
@@ -3776,63 +3751,6 @@ try:
      run_tariffs(imei=imei_number,
                  buy_tariff="5.47",
                  sell_tariff="0.00")
-except Exception as e:
-     print(str(e))
-
-try:
-     CLIENT_ID = "brain-868373070932282"
-     imei_number = "868373070932282"
-     run_heartbeat(
-         imei=imei_number,
-         brainFirmware_version="1.0.3.7",
-         reboot_timestamp="2025-06-12T13:47:00Z",
-         general_system_state=True,
-         inverter_coms_state=True,
-         relay_pair_state=True,
-         devices_state=True,
-         system_control_state=False,
-         internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
-         edge_version="1.8.7",
-         east_version="1.0.17",
-         pair_version="2.0.5",
-         manager_version="0.9.13",
-         parsec_version="1.5.11",
-         inverter_type="deye-1p",
-         order_number="22324",
-         inverter_sn="2207282514"
-     )
-     run_status(imei=imei_number,
-                network_type="wifi | 5g")
-     run_relays(imei=imei_number,
-                relay_pair_state=True,
-                channel_1_device="Geyser",
-                channel_2_device="disconnected",
-                channel_3_device="disconnected",
-                channel_4_device="disconnected",
-                channel_1_mode=False,
-                channel_2_mode=False,
-                channel_3_mode=False,
-                channel_4_mode=False,
-                channel_1_usage=round(random.uniform(0, 10), 1),
-                channel_2_usage=0,
-                channel_3_usage=0,
-                channel_4_usage=0)
-     run_relaycontrol(imei=imei_number,
-                      channel_1_device="Geyser",
-                      channel_2_device="Geyser",
-                      channel_3_device="disconnected",
-                      channel_4_device="disconnected",
-                      channel_1_state=True,
-                      channel_2_state=False,
-                      channel_3_state=False,
-                      channel_4_state=False
-                      )
-     run_tariffs(imei=imei_number,
-                 buy_tariff="5.80",
-                 sell_tariff="0.00")
-     run_data(imei=imei_number, inverter_serial="2207282514")
 except Exception as e:
      print(str(e))
 
@@ -6353,6 +6271,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
