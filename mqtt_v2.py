@@ -3814,7 +3814,7 @@ try:
      CLIENT_ID = "brain-868373070932720"
      run_heartbeat(
          imei="868373070932720",
-         brainFirmware_version="1.0.3.7",
+         brainFirmware_version="1.1.1.0(β)",
          reboot_timestamp="2025-05-29T08:37:00Z",
          general_system_state=True,
          inverter_coms_state=True,
@@ -3822,8 +3822,8 @@ try:
          devices_state=True,
          system_control_state=False,
          internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
+         relayFirmware_version="3.5.1.10(β)",
+         gosolr_version="2.8.0.2(π)",
          edge_version="1.8.7",
          east_version="1.0.17",
          pair_version="2.0.5",
@@ -3834,7 +3834,7 @@ try:
          inverter_sn="2303200214"
      )
      run_status(imei="868373070932720",
-                network_type="wifi | 2g")
+                network_type="wifi | 2.4ghz")
      run_relays(imei="868373070932720",
                 relay_pair_state=True,
                 channel_1_device="Geyser",
@@ -3845,7 +3845,7 @@ try:
                 channel_2_mode=False,
                 channel_3_mode=False,
                 channel_4_mode=False,
-                channel_1_usage=round(random.uniform(0, 10), 1),
+                channel_1_usage=round(random.uniform(2800, 3200), 1),
                 channel_2_usage=0,
                 channel_3_usage=0,
                 channel_4_usage=0)
@@ -3859,9 +3859,6 @@ try:
                       channel_3_state=False,
                       channel_4_state=False
                       )
-     run_tariffs(imei="868373070932720",
-                 buy_tariff="0.00",
-                 sell_tariff="0.00")
      run_data(imei="868373070932720", inverter_serial="2303200214")
 except Exception as e:
      print(str(e))
