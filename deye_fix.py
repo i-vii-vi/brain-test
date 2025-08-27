@@ -666,7 +666,6 @@ try:
     run_data(imei="868373070930849", inverter_serial="2303250346")
 except:
     print("error")
-    error_handle(imei="868373070930849", error="0")
 
 try:
     run_data(imei="868373070933843", inverter_serial="2106294063")
