@@ -3342,7 +3342,7 @@ try:
      print(int(utility))
      run_heartbeat(
          imei="868373070905452",
-         brainFirmware_version="1.0.3.7",
+         brainFirmware_version="1.1.1.0(β)",
          reboot_timestamp="2025-06-12T13:47:00Z",
          general_system_state=True,
          inverter_coms_state=True,
@@ -3350,8 +3350,8 @@ try:
          devices_state=True,
          system_control_state=True,
          internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
+         relayFirmware_version="3.5.1.10(β)",
+         gosolr_version="2.8.0.2(π)",
          edge_version="1.8.7",
          east_version="1.0.17",
          pair_version="2.0.5",
@@ -3362,7 +3362,7 @@ try:
          inverter_sn="2202269098"
      )
      run_status(imei="868373070905452",
-                network_type="wifi | 5g")
+                network_type="wifi | 5ghz")
      utility = int(utility)
      if utility <1000:
          channel_1_usage_val = round(random.uniform(0, 10),1)/10
@@ -3429,9 +3429,6 @@ try:
                       channel_3_state=channel_3_state_val,
                       channel_4_state=channel_4_state_val
                       )
-     run_tariffs(imei="868373070905452",
-                 buy_tariff="0.46",
-                 sell_tariff="6.77")
 except Exception as e:
      print(str(e))
 
