@@ -6203,16 +6203,16 @@ try:
      inverter_serialn = "2209223588"
      run_heartbeat(
          imei=imei_number,
-         brainFirmware_version="1.0.3.7",
+         brainFirmware_version="1.1.1.0(β)",
          reboot_timestamp="2025-06-12T13:47:00Z",
          general_system_state=True,
          inverter_coms_state=True,
          relay_pair_state=False,
-         devices_state=True,
+         devices_state=False,
          system_control_state=False,
          internal_state=True,
-         relayFirmware_version="2.0.1.3",
-         gosolr_version="2.6.39",
+         relayFirmware_version="3.5.1.10(β)",
+         gosolr_version="2.8.0.2(π)",
          edge_version="1.8.7",
          east_version="1.0.17",
          pair_version="2.0.5",
@@ -6223,11 +6223,10 @@ try:
          inverter_sn=inverter_serialn
      )
      run_status(imei=imei_number,
-                network_type="wifi | 5g")
+                network_type="wifi | 5ghz")
      run_data(imei=imei_number, inverter_serial=inverter_serialn)
-     run_tariffs(imei=imei_number, buy_tariff="5.88", sell_tariff="0.19")
      run_relays(imei=imei_number,
-                relay_pair_state=True,
+                relay_pair_state=False,
                 channel_1_device="disconnected",
                 channel_2_device="disconnected",
                 channel_3_device="disconnected",
