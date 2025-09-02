@@ -3295,6 +3295,10 @@ try:
      CLIENT_ID = "brain-868373070930823"
      run_data(imei="868373070930823",inverter_serial="2210152550")
      CLIENT_ID = "brain-868373070928843"
+     run_data(imei="868373070928843",inverter_serial="2210152550")
+     CLIENT_ID = "brain-868373070936358"
+     run_data(imei="868373070936358",inverter_serial="2209244055")
+     CLIENT_ID = "brain-868373070928843"
      run_watchdog(imei="868373070928843", deviceCount="1")
      CLIENT_ID = "brain-868373070916319"
      run_watchdog(imei="868373070933603", deviceCount="1")
