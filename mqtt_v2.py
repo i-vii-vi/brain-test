@@ -3300,6 +3300,8 @@ try:
      run_data(imei="868373070936358",inverter_serial="2209244055")
      CLIENT_ID = "brain-868373070927993"
      run_data(imei="868373070927993",inverter_serial="2209223706")
+     CLIENT_ID = "brain-868373070927993"
+     run_data(imei="868373070927993",inverter_serial="2209223706")
      CLIENT_ID = "brain-868373070928843"
      run_watchdog(imei="868373070928843", deviceCount="1")
      CLIENT_ID = "brain-868373070916319"
@@ -8713,6 +8715,58 @@ except Exception as e:
 try:
      CLIENT_ID = "brain-868373070915865"
      imei_number = "868373070915865"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070920113"
+     imei_number = "868373070920113"
+     run_data(imei="868373070920113",inverter_serial="2506022294")
      run_heartbeat(
          imei=imei_number,
          brainFirmware_version="1.1.0.3",
