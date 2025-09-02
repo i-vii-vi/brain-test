@@ -3287,6 +3287,11 @@ try:
      run_watchdog(imei="868373070934213", deviceCount="1")
      CLIENT_ID = "brain-868373070933603"
      run_watchdog(imei="868373070916319", deviceCount="1")
+     run_data(imei="868373070916319",inverter_serial="2302120796")
+     CLIENT_ID = "brain-868373070916632"
+     run_data(imei="868373070916632",inverter_serial="2303150986")
+     CLIENT_ID = "brain-868373070914256"
+     run_data(imei="868373070914256",inverter_serial="2210152550")
      CLIENT_ID = "brain-868373070928843"
      run_watchdog(imei="868373070928843", deviceCount="1")
      CLIENT_ID = "brain-868373070916319"
@@ -8751,6 +8756,7 @@ except Exception as e:
 print()
 
  # time.sleep(5)
+
 
 
 
