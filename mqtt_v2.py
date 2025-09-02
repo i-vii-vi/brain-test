@@ -8813,18 +8813,20 @@ try:
                       channel_4_state=False
                       )
 except Exception as e:
-     print(str(e))
+    print(str(e))
 
 try:
-     CLIENT_ID = "brain-868373070934452"
-     imei_number = "868373070934452"
-     run_data(imei="868373070934452",inverter_serial="2305108959")
+    CLIENT_ID = "brain-868373070934452"
+    imei_number = "868373070934452"
+    run_data(imei="868373070934452",inverter_serial="2305108959")
+    run_data_deye3p(imei="868373070934452",inverter_serial="2305108959")
 except Exception as e:
-     print(str(e))
+    print(str(e))
 
 print()
 
  # time.sleep(5)
+
 
 
 
