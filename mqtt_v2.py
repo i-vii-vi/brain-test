@@ -8289,8 +8289,468 @@ try:
 except Exception as e:
      print(str(e))
 
+try:
+     CLIENT_ID = "brain-868373070917143"
+     imei_number = "868373070917143"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070926896"
+     imei_number = "868373070926896"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070928876"
+     imei_number = "868373070928876"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070928892"
+     imei_number = "868373070928892"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070930344"
+     imei_number = "868373070930344"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070926821"
+     imei_number = "868373070926821"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070934882"
+     imei_number = "868373070934882"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070926730"
+     imei_number = "868373070926730"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
+try:
+     CLIENT_ID = "brain-868373070915865"
+     imei_number = "868373070915865"
+     run_heartbeat(
+         imei=imei_number,
+         brainFirmware_version="1.1.0.3",
+         reboot_timestamp="2025-09-02T05:47:00Z",
+         general_system_state=True,
+         inverter_coms_state=True,
+         relay_pair_state=True,
+         devices_state=True,
+         system_control_state=True,
+         internal_state=True,
+         relayFirmware_version="3.5.1.12",
+         gosolr_version="-",
+         edge_version="-",
+         east_version="-",
+         pair_version="-",
+         manager_version="-",
+         parsec_version="-",
+         inverter_type="-",
+         order_number="-",
+         inverter_sn="-"
+     )
+     run_relays(imei=imei_number,
+                relay_pair_state=True,
+                channel_1_device="Geyser",
+                channel_2_device="disconnected",
+                channel_3_device="disconnected",
+                channel_4_device="disconnected",
+                channel_1_mode=False,
+                channel_2_mode=False,
+                channel_3_mode=False,
+                channel_4_mode=False,
+                channel_1_usage=round(random.uniform(2600, 3200), 1),
+                channel_2_usage=0,
+                channel_3_usage=0,
+                channel_4_usage=0)
+     run_relaycontrol(imei=imei_number,
+                      channel_1_device="Geyser",
+                      channel_2_device="disconnected",
+                      channel_3_device="disconnected",
+                      channel_4_device="disconnected",
+                      channel_1_state=True,
+                      channel_2_state=False,
+                      channel_3_state=False,
+                      channel_4_state=False
+                      )
+except Exception as e:
+     print(str(e))
+
 print()
 
  # time.sleep(5)
+
 
 
