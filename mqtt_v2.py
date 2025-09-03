@@ -571,7 +571,8 @@ def run_watchdog(imei, deviceCount):
         "operational",
         "primaryTimeout",
         "secondaryTimeout",
-        "restartedNowOperational"
+        "restartedNowOperational",
+        "timeout"
     ]
     online_like_options = [
         "pingReceived",
@@ -585,7 +586,8 @@ def run_watchdog(imei, deviceCount):
         "online",
         "online",
         "verifying",
-        "restarted"
+        "restarted",
+        "timeout"
     ]
 
     # Random value options
@@ -594,7 +596,8 @@ def run_watchdog(imei, deviceCount):
         "operational",
         "primaryTimeout",
         "secondaryTimeout",
-        "restartedNowOperational"
+        "restartedNowOperational",
+        "timeout"
     ]
     online_like_options_brain = [
         "pingReceived",
@@ -608,7 +611,8 @@ def run_watchdog(imei, deviceCount):
         "online",
         "online",
         "verifying",
-        "restarted"
+        "restarted",
+        "timeout"
     ]
 
     if (imei == "868373070929080"):
@@ -8891,10 +8895,12 @@ try:
     #                 channel_3_state=False,
     #                 channel_4_state=False
     #                 )
+    run_watchdog(imei=imei_number, 0)
 except Exception as e:
     print(str(e))
 print()
 
 # time.sleep(5)
+
 
 
