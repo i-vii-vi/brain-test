@@ -25,4 +25,3 @@ jobs:
     - name: Run script
       run: |
         python mqtt_v2.py
-        python deye_fix.py
