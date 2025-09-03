@@ -8845,7 +8845,7 @@ except Exception as e:
 try:
     CLIENT_ID = "brain-868373070920113"
     imei_number = "868373070920113"
-    run_data(imei="868373070920113", inverter_serial="2506022294")
+    #run_data(imei="868373070920113", inverter_serial="2506022294")
     run_heartbeat(
         imei=imei_number,
         brainFirmware_version="1.1.0.3",
@@ -8867,32 +8867,33 @@ try:
         order_number="-",
         inverter_sn="-"
     )
-    run_relays(imei=imei_number,
-               relay_pair_state=True,
-               channel_1_device="Geyser",
-               channel_2_device="disconnected",
-               channel_3_device="disconnected",
-               channel_4_device="disconnected",
-               channel_1_mode=False,
-               channel_2_mode=False,
-               channel_3_mode=False,
-               channel_4_mode=False,
-               channel_1_usage=round(random.uniform(2600, 3200), 1),
-               channel_2_usage=0,
-               channel_3_usage=0,
-               channel_4_usage=0)
-    run_relaycontrol(imei=imei_number,
-                     channel_1_device="Geyser",
-                     channel_2_device="disconnected",
-                     channel_3_device="disconnected",
-                     channel_4_device="disconnected",
-                     channel_1_state=True,
-                     channel_2_state=False,
-                     channel_3_state=False,
-                     channel_4_state=False
-                     )
+    #run_relays(imei=imei_number,
+    #           relay_pair_state=True,
+    #           channel_1_device="Geyser",
+    #           channel_2_device="disconnected",
+    #           channel_3_device="disconnected",
+    #           channel_4_device="disconnected",
+    #           channel_1_mode=False,
+    #           channel_2_mode=False,
+    #           channel_3_mode=False,
+    #           channel_4_mode=False,
+    #           channel_1_usage=round(random.uniform(2600, 3200), 1),
+    #           channel_2_usage=0,
+    #           channel_3_usage=0,
+    #           channel_4_usage=0)
+    #run_relaycontrol(imei=imei_number,
+    #                 channel_1_device="Geyser",
+    #                 channel_2_device="disconnected",
+    #                 channel_3_device="disconnected",
+    #                 channel_4_device="disconnected",
+    #                 channel_1_state=True,
+    #                 channel_2_state=False,
+    #                 channel_3_state=False,
+    #                 channel_4_state=False
+    #                 )
 except Exception as e:
     print(str(e))
 print()
 
 # time.sleep(5)
+
