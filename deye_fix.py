@@ -10,6 +10,7 @@ import math
 from awscrt import mqtt, mqtt5
 from awsiot import mqtt5_client_builder
 
+
 def error_handle(imei, error):
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
@@ -129,7 +130,6 @@ def error_handle(imei, error):
                             error_type = "100"
                             nlp_response = "NA"
                             matched_key = "NA"
-    
 
     payload_data = {
         "error": {
@@ -150,6 +150,7 @@ def error_handle(imei, error):
 
     while not res[0].done():
         time.sleep(0.1)
+
 
 def run_data_deye3p(imei, inverter_serial):
     t = time.gmtime()
@@ -509,7 +510,7 @@ def run_data(imei, inverter_serial):
     )
 
     if (inverterID == "registerReadError"):
-        error_handle(imei,"1")
+        error_handle(imei, "1")
 
     while not res[0].done():
         time.sleep(0.1)
@@ -948,13 +949,13 @@ try:
 except:
     print("error")
     error_handle(imei="868373072913561", error="0")
-    
+
 try:
     run_data(imei="868373070936325", inverter_serial="2304261091")
 except:
     print("error")
     error_handle(imei="868373070936325", error="0")
-    
+
 try:
     run_data(imei="868373070933900", inverter_serial="2209223719")
 except:
