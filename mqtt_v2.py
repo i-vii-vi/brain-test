@@ -8849,8 +8849,8 @@ try:
     run_heartbeat(
         imei=imei_number,
         brainFirmware_version="1.1.0.3",
-        reboot_timestamp="2025-09-03T07:47:00Z",
-        general_system_state=True,
+        reboot_timestamp="2025-09-03T08:07:00Z",
+        general_system_state=False,
         inverter_coms_state=True,
         relay_pair_state=True,
         devices_state=True,
@@ -8863,24 +8863,24 @@ try:
         pair_version="-",
         manager_version="-",
         parsec_version="-",
-        inverter_type="-",
-        order_number="-",
-        inverter_sn="-"
+        inverter_type="deye-1p",
+        order_number="105322",
+        inverter_sn="2506022294"
     )
-    #run_relays(imei=imei_number,
-    #           relay_pair_state=True,
-    #           channel_1_device="Geyser",
-    #           channel_2_device="disconnected",
-    #           channel_3_device="disconnected",
-    #           channel_4_device="disconnected",
-    #           channel_1_mode=False,
-    #           channel_2_mode=False,
-    #           channel_3_mode=False,
-    #           channel_4_mode=False,
-    #           channel_1_usage=round(random.uniform(2600, 3200), 1),
-    #           channel_2_usage=0,
-    #           channel_3_usage=0,
-    #           channel_4_usage=0)
+    run_relays(imei=imei_number,
+               relay_pair_state=False,
+               channel_1_device="Geyser",
+               channel_2_device="Indeterminate device",
+               channel_3_device="disconnected",
+               channel_4_device="disconnected",
+               channel_1_mode=False,
+               channel_2_mode=False,
+               channel_3_mode=False,
+               channel_4_mode=False,
+               channel_1_usage=round(random.uniform(2600, 3200), 1),
+               channel_2_usage=0,
+               channel_3_usage=0,
+               channel_4_usage=0)
     #run_relaycontrol(imei=imei_number,
     #                 channel_1_device="Geyser",
     #                 channel_2_device="disconnected",
@@ -8896,4 +8896,5 @@ except Exception as e:
 print()
 
 # time.sleep(5)
+
 
