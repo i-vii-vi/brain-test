@@ -8855,10 +8855,10 @@ try:
         brainFirmware_version="1.1.0.3",
         reboot_timestamp="2025-09-03T08:07:00Z",
         general_system_state=False,
-        inverter_coms_state=True,
-        relay_pair_state=True,
-        devices_state=True,
-        system_control_state=True,
+        inverter_coms_state=False,
+        relay_pair_state=False,
+        devices_state=False,
+        system_control_state=False,
         internal_state=True,
         relayFirmware_version="3.5.1.12",
         gosolr_version="-",
@@ -8882,25 +8882,26 @@ try:
                channel_3_mode=False,
                channel_4_mode=False,
                channel_1_usage=round(random.uniform(2600, 3200), 1),
-               channel_2_usage=0,
+               channel_2_usage=round(random.uniform(2600, 3200), 1),
                channel_3_usage=0,
                channel_4_usage=0)
-    #run_relaycontrol(imei=imei_number,
-    #                 channel_1_device="Geyser",
-    #                 channel_2_device="disconnected",
-    #                 channel_3_device="disconnected",
-    #                 channel_4_device="disconnected",
-    #                 channel_1_state=True,
-    #                 channel_2_state=False,
-    #                 channel_3_state=False,
-    #                 channel_4_state=False
-    #                 )
-    run_watchdog(imei=imei_number, 0)
+    run_relaycontrol(imei=imei_number,
+                     channel_1_device="Geyser",
+                     channel_2_device="Indeterminate device",
+                     channel_3_device="disconnected",
+                     channel_4_device="disconnected",
+                     channel_1_state=True,
+                     channel_2_state=True,
+                     channel_3_state=False,
+                     channel_4_state=False
+                     )
+    run_watchdog(imei=imei_number, 4)
 except Exception as e:
     print(str(e))
 print()
 
 # time.sleep(5)
+
 
 
 
