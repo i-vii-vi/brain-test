@@ -8895,12 +8895,13 @@ try:
                      channel_3_state=False,
                      channel_4_state=False
                      )
-    run_watchdog(imei=imei_number, 4)
+    run_watchdog(imei=imei_number, deviceCount=4)
 except Exception as e:
     print(str(e))
 print()
 
 # time.sleep(5)
+
 
 
 
