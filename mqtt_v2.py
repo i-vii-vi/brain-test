@@ -8898,9 +8898,18 @@ try:
     run_watchdog(imei=imei_number, deviceCount=4)
 except Exception as e:
     print(str(e))
+
+
+try:
+    CLIENT_ID = "brain-868373070934429"
+    imei_number = "868373070934429"
+    run_data(imei="868373070934429", inverter_serial="2302181309")
+except Exception as e:
+    print(str(e))
 print()
 
 # time.sleep(5)
+
 
 
 
