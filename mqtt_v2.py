@@ -8914,9 +8914,42 @@ try:
     run_data(imei="868373070930823", inverter_serial="2305066101")
 except Exception as e:
     print(str(e))
+
+
+try:
+    CLIENT_ID = "brain-868373072913884"
+    imei_number = "868373072913884"
+    run_data(imei="868373072913884", inverter_serial="1031200237150110")
+    run_heartbeat(
+        imei=imei_number,
+        brainFirmware_version="1.1.0.3",
+        reboot_timestamp="2025-09-05T13:42:00Z",
+        general_system_state=True,
+        inverter_coms_state=True,
+        relay_pair_state=False,
+        devices_state=False,
+        system_control_state=False,
+        internal_state=True,
+        relayFirmware_version="3.5.1.12",
+        gosolr_version="-",
+        edge_version="-",
+        east_version="-",
+        pair_version="-",
+        manager_version="-",
+        parsec_version="-",
+        inverter_type="solis-1p",
+        order_number="107642",
+        inverter_sn="1031200237150110"
+    )
+    run_watchdog(imei=imei_number, deviceCount=4)
+except Exception as e:
+    print(str(e))
+
+
 print()
 
 # time.sleep(5)
+
 
 
 
