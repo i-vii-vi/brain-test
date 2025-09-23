@@ -4099,7 +4099,7 @@ try:
     run_relays(imei="868373070931508",
                relay_pair_state=True,
                channel_1_device="Geyser",
-               channel_2_device="disconnected",
+               channel_2_device="Swimming pool",
                channel_3_device="disconnected",
                channel_4_device="disconnected",
                channel_1_mode=False,
@@ -4112,7 +4112,7 @@ try:
                channel_4_usage=0)
     run_relaycontrol(imei="868373070931508",
                      channel_1_device="Geyser",
-                     channel_2_device="disconnected",
+                     channel_2_device="Swimming pool",
                      channel_3_device="disconnected",
                      channel_4_device="disconnected",
                      channel_1_state=True,
@@ -8949,15 +8949,3 @@ except Exception as e:
 print()
 
 # time.sleep(5)
-
-
-
-
-
-
-
-
-
-
-
-
