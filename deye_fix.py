@@ -1028,6 +1028,12 @@ except:
     print("error")
     #error_handle(imei="868373072918453", error="0")
 
+try:
+    run_data(imei="868373070931052", inverter_serial="2504264187")
+except:
+    print("error")
+    #error_handle(imei="868373072918453", error="0")
+
 print()
 
 # time.sleep(5)
