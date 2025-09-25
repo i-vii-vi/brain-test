@@ -1040,6 +1040,12 @@ except:
     print("error")
     #error_handle(imei="868373070933553", error="0")
 
+try:
+    run_data_deye3p(imei="868373070929023", inverter_serial="2303030552")
+except:
+    print("error")
+    #error_handle(imei="868373070929023", error="0")
+
 print()
 
 # time.sleep(5)
