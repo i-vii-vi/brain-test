@@ -8946,6 +8946,31 @@ except Exception as e:
     print(str(e))
 
 
+try:
+    CLIENT_ID = "brain-868373070926904"
+    imei_number = "868373070926904"
+    run_data(imei="868373070926904", inverter_serial="2302098679")
+except Exception as e:
+    print(str(e))
+
+
+try:
+    CLIENT_ID = "brain-868373070929023"
+    imei_number = "868373070929023"
+    run_data(imei="868373070929023", inverter_serial="2303030552")
+except Exception as e:
+    print(str(e))
+
+
+try:
+    CLIENT_ID = "brain-868373070927662"
+    imei_number = "868373070927662"
+    run_data(imei="868373070927662", inverter_serial="2304256448")
+except Exception as e:
+    print(str(e))
+
+
 print()
 
 # time.sleep(5)
+
