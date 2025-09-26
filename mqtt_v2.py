@@ -8978,8 +8978,17 @@ except Exception as e:
     print(str(e))
 
 
+try:
+    CLIENT_ID = "brain-868373070931334"
+    imei_number = "868373070931334"
+    run_data(imei="868373070931334", inverter_serial="1031170238130085")
+except Exception as e:
+    print(str(e))
+
+
 print()
 
 # time.sleep(5)
+
 
 
