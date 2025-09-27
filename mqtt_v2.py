@@ -911,30 +911,30 @@ def run_data_deye3p(imei, inverter_serial):
 
     json_data = raw_dict.get("data").get("data")
 
-    fac = "registerReadError"
-    inverterID = "registerReadError"
-    uPv1 = "registerReadError"
-    uPv2 = "registerReadError"
-    iPv1 = "registerReadError"
-    iPv2 = "registerReadError"
-    iAc1 = "registerReadError"
-    uAc1 = "registerReadError"
-    SoC = "registerReadError"
-    inverterTemperature = "registerReadError"
-    batteryVoltage = "registerReadError"
-    batteryCurrent = "registerReadError"
-    batteryTodayChargeEnergy = "registerReadError"
-    batteryTodayDischargeEnergy = "registerReadError"
-    gridPurchasedTodayEnergy = "registerReadError"
-    pSUM = "registerReadError"
-    homeLoadTodayEnergy = "registerReadError"
-    bypassLoadPower = "registerReadError"
-    bypassAcCurrent = "registerReadError"
-    bypassAcVoltage = "registerReadError"
-    familyLoadPower = "registerReadError"
-    eToday = "registerReadError"
-    gridTiePower = "registerReadError"
-    gridPower = "registerReadError"
+    fac = -1
+    inverterID = -1
+    uPv1 = -1
+    uPv2 = -1
+    iPv1 = -1
+    iPv2 = -1
+    iAc1 = -1
+    uAc1 = -1
+    SoC = -1
+    inverterTemperature = -1
+    batteryVoltage = -1
+    batteryCurrent = -1
+    batteryTodayChargeEnergy = -1
+    batteryTodayDischargeEnergy = -1
+    gridPurchasedTodayEnergy = -1
+    pSUM = -1
+    homeLoadTodayEnergy = -1
+    bypassLoadPower = -1
+    bypassAcCurrent = -1
+    bypassAcVoltage = -1
+    familyLoadPower = -1
+    eToday = -1
+    gridTiePower = -1
+    gridPower = -1
 
     # print(json.dumps(json_data, indent=2, sort_keys=True))
     bypassAcVoltage = 0
@@ -1089,30 +1089,30 @@ def run_data(imei, inverter_serial):
 
     json_data = raw_dict.get("data").get("data")
 
-    fac = "registerReadError"
-    inverterID = "registerReadError"
-    uPv1 = "registerReadError"
-    uPv2 = "registerReadError"
-    iPv1 = "registerReadError"
-    iPv2 = "registerReadError"
-    iAc1 = "registerReadError"
-    uAc1 = "registerReadError"
-    SoC = "registerReadError"
-    inverterTemperature = "registerReadError"
-    batteryVoltage = "registerReadError"
-    batteryCurrent = "registerReadError"
-    batteryTodayChargeEnergy = "registerReadError"
-    batteryTodayDischargeEnergy = "registerReadError"
-    gridPurchasedTodayEnergy = "registerReadError"
-    pSUM = "registerReadError"
-    homeLoadTodayEnergy = "registerReadError"
-    bypassLoadPower = "registerReadError"
-    bypassAcCurrent = "registerReadError"
-    bypassAcVoltage = "registerReadError"
-    familyLoadPower = "registerReadError"
-    eToday = "registerReadError"
-    gridTiePower = "registerReadError"
-    gridPower = "registerReadError"
+    fac = -1
+    inverterID = -1
+    uPv1 = -1
+    uPv2 = -1
+    iPv1 = -1
+    iPv2 = -1
+    iAc1 = -1
+    uAc1 = -1
+    SoC = -1
+    inverterTemperature = -1
+    batteryVoltage = -1
+    batteryCurrent = -1
+    batteryTodayChargeEnergy = -1
+    batteryTodayDischargeEnergy = -1
+    gridPurchasedTodayEnergy = -1
+    pSUM = -1
+    homeLoadTodayEnergy = -1
+    bypassLoadPower = -1
+    bypassAcCurrent = -1
+    bypassAcVoltage = -1
+    familyLoadPower = -1
+    eToday = -1
+    gridTiePower = -1
+    gridPower = -1
 
     # print(json.dumps(json_data, indent=2, sort_keys=True))
     bypassAcVoltage = 0
@@ -8989,6 +8989,7 @@ except Exception as e:
 print()
 
 # time.sleep(5)
+
 
 
 
