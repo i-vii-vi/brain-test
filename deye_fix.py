@@ -1052,6 +1052,18 @@ except:
     print("error")
     #error_handle(imei="868373070927647", error="0")
 
+try:
+    run_data(imei="868373070929734", inverter_serial="2304158510")
+except:
+    print("error")
+    #error_handle(imei="868373070929734", error="0")
+
+try:
+    run_data(imei="868373072919980", inverter_serial="2304124473")
+except:
+    print("error")
+    #error_handle(imei="868373072919980", error="0")
+
 #try:
 #    run_data(imei="868373070929023", inverter_serial="2303030552")
 #except:
