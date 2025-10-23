@@ -334,6 +334,12 @@ def run_data(imei, inverter_serial):
     t = time.gmtime()
     data_timestamp = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
         t[0], t[1], t[2], t[3], t[4], t[5])
+    
+    if imei == 2305102553:
+        imei = "868373072930102"
+        TOPICDATA = "GOSOLR/BRAIN/868373072930102/DATA"
+        TOPICKEYMETRICS = "GOSOLR/BRAIN/868373072930102/KEY-METRICS"
+        inverter_serial = "2303182201"
 
     print(f"{data_timestamp}: DATA for IMEI {imei}")
 
@@ -447,6 +453,11 @@ def run_data(imei, inverter_serial):
                             gridPower = entry["value"]
     else:
         print("Unexpected JSON structure:", raw_dict)
+
+    if imei == "868373070934213":
+        TOPICDATA = "GOSOLR/BRAIN/868373072930102/DATA"
+        TOPICKEYMETRICS = "GOSOLR/BRAIN/868373072930102/KEY-METRICS"
+        inverter_serial = "2303182201"
 
     mqtt_client = mqtt5_client_builder.mtls_from_bytes(
         endpoint=MQTT_BROKER_ENDPOINT,
@@ -1087,6 +1098,12 @@ try:
 except:
     print("error")
     #error_handle(imei="868373070930435", error="0")
+
+try:
+    run_data(imei="868373070934213", inverter_serial="2305102553")
+except:
+    print("error")
+    #error_handle(imei="868373070934213", error="0")
 
 #try:
 #    run_data(imei="868373070929023", inverter_serial="2303030552")
