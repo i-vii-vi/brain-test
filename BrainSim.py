@@ -466,85 +466,82 @@ def main():
     print("✅ Connected to AWS IoT Core")
 
     try:
-        while True:
-            print("\n🔄 Publishing data cycle started...")
-            imei = "868373070929676"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays(imei)
-            publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        print("\n🔄 Publishing data cycle started...")
+        imei = "868373070929676"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays(imei)
+        publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373070933520"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_systemhealth(imei)
-            publish_relays_2(imei)
-            publish_relaycontrol_2(imei)
+        imei = "868373070933520"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_systemhealth(imei)
+        publish_relays_2(imei)
+        publish_relaycontrol_2(imei)
 
-            imei = "868373070934429"
-            publish_relaycontrol_lyle(imei)
+        imei = "868373070934429"
+        publish_relaycontrol_lyle(imei)
 
-            imei = "868373072914858"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_geyser(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373072914858"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_geyser(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373072921846"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_geyser(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)868373070928215
+        imei = "868373072921846"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_geyser(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)868373070928215
 
-            imei = "868373070916525"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_geyser(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373070916525"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_geyser(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373072917463"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_geyser(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373072917463"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_geyser(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373070928215"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_geyser(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373070928215"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_geyser(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373072915533"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_pool(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373072915533"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_pool(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            imei = "868373070929098"
-            publish_status(imei)
-            publish_heartbeat(imei)
-            publish_relays_muller(imei)
-            # publish_relaycontrol(imei)
-            publish_systemhealth(imei)
-            # publish_data(imei)
+        imei = "868373070929098"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_relays_muller(imei)
+        # publish_relaycontrol(imei)
+        publish_systemhealth(imei)
+        # publish_data(imei)
 
-            # publish_test()
-            print("✅ Cycle complete. Waiting 60 seconds...\n")
-            time.sleep(45)
+        # publish_test()
     except KeyboardInterrupt:
         print("\n🛑 Interrupted by user. Disconnecting...")
         mqtt_connection.disconnect().result()
