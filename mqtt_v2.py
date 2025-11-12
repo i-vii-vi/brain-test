@@ -4259,13 +4259,13 @@ try:
     CLIENT_ID = "brain-868373070931391"
     run_heartbeat(
         imei="868373070931391",
-        brainFirmware_version="1.0.3.7",
-        reboot_timestamp="2025-06-12T13:47:00Z",
+        brainFirmware_version="1.1.0.3",
+        reboot_timestamp="2025-11-12T12:47:00Z",
         general_system_state=True,
         inverter_coms_state=True,
         relay_pair_state=True,
         devices_state=True,
-        system_control_state=False,
+        system_control_state=True,
         internal_state=True,
         relayFirmware_version="2.0.1.3",
         gosolr_version="2.6.39",
@@ -4283,30 +4283,27 @@ try:
     run_relays(imei="868373070931391",
                relay_pair_state=True,
                channel_1_device="Geyser",
-               channel_2_device="disconnected",
+               channel_2_device="Swimming pool",
                channel_3_device="disconnected",
                channel_4_device="disconnected",
                channel_1_mode=False,
                channel_2_mode=False,
                channel_3_mode=False,
                channel_4_mode=False,
-               channel_1_usage=round(random.uniform(0, 10), 1),
-               channel_2_usage=0,
+               channel_1_usage=3210,
+               channel_2_usage=840,
                channel_3_usage=0,
                channel_4_usage=0)
     run_relaycontrol(imei="868373070931391",
                      channel_1_device="Geyser",
-                     channel_2_device="disconnected",
+                     channel_2_device="Swimming pool",
                      channel_3_device="disconnected",
                      channel_4_device="disconnected",
                      channel_1_state=True,
-                     channel_2_state=False,
+                     channel_2_state=True,
                      channel_3_state=False,
                      channel_4_state=False
                      )
-    run_tariffs(imei="868373070931391",
-                buy_tariff="0.00",
-                sell_tariff="0.00")
     run_data(imei="868373070931391", inverter_serial="2108109493")
 except Exception as e:
     print(str(e))
@@ -8917,6 +8914,7 @@ except Exception as e:
 print()
 
 # time.sleep(5)
+
 
 
 
