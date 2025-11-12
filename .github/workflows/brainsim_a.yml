@@ -2,7 +2,7 @@ name: brainsim_a
 
 on:
   schedule:
-    - cron: "*/1 * * * *" # Runs every 5 minutes
+    - cron: "*/45 * * * *" # Runs every 5 minutes
   workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
