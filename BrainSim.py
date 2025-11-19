@@ -541,6 +541,11 @@ def main():
         publish_systemhealth(imei)
         # publish_data(imei)
 
+        imei = "868373070935079"
+        publish_status(imei)
+        publish_heartbeat(imei)
+        publish_systemhealth(imei)
+
         # publish_test()
     except KeyboardInterrupt:
         print("\n🛑 Interrupted by user. Disconnecting...")
