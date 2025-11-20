@@ -290,17 +290,17 @@ def publish_relaycontrol(imei):
     currentHour = t[3] + 2
     currentMinute = t[4]
 
-    if (7 <= currentHour < 9) or (11 <= currentHour < 13) or (15 <= currentHour <= 17):
+    if (7 <= currentHour <= 9) or (11 <= currentHour <= 12) or (14 <= currentHour <= 16):
         channel_1_state = True
     else:
         channel_1_state = False
 
-    if (10 <= currentHour < 13) or (13 <= currentHour <= 16):
+    if (11 <= currentHour <= 13) or (14 <= currentHour <= 16):
         channel_2_state = True
     else:
         channel_2_state = False
 
-    if (8 <= currentHour < 10) or (13 <= currentHour < 15) or (16 <= currentHour <= 18):
+    if (8 <= currentHour <= 10) or (14 <= currentHour <= 16):
         channel_3_state = True
     else:
         channel_3_state = False
