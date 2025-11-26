@@ -6136,6 +6136,14 @@ except Exception as e:
     print(str(e))
 
 try:
+    CLIENT_ID = "brain-868373070936036"
+    imei_number = "868373070936036"
+    inverter_serialn = "25501124132"
+    run_data(imei=imei_number, inverter_serial=inverter_serialn)
+except Exception as e:
+    print(str(e))
+
+try:
     CLIENT_ID = "brain-868373070916657"
     imei_number = "868373070916657"
     run_heartbeat(
@@ -8921,6 +8929,7 @@ except Exception as e:
 print()
 
 # time.sleep(5)
+
 
 
 
