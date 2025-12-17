@@ -1100,6 +1100,12 @@ except:
     #error_handle(imei="868373070928769", error="0")
 
 try:
+    run_data_deye3p(imei="868373072940408", inverter_serial="2303182186")
+except:
+    print("error")
+    #error_handle(imei="868373070928769", error="0")
+
+try:
     run_data(imei="868373070929676", inverter_serial="2501142533")
 except:
     print("error")
