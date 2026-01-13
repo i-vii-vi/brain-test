@@ -932,7 +932,7 @@ except:
     #error_handle(imei="868373070930096", error="0")
 
 try:
-    run_data(imei="868373070934213", inverter_serial="2305102553")
+    run_data_deye3p(imei="868373070934213", inverter_serial="2305102553")
 except:
     print("error")
     #error_handle(imei="868373070930096", error="0")
