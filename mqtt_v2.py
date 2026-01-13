@@ -3158,8 +3158,6 @@ try:
     run_watchdog(imei="868373070935624", deviceCount="0")
     #CLIENT_ID = "brain-868373070926805"
     #run_watchdog(imei="868373070926805", deviceCount="1")
-    CLIENT_ID = "brain-868373070934213"
-    run_watchdog(imei="868373070934213", deviceCount="1")
     CLIENT_ID = "brain-868373070933603"
     run_watchdog(imei="868373070916319", deviceCount="1")
     run_data(imei="868373070916319", inverter_serial="2302120796")
@@ -4308,58 +4306,6 @@ try:
 except Exception as e:
     print(str(e))
 
-try:
-    CLIENT_ID = "brain-868373070934213"
-    run_heartbeat(
-        imei="868373070934213",
-        brainFirmware_version="1.1.1.0(β)",
-        reboot_timestamp="2025-08-26T13:47:00Z",
-        general_system_state=True,
-        inverter_coms_state=True,
-        relay_pair_state=True,
-        devices_state=True,
-        system_control_state=True,
-        internal_state=True,
-        relayFirmware_version="3.5.1.10(β)",
-        gosolr_version="2.8.0.2(π)",
-        edge_version="2.9.8",
-        east_version="1.8.22",
-        pair_version="3.2.5",
-        manager_version="0.9.15",
-        parsec_version="1.5.11",
-        inverter_type="deye-1p",
-        order_number="54490",
-        inverter_sn="2305102553"
-    )
-    run_status(imei="868373070934213",
-               network_type="wifi | 2g")
-    run_relays(imei="868373070934213",
-               relay_pair_state=True,
-               channel_1_device="Geyser 1",
-               channel_2_device="Geyser 2",
-               channel_3_device="Swimming pool",
-               channel_4_device="disconnected",
-               channel_1_mode=False,
-               channel_2_mode=False,
-               channel_3_mode=False,
-               channel_4_mode=False,
-               channel_1_usage=round(random.uniform(2000, 3500), 1),
-               channel_2_usage=round(random.uniform(3100, 3400), 1),
-               channel_3_usage=round(random.uniform(800, 1000), 1),
-               channel_4_usage=0)
-    run_relaycontrol(imei="868373070934213",
-                     channel_1_device="Geyser 1",
-                     channel_2_device="Geyser 2",
-                     channel_3_device="Swimming pool",
-                     channel_4_device="disconnected",
-                     channel_1_state=True,
-                     channel_2_state=True,
-                     channel_3_state=True,
-                     channel_4_state=False
-                     )
-    run_data(imei="868373070934213", inverter_serial="2305102553")
-except Exception as e:
-    print(str(e))
 
 try:
     CLIENT_ID = "brain-868373070930674"
@@ -8936,6 +8882,7 @@ except Exception as e:
 print()
 
 # time.sleep(5)
+
 
 
 
